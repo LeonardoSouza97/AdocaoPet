@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "931686752551",
+    "firebase_url": "https://adocaopet-d72b7.firebaseio.com",
+    "project_id": "adocaopet-d72b7",
+    "storage_bucket": "adocaopet-d72b7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931686752551:android:efa804127c16db1b",
+        "android_client_info": {
+          "package_name": "com.fatec.br.adocaopet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931686752551-6msdqsfr2lbjrmgjua8ggugfei0qk13q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fatec.br.adocaopet",
+            "certificate_hash": "d1063d20f7761c7a2e2b6289f8d2a07f06e9fbd9"
+          }
+        },
+        {
+          "client_id": "931686752551-2he0ts553d2e74dra4re6ph44cr6butg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjXDpO6fnyxfuMjhkNHXmKkXtT8Jy696M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931686752551-2he0ts553d2e74dra4re6ph44cr6butg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
