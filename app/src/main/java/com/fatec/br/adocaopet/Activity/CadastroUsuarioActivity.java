@@ -19,12 +19,16 @@ import com.fatec.br.adocaopet.R;
 import com.fatec.br.adocaopet.DAO.Conexao;
 import com.fatec.br.adocaopet.Model.Usuario;
 import com.fatec.br.adocaopet.Utils.Base64Custom;
+import com.fatec.br.adocaopet.Utils.Preferencias;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -55,6 +59,8 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         btnVoltar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent i = new Intent(CadastroUsuarioActivity.this, LoginActivity.class);
+                startActivity(i);
                 finish();
             }
         });
@@ -84,7 +90,6 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
     }
 
 
-
     private void criarUser() {
         auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha())
@@ -92,7 +97,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
+                            
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference ref = database.getReference("users").child(auth.getCurrentUser().getUid());
 
@@ -112,7 +117,24 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                                 saveUserWithPicture();
                             }
 
+                            Preferencias preferencias = new Preferencias(CadastroUsuarioActivity.this);
+                            preferencias.salvarUsuarioPreferencias(usuario.getId(), usuario.getNome());
+
                         } else {
+                            String error = "";
+                            try {
+                                throw task.getException();
+                            } catch (FirebaseAuthWeakPasswordException e) {
+                                error = getString(R.string.invalid_password_on_save);
+                            } catch (FirebaseAuthInvalidCredentialsException e) {
+                                error = getString(R.string.invalid_email_on_save);
+                            } catch (FirebaseAuthUserCollisionException e) {
+                                error = getString(R.string.duplicated_email);
+                            } catch (Exception e) {
+                                error = getString(R.string.generic_error);
+                                e.printStackTrace();
+                            }
+
                             Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.cadastro_usuario_erro), Toast.LENGTH_SHORT).show();
                         }
 

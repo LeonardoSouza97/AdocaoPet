@@ -28,4 +28,8 @@
     <string name="title_cadastro_user_activity">Cadastro de Usuário</string>
     <string name="app_name">Adota Pets</string>
     <string name="title_activity_menu">MenuActivity</string>
+    <string name="invalid_password_on_save">Senha inválida</string>
+    <string name="invalid_email_on_save">Email inválido</string>
+    <string name="duplicated_email">Email duplicado</string>
+    <string name="generic_error">erro generico</string>
 </resources>
