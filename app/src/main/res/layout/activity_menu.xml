@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,7 @@
     tools:context="com.fatec.br.adocaopet.Activity.MenuActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -20,14 +21,88 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_menu" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="38dp"
+        android:layout_marginEnd="19dp"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
-</android.support.design.widget.CoordinatorLayout>
+    <ImageView
+        android:id="@+id/imageFotoPerfil"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="15dp"
+        android:adjustViewBounds="false"
+        android:visibility="visible"
+        app:srcCompat="@android:drawable/star_big_on" />
+
+    <Button
+        android:id="@+id/btnEditarPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/fab"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_marginTop="27dp"
+        android:text="Editar Perfil" />
+
+    <TextView
+        android:id="@+id/txtWelcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageFotoPerfil"
+        android:layout_below="@+id/imageFotoPerfil"
+        android:layout_marginStart="24dp"
+        android:text="BEM VINDO(A)"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtNomeUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtWelcome"
+        android:layout_alignBottom="@+id/txtWelcome"
+        android:layout_marginEnd="27dp"
+        android:layout_toStartOf="@+id/fab"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="USUARIO" />
+
+    <Button
+        android:id="@+id/btnBuscarAnimais"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnBuscarUsuario"
+        android:layout_alignBottom="@+id/btnBuscarUsuario"
+        android:layout_alignStart="@+id/imageFotoPerfil"
+        android:text="Buscar Animais" />
+
+    <Button
+        android:id="@+id/btnBuscarUsuario"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fab"
+        android:layout_alignEnd="@+id/lstMeusAnimais"
+        android:text="Buscar Usuário" />
+
+    <ListView
+        android:id="@+id/lstMeusAnimais"
+        style="@style/Widget.AppCompat.ListView.Menu"
+        android:layout_width="300dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:headerDividersEnabled="false"
+        android:visibility="visible" />
+
+</RelativeLayout>

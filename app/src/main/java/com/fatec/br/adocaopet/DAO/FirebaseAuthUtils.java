@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseUser;
  * Created by Leo on 19/03/2018.
  */
 
-public class FirebaseAuth {
+public class FirebaseAuthUtils {
 
         public static com.google.firebase.auth.FirebaseAuth authentication = com.google.firebase.auth.FirebaseAuth.getInstance();
 

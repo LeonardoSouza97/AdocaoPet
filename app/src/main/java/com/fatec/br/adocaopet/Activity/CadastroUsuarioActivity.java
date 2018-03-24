@@ -4,17 +4,20 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.fatec.br.adocaopet.DAO.FirebaseAuthUtils;
 import com.fatec.br.adocaopet.R;
 import com.fatec.br.adocaopet.DAO.Conexao;
 import com.fatec.br.adocaopet.Model.Usuario;
@@ -29,12 +32,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 
@@ -97,7 +104,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            
+
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference ref = database.getReference("users").child(auth.getCurrentUser().getUid());
 
@@ -113,12 +120,15 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
 
                             Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.cadastro_usuario_sucesso), Toast.LENGTH_SHORT).show();
 
+
                             if (hasPicture) {
                                 saveUserWithPicture();
                             }
 
                             Preferencias preferencias = new Preferencias(CadastroUsuarioActivity.this);
                             preferencias.salvarUsuarioPreferencias(usuario.getId(), usuario.getNome());
+
+                            finishUsuario();
 
                         } else {
                             String error = "";
@@ -136,6 +146,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                             }
 
                             Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.cadastro_usuario_erro), Toast.LENGTH_SHORT).show();
+
                         }
 
                     }
@@ -183,6 +194,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
     }
 
     public void inicializaComponentes() {
+        fotoUsuario = (ImageView) findViewById(R.id.imageCamera);
         editNome = (EditText) findViewById(R.id.editNome);
         editEmail = (EditText) findViewById(R.id.editEmail);
         editSenha = (EditText) findViewById(R.id.editPassword);
@@ -215,5 +227,51 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(i, REQUEST_CAMERA);
 
+    }
+/*
+    private void carregarUsuarioLogado() {
+
+        String uuid = FirebaseAuthUtils.getUUID();
+
+        if (uuid != null) {
+            DatabaseReference reference = FirebaseDatabaseUtils.getInstance().getReference("user/" + uuid);
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    usuario = dataSnapshot.getValue(Usuario.class);
+
+                    editTextName.setText(user.getName());
+                    editTextEmail.setText(user.getEmail());
+                    editTextPhone.setText(user.getPhone());
+                    editTextPassword.setText(user.getPassword());
+                    editTextSecondPassword.setText(user.getPassword());
+
+                    StorageReference firebaseStorage = FirebaseStorageUtils.getInstance().getReference();
+                    final long ONE_MEGABYTE = 1024 * 1024;
+                    firebaseStorage.child("user/" + user.getId() + ".png").getBytes(ONE_MEGABYTE)
+                            .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                                @Override
+                                public void onSuccess(byte[] bytes) {
+                                    imageViewPhoto.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(bytes)));
+                                }
+                            });
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+                    // Failed to read value
+                    Log.w("", "Failed to read value.", error.toException());
+                }
+            });
+
+
+        }
+    }*/
+
+
+    public void finishUsuario() {
+        Intent intentMap = new Intent(CadastroUsuarioActivity.this, MenuActivity.class);
+        startActivity(intentMap);
+        finish();
     }
 }
