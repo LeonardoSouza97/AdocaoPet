@@ -4,20 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.fatec.br.adocaopet.DAO.FirebaseAuthUtils;
 import com.fatec.br.adocaopet.R;
 import com.fatec.br.adocaopet.DAO.Conexao;
 import com.fatec.br.adocaopet.Model.Usuario;
@@ -32,16 +29,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 
@@ -53,6 +46,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
     private Usuario usuario;
     private ImageView fotoUsuario;
     private Bitmap foto;
+    private boolean existeUsuario;
 
     private boolean hasPicture = false;
     private static final int REQUEST_CAMERA = 1000;
@@ -61,6 +55,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_cadastrousuario);
+
         inicializaComponentes();
 
         btnVoltar.setOnClickListener(new View.OnClickListener() {
@@ -94,64 +89,71 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
             }
 
         });
+
+       /* this.carregarUsuarioLogado();*/
     }
 
 
     private void criarUser() {
-        auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha())
-                .addOnCompleteListener(CadastroUsuarioActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-
-                            FirebaseDatabase database = FirebaseDatabase.getInstance();
-                            DatabaseReference ref = database.getReference("users").child(auth.getCurrentUser().getUid());
-
-                            ref.child("uid").setValue(auth.getCurrentUser().getUid());
-                            ref.child("nome").setValue(usuario.getNome());
-                            ref.child("email").setValue(usuario.getEmail());
-                            ref.child("senha").setValue(usuario.getSenha());
-                            ref.child("telefone").setValue(usuario.getTelefone());
-                            ref.child("endereco").setValue(usuario.getEndereco());
-                            ref.child("rg").setValue(usuario.getRg());
-                            ref.child("cpf").setValue(usuario.getCpf());
-                            ref.child("data_nasc").setValue(usuario.getDataNasc());
-
-                            Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.cadastro_usuario_sucesso), Toast.LENGTH_SHORT).show();
 
 
-                            if (hasPicture) {
-                                saveUserWithPicture();
+
+            auth = FirebaseAuth.getInstance();
+            auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha())
+                    .addOnCompleteListener(CadastroUsuarioActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference ref = database.getReference("users").child(auth.getCurrentUser().getUid());
+
+                                ref.child("uid").setValue(auth.getCurrentUser().getUid());
+                                ref.child("nome").setValue(usuario.getNome());
+                                ref.child("email").setValue(usuario.getEmail());
+                                ref.child("senha").setValue(usuario.getSenha());
+                                ref.child("telefone").setValue(usuario.getTelefone());
+                                ref.child("endereco").setValue(usuario.getEndereco());
+                                ref.child("rg").setValue(usuario.getRg());
+                                ref.child("cpf").setValue(usuario.getCpf());
+                                ref.child("data_nasc").setValue(usuario.getDataNasc());
+
+                                Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.cadastro_usuario_sucesso), Toast.LENGTH_SHORT).show();
+
+
+                                if (hasPicture) {
+                                    saveUserWithPicture();
+                                }
+
+                                Preferencias preferencias = new Preferencias(CadastroUsuarioActivity.this);
+                                preferencias.salvarUsuarioPreferencias(usuario.getId(), usuario.getNome());
+
+                                finishUsuario();
+
+                            } else {
+                                String error = "";
+                                try {
+                                    throw task.getException();
+                                } catch (FirebaseAuthWeakPasswordException e) {
+                                    error = getString(R.string.invalid_password_on_save);
+                                } catch (FirebaseAuthInvalidCredentialsException e) {
+                                    error = getString(R.string.invalid_email_on_save);
+                                } catch (FirebaseAuthUserCollisionException e) {
+                                    error = getString(R.string.duplicated_email);
+                                } catch (Exception e) {
+                                    error = getString(R.string.generic_error);
+                                    e.printStackTrace();
+                                }
+
+                                Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.cadastro_usuario_erro), Toast.LENGTH_SHORT).show();
+
                             }
-
-                            Preferencias preferencias = new Preferencias(CadastroUsuarioActivity.this);
-                            preferencias.salvarUsuarioPreferencias(usuario.getId(), usuario.getNome());
-
-                            finishUsuario();
-
-                        } else {
-                            String error = "";
-                            try {
-                                throw task.getException();
-                            } catch (FirebaseAuthWeakPasswordException e) {
-                                error = getString(R.string.invalid_password_on_save);
-                            } catch (FirebaseAuthInvalidCredentialsException e) {
-                                error = getString(R.string.invalid_email_on_save);
-                            } catch (FirebaseAuthUserCollisionException e) {
-                                error = getString(R.string.duplicated_email);
-                            } catch (Exception e) {
-                                error = getString(R.string.generic_error);
-                                e.printStackTrace();
-                            }
-
-                            Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.cadastro_usuario_erro), Toast.LENGTH_SHORT).show();
 
                         }
+                    });
 
-                    }
-                });
-    }
+        }
+
 
     @Override
     protected void onStart() {
@@ -228,49 +230,53 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         startActivityForResult(i, REQUEST_CAMERA);
 
     }
-/*
-    private void carregarUsuarioLogado() {
+
+    /*private void carregarUsuarioLogado() {
 
         String uuid = FirebaseAuthUtils.getUUID();
 
         if (uuid != null) {
-            DatabaseReference reference = FirebaseDatabaseUtils.getInstance().getReference("user/" + uuid);
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("user/" + uuid);
             reference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     usuario = dataSnapshot.getValue(Usuario.class);
 
-                    editTextName.setText(user.getName());
-                    editTextEmail.setText(user.getEmail());
-                    editTextPhone.setText(user.getPhone());
-                    editTextPassword.setText(user.getPassword());
-                    editTextSecondPassword.setText(user.getPassword());
+                    usuario.setNome(editNome.getText().toString());
+                    usuario.setEmail(editEmail.getText().toString());
+                    usuario.setSenha(editSenha.getText().toString());
+                    usuario.setTelefone(editTelefone.getText().toString());
+                    usuario.setEndereco(editEndereco.getText().toString());
+                    usuario.setCpf(editCpf.getText().toString());
+                    usuario.setRg(editRG.getText().toString());
+                    usuario.setDataNasc(editDataNasc.getText().toString());
 
-                    StorageReference firebaseStorage = FirebaseStorageUtils.getInstance().getReference();
+
+                    StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
                     final long ONE_MEGABYTE = 1024 * 1024;
-                    firebaseStorage.child("user/" + user.getId() + ".png").getBytes(ONE_MEGABYTE)
+                    firebaseStorage.child("user/" + usuario.getId() + ".png").getBytes(ONE_MEGABYTE)
                             .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                                 @Override
                                 public void onSuccess(byte[] bytes) {
-                                    imageViewPhoto.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(bytes)));
+                                    fotoUsuario.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(bytes)));
                                 }
                             });
+                    existeUsuario = true;
                 }
 
                 @Override
                 public void onCancelled(DatabaseError error) {
-                    // Failed to read value
                     Log.w("", "Failed to read value.", error.toException());
                 }
             });
 
 
         }
+
     }*/
 
-
     public void finishUsuario() {
-        Intent intentMap = new Intent(CadastroUsuarioActivity.this, MenuActivity.class);
+        Intent intentMap = new Intent(CadastroUsuarioActivity.this, PerfilActivity.class);
         startActivity(intentMap);
         finish();
     }

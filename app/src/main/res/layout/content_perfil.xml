@@ -31,17 +31,17 @@
         android:layout_marginStart="36dp"
         android:layout_marginTop="15dp"
         android:adjustViewBounds="false"
-        android:scaleType="center"
         android:visibility="visible"
-        app:srcCompat="@android:drawable/star_big_on" />
+        app:srcCompat="@mipmap/ic_usuario" />
 
     <TextView
         android:id="@+id/txtWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txtNomeUsuario"
+        android:layout_alignBottom="@+id/txtNomeUsuario"
         android:layout_alignStart="@+id/lstMeusAnimais"
-        android:layout_below="@+id/imageFotoPerfil"
-        android:layout_marginStart="23dp"
+        android:layout_marginStart="34dp"
         android:text="BEM VINDO(A)"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -50,8 +50,8 @@
         android:id="@+id/txtNomeUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/txtWelcome"
-        android:layout_marginStart="25dp"
+        android:layout_below="@+id/imageFotoPerfil"
+        android:layout_marginStart="17dp"
         android:layout_toEndOf="@+id/txtWelcome"
         android:text="TextView"
         android:textSize="18sp"
@@ -63,9 +63,8 @@
         style="@style/Widget.AppCompat.ListView.Menu"
         android:layout_width="300dp"
         android:layout_height="200dp"
-        android:layout_below="@+id/txtWelcome"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="33dp"
+        android:layout_centerVertical="true"
         android:headerDividersEnabled="false"
         android:visibility="visible" />
 

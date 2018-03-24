@@ -32,4 +32,10 @@
     <string name="invalid_email_on_save">Email inválido</string>
     <string name="duplicated_email">Email duplicado</string>
     <string name="generic_error">erro generico</string>
+    <string name="title_activity_perfil">Home</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>

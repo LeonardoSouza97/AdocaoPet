@@ -206,7 +206,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             if (success) {
                 Notify.showNotify(LoginActivity.this, getString(R.string.message_login_successful));
 
-                Intent intentMap = new Intent(LoginActivity.this, MenuActivity.class);
+                Intent intentMap = new Intent(LoginActivity.this, PerfilActivity.class);
                 startActivity(intentMap);
                 finish();
             } else {
