@@ -1,5 +1,6 @@
 package com.fatec.br.adocaopet.Activity;
 
+import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,12 +38,14 @@ public class PerfilActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     TextView editNome, editEmail, editWelcome;
-    ImageView fotoUsuario, fotoTelaUsuario;
+    ImageView fotoUsuario;
+    ImageView fotoTelaUsuario;
     String identificacaoUsuario;
     FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_perfil);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -134,8 +138,10 @@ public class PerfilActivity extends AppCompatActivity
             int id = item.getItemId();
 
             //noinspection SimplifiableIfStatement
-            if (id == R.id.action_settings) {
-                return true;
+            if (id == R.id.btn_logout) {
+                Intent i = new Intent(PerfilActivity.this, LoginActivity.class);
+                startActivity(i);
+                finish();
             }
 
             return super.onOptionsItemSelected(item);
@@ -148,14 +154,16 @@ public class PerfilActivity extends AppCompatActivity
             int id = item.getItemId();
 
             if (id == R.id.nav_cadastrar_pet) {
-                // Handle the camera action
+
+            }else if (id == R.id.nav_principal){
+
             } else if (id == R.id.nav_meus_pets) {
 
             } else if (id == R.id.nav_buscar_usuario) {
 
             } else if (id == R.id.nav_editar_perfil) {
-
-
+                Intent i = new Intent(PerfilActivity.this, AlterarUsuarioActivity.class);
+                startActivity(i);
             }
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

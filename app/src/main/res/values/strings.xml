@@ -9,7 +9,7 @@
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
+    <string name="error_field_required">Campo Obrigatório</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
     <string name="register_button">Ainda não possui conta? Registre-se aqui</string>
     <string name="error_not_connected">Sem conexão com a internet</string>
@@ -24,6 +24,7 @@
     <string name="data_de_nascimento">Data de Nascimento</string>
     <string name="not_same_password">As senhas não conferem!</string>
     <string name="cadastro_usuario_sucesso">Usuário cadastrado com sucesso</string>
+    <string name="atualiza_usuario_sucesso">Usuário Atualizado com sucesso</string>
     <string name="cadastro_usuario_erro">Erro ao cadastrar o Usuário!</string>
     <string name="title_cadastro_user_activity">Cadastro de Usuário</string>
     <string name="app_name">Adota Pets</string>
@@ -37,5 +38,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_logout">Sair</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

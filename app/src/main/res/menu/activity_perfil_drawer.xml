@@ -4,6 +4,11 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_principal"
+            android:icon="@mipmap/ic_home"
+            android:title="Home" />
         <item
             android:id="@+id/nav_cadastrar_pet"
             android:icon="@mipmap/ic_pet_icon"

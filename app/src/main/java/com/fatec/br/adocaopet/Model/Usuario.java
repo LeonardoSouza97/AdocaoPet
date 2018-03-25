@@ -14,12 +14,12 @@ public class Usuario {
     private String endereco;
     private String cpf;
     private String rg;
-    private String dataNasc;
+    private String data_nasc;
 
     public Usuario() {
     }
 
-    public Usuario(String id, String nome, String email, String senha, String telefone, String endereco, String cpf, String rg, String dataNasc) {
+    public Usuario(String id, String nome, String email, String senha, String telefone, String endereco, String cpf, String rg, String data_nasc) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -28,7 +28,7 @@ public class Usuario {
         this.endereco = endereco;
         this.cpf = cpf;
         this.rg = rg;
-        this.dataNasc = dataNasc;
+        this.data_nasc = data_nasc;
     }
 
     public String getId() {
@@ -95,13 +95,15 @@ public class Usuario {
         this.rg = rg;
     }
 
-    public String getDataNasc() {
-        return dataNasc;
+    public void setDataNasc(String data_nasc) {
+        this.data_nasc = data_nasc;
     }
 
-    public void setDataNasc(String dataNasc) {
-        this.dataNasc = dataNasc;
+    public String getDataNasc() {
+        return data_nasc;
     }
+
+
 
     @Override
     public String toString() {
@@ -113,8 +115,8 @@ public class Usuario {
                 ", telefone='" + telefone + '\'' +
                 ", endereco='" + endereco + '\'' +
                 ", cpf='" + cpf + '\'' +
+                ", data_nasc='" + data_nasc + '\'' +
                 ", rg='" + rg + '\'' +
-                ", dataNasc='" + dataNasc + '\'' +
                 '}';
     }
 }

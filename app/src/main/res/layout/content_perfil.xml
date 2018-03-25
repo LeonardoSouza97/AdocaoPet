@@ -1,71 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/flMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.fatec.br.adocaopet.Activity.MenuActivity">
+    tools:context="com.fatec.br.adocaopet.Activity.PerfilActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-    </android.support.design.widget.AppBarLayout>
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
 
 
-    <ImageView
-        android:id="@+id/imageFotoPerfil"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/appBarLayout"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="15dp"
-        android:adjustViewBounds="false"
-        android:visibility="visible"
-        app:srcCompat="@mipmap/ic_usuario" />
+        <ImageView
+            android:id="@+id/imageFotoPerfil"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/appBarLayout"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="15dp"
+            android:adjustViewBounds="false"
+            android:visibility="visible"
+            app:srcCompat="@mipmap/ic_usuario" />
 
-    <TextView
-        android:id="@+id/txtWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txtNomeUsuario"
-        android:layout_alignBottom="@+id/txtNomeUsuario"
-        android:layout_alignStart="@+id/lstMeusAnimais"
-        android:layout_marginStart="34dp"
-        android:text="BEM VINDO(A)"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/txtNomeUsuario"
+            android:layout_alignBottom="@+id/txtNomeUsuario"
+            android:layout_alignStart="@+id/lstMeusAnimais"
+            android:layout_marginStart="34dp"
+            android:text="BEM VINDO(A)"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/txtNomeUsuario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageFotoPerfil"
-        android:layout_marginStart="17dp"
-        android:layout_toEndOf="@+id/txtWelcome"
-        android:text="TextView"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        tools:text="USUARIO" />
+        <TextView
+            android:id="@+id/txtNomeUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageFotoPerfil"
+            android:layout_marginStart="17dp"
+            android:layout_toEndOf="@+id/txtWelcome"
+            android:text="TextView"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="USUARIO" />
 
-    <ListView
-        android:id="@+id/lstMeusAnimais"
-        style="@style/Widget.AppCompat.ListView.Menu"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:headerDividersEnabled="false"
-        android:visibility="visible" />
+        <ListView
+            android:id="@+id/lstMeusAnimais"
+            style="@style/Widget.AppCompat.ListView.Menu"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:headerDividersEnabled="false"
+            android:visibility="visible" />
 
-</RelativeLayout>
+    </RelativeLayout>
+
+</FrameLayout>

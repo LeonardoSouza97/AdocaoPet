@@ -32,6 +32,19 @@
             android:name=".Activity.PerfilActivity"
             android:label="@string/title_activity_perfil"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".Activity.AlterarUsuarioActivity"
+            android:label="Alterar Perfil Usuário"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
+        <!--<Activity
+            android:name=".Activity."
+            android:label="Alterar Perfil"
+            android:theme="@style/AppTheme.NoActionBar"></Activity>-->
+
     </application>
 
 </manifest>
