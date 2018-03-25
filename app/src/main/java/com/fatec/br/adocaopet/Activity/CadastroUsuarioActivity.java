@@ -86,6 +86,9 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+                System.out.println("IDENTIFICAÇÃO: " + identificacaoUsuario);
+                System.out.println("USUARIO GET ID " + usuario.getId());
+
             }
 
         });
