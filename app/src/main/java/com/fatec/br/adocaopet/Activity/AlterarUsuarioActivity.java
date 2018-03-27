@@ -334,7 +334,6 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
                     usuario.setCpf(editCpf.getText().toString());
                     usuario.setRg(editRg.getText().toString());
                     usuario.setDataNasc(editDataNasc.getText().toString());
-                    usuario.setId(Base64Custom.codificarBase64(usuario.getEmail()));
 
                     atualizaPerfilUsuario();
                 }else{
