@@ -160,7 +160,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
         }
     }
 
-    private void atualizaPerfilUsuario(){
+    private void atualizaPerfilUsuario() {
 
 
         auth = FirebaseAuth.getInstance();
@@ -277,7 +277,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
 
     }
 
-    private void ValidarCampos() throws InterruptedException{
+    private void ValidarCampos() throws InterruptedException {
 
         editNome.setError(null);
         editSenha.setError(null);
@@ -295,6 +295,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
         String RG = editRg.getText().toString();
         String dataNasc = editDataNasc.getText().toString();
         String endereco = editEndereco.getText().toString();
+        String cpf = editCpf.getText().toString();
 
         boolean valid = true;
 
@@ -304,23 +305,25 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(senha)) {
             editSenha.setError(getString(R.string.error_field_required));
             editSenha.requestFocus();
-        }  else if (TextUtils.isEmpty(confirmaSenha)) {
+        } else if (TextUtils.isEmpty(confirmaSenha)) {
             editConfirmarSenha.setError(getString(R.string.error_field_required));
             editConfirmarSenha.requestFocus();
-        }  else if (TextUtils.isEmpty(telefone)) {
+        } else if (TextUtils.isEmpty(telefone)) {
             editTelefone.setError(getString(R.string.error_field_required));
             editTelefone.requestFocus();
-        }  else if (TextUtils.isEmpty(RG)) {
+        } else if (TextUtils.isEmpty(cpf)) {
+            editCpf.setError(getString(R.string.error_field_required));
+            editCpf.requestFocus();
+        } else if (TextUtils.isEmpty(RG)) {
             editRg.setError(getString(R.string.error_field_required));
             editRg.requestFocus();
-        }  else if (TextUtils.isEmpty(dataNasc)) {
+        } else if (TextUtils.isEmpty(dataNasc)) {
             editDataNasc.setError(getString(R.string.error_field_required));
             editDataNasc.requestFocus();
-        }else if (TextUtils.isEmpty(endereco)) {
+        } else if (TextUtils.isEmpty(endereco)) {
             editEndereco.setError(getString(R.string.error_field_required));
             editEndereco.requestFocus();
-        }
-        else {
+        } else {
             if (!Internet.isNetworkAvailable(this)) {
                 Notify.showNotify(this, getString(R.string.error_not_connected));
             } else {
@@ -336,7 +339,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
                     usuario.setDataNasc(editDataNasc.getText().toString());
 
                     atualizaPerfilUsuario();
-                }else{
+                } else {
                     Toast.makeText(AlterarUsuarioActivity.this, getString(R.string.not_same_password), Toast.LENGTH_SHORT).show();
                 }
 
