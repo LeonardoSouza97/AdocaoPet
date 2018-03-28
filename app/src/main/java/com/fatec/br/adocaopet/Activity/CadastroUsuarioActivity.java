@@ -96,61 +96,61 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
 
     private void criarUser() {
 
-            auth = FirebaseAuth.getInstance();
-            auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha())
-                    .addOnCompleteListener(CadastroUsuarioActivity.this, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+        auth = FirebaseAuth.getInstance();
+        auth.createUserWithEmailAndPassword(usuario.getEmail(), usuario.getSenha())
+                .addOnCompleteListener(CadastroUsuarioActivity.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
 
-                                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                                DatabaseReference ref = database.getReference("users").child(auth.getCurrentUser().getUid());
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference ref = database.getReference("users").child(auth.getCurrentUser().getUid());
 
-                                ref.child("uid").setValue(auth.getCurrentUser().getUid());
-                                ref.child("nome").setValue(usuario.getNome());
-                                ref.child("email").setValue(usuario.getEmail());
-                                ref.child("senha").setValue(usuario.getSenha());
-                                ref.child("telefone").setValue(usuario.getTelefone());
-                                ref.child("endereco").setValue(usuario.getEndereco());
-                                ref.child("rg").setValue(usuario.getRg());
-                                ref.child("cpf").setValue(usuario.getCpf());
-                                ref.child("dataNasc").setValue(usuario.getDataNasc());
+                            ref.child("uid").setValue(auth.getCurrentUser().getUid());
+                            ref.child("nome").setValue(usuario.getNome());
+                            ref.child("email").setValue(usuario.getEmail());
+                            ref.child("senha").setValue(usuario.getSenha());
+                            ref.child("telefone").setValue(usuario.getTelefone());
+                            ref.child("endereco").setValue(usuario.getEndereco());
+                            ref.child("rg").setValue(usuario.getRg());
+                            ref.child("cpf").setValue(usuario.getCpf());
+                            ref.child("dataNasc").setValue(usuario.getDataNasc());
 
-                                Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.cadastro_usuario_sucesso), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.cadastro_usuario_sucesso), Toast.LENGTH_SHORT).show();
 
 
-                                if (hasPicture) {
-                                    saveUserWithPicture();
-                                }
-
-                                Preferencias preferencias = new Preferencias(CadastroUsuarioActivity.this);
-                                preferencias.salvarUsuarioPreferencias(usuario.getId(), usuario.getNome());
-
-                                finishUsuario();
-
-                            } else {
-                                String error = "";
-                                try {
-                                    throw task.getException();
-                                } catch (FirebaseAuthWeakPasswordException e) {
-                                    error = getString(R.string.invalid_password_on_save);
-                                } catch (FirebaseAuthInvalidCredentialsException e) {
-                                    error = getString(R.string.invalid_email_on_save);
-                                } catch (FirebaseAuthUserCollisionException e) {
-                                    error = getString(R.string.duplicated_email);
-                                } catch (Exception e) {
-                                    error = getString(R.string.generic_error);
-                                    e.printStackTrace();
-                                }
-
-                                Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.cadastro_usuario_erro), Toast.LENGTH_SHORT).show();
-
+                            if (hasPicture) {
+                                saveUserWithPicture();
                             }
 
-                        }
-                    });
+                            Preferencias preferencias = new Preferencias(CadastroUsuarioActivity.this);
+                            preferencias.salvarUsuarioPreferencias(usuario.getId(), usuario.getNome());
 
-        }
+                            finishUsuario();
+
+                        } else {
+
+                            try {
+                                throw task.getException();
+                            } catch (FirebaseAuthWeakPasswordException e) {
+                                Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.error_invalid_email), Toast.LENGTH_SHORT).show();
+                            } catch (FirebaseAuthInvalidCredentialsException e) {
+                                Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.invalid_email_on_save), Toast.LENGTH_SHORT).show();
+                            } catch (FirebaseAuthUserCollisionException e) {
+                                Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.duplicated_email), Toast.LENGTH_SHORT).show();
+                            } catch (Exception e) {
+                                Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.generic_error), Toast.LENGTH_SHORT).show();
+                                e.printStackTrace();
+                            }
+
+                            Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.cadastro_usuario_erro), Toast.LENGTH_SHORT).show();
+
+                        }
+
+                    }
+                });
+
+    }
 
 
     @Override
@@ -241,80 +241,79 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
         finish();
     }
 
-    private void ValidarCampos() throws InterruptedException{
+    private void ValidarCampos() throws InterruptedException {
 
-            editNome.setError(null);
-            editEmail.setError(null);
-            editSenha.setError(null);
-            editConfirmarSenha.setError(null);
-            editTelefone.setError(null);
-            editRG.setError(null);
-            editCpf.setError(null);
-            editDataNasc.setError(null);
-            editEndereco.setError(null);
+        editNome.setError(null);
+        editEmail.setError(null);
+        editSenha.setError(null);
+        editConfirmarSenha.setError(null);
+        editTelefone.setError(null);
+        editRG.setError(null);
+        editCpf.setError(null);
+        editDataNasc.setError(null);
+        editEndereco.setError(null);
 
-            String nome = editNome.getText().toString();
-            String email = editEmail.getText().toString();
-            String senha = editSenha.getText().toString();
-            String confirmaSenha = editConfirmarSenha.getText().toString();
-            String telefone = editTelefone.getText().toString();
-            String RG = editRG.getText().toString();
-            String dataNasc = editDataNasc.getText().toString();
-            String endereco = editEndereco.getText().toString();
+        String nome = editNome.getText().toString();
+        String email = editEmail.getText().toString();
+        String senha = editSenha.getText().toString();
+        String confirmaSenha = editConfirmarSenha.getText().toString();
+        String telefone = editTelefone.getText().toString();
+        String RG = editRG.getText().toString();
+        String dataNasc = editDataNasc.getText().toString();
+        String endereco = editEndereco.getText().toString();
 
-            boolean valid = true;
+        boolean valid = true;
 
-            if (TextUtils.isEmpty(nome)) {
-                editNome.setError(getString(R.string.error_field_required));
-                editNome.requestFocus();
-            } else if (TextUtils.isEmpty(email)) {
-                editEmail.setError(getString(R.string.error_field_required));
-                editEmail.requestFocus();
-            }  else if (TextUtils.isEmpty(senha)) {
-                editSenha.setError(getString(R.string.error_field_required));
-                editSenha.requestFocus();
-            }  else if (TextUtils.isEmpty(confirmaSenha)) {
-                editConfirmarSenha.setError(getString(R.string.error_field_required));
-                editConfirmarSenha.requestFocus();
-            }  else if (TextUtils.isEmpty(telefone)) {
-                editTelefone.setError(getString(R.string.error_field_required));
-                editTelefone.requestFocus();
-            }  else if (TextUtils.isEmpty(RG)) {
-                editRG.setError(getString(R.string.error_field_required));
-                editRG.requestFocus();
-            }  else if (TextUtils.isEmpty(dataNasc)) {
-                editDataNasc.setError(getString(R.string.error_field_required));
-                editDataNasc.requestFocus();
-            }else if (TextUtils.isEmpty(endereco)) {
-                editEndereco.setError(getString(R.string.error_field_required));
-                editEndereco.requestFocus();
-            }
-             else {
-                if (!Internet.isNetworkAvailable(this)) {
-                    Notify.showNotify(this, getString(R.string.error_not_connected));
+        if (TextUtils.isEmpty(nome)) {
+            editNome.setError(getString(R.string.error_field_required));
+            editNome.requestFocus();
+        } else if (TextUtils.isEmpty(email)) {
+            editEmail.setError(getString(R.string.error_field_required));
+            editEmail.requestFocus();
+        } else if (TextUtils.isEmpty(senha)) {
+            editSenha.setError(getString(R.string.error_field_required));
+            editSenha.requestFocus();
+        } else if (TextUtils.isEmpty(confirmaSenha)) {
+            editConfirmarSenha.setError(getString(R.string.error_field_required));
+            editConfirmarSenha.requestFocus();
+        } else if (TextUtils.isEmpty(telefone)) {
+            editTelefone.setError(getString(R.string.error_field_required));
+            editTelefone.requestFocus();
+        } else if (TextUtils.isEmpty(RG)) {
+            editRG.setError(getString(R.string.error_field_required));
+            editRG.requestFocus();
+        } else if (TextUtils.isEmpty(dataNasc)) {
+            editDataNasc.setError(getString(R.string.error_field_required));
+            editDataNasc.requestFocus();
+        } else if (TextUtils.isEmpty(endereco)) {
+            editEndereco.setError(getString(R.string.error_field_required));
+            editEndereco.requestFocus();
+        } else {
+            if (!Internet.isNetworkAvailable(this)) {
+                Notify.showNotify(this, getString(R.string.error_not_connected));
+            } else {
+
+                if (editSenha.getText().toString().equals(editConfirmarSenha.getText().toString())) {
+                    usuario = new Usuario();
+
+                    usuario.setNome(editNome.getText().toString());
+                    usuario.setEmail(editEmail.getText().toString());
+                    usuario.setSenha(editSenha.getText().toString());
+                    usuario.setTelefone(editTelefone.getText().toString());
+                    usuario.setEndereco(editEndereco.getText().toString());
+                    usuario.setCpf(editCpf.getText().toString());
+                    usuario.setRg(editRG.getText().toString());
+                    usuario.setDataNasc(editDataNasc.getText().toString());
+                    usuario.setId(Base64Custom.codificarBase64(usuario.getEmail()));
+                    criarUser();
                 } else {
-
-                    if (editSenha.getText().toString().equals(editConfirmarSenha.getText().toString())) {
-                        usuario = new Usuario();
-
-                        usuario.setNome(editNome.getText().toString());
-                        usuario.setEmail(editEmail.getText().toString());
-                        usuario.setSenha(editSenha.getText().toString());
-                        usuario.setTelefone(editTelefone.getText().toString());
-                        usuario.setEndereco(editEndereco.getText().toString());
-                        usuario.setCpf(editCpf.getText().toString());
-                        usuario.setRg(editRG.getText().toString());
-                        usuario.setDataNasc(editDataNasc.getText().toString());
-                        usuario.setId(Base64Custom.codificarBase64(usuario.getEmail()));
-                        criarUser();
-                    } else {
-                        Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.not_same_password), Toast.LENGTH_SHORT).show();
-                    }
-
+                    Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.not_same_password), Toast.LENGTH_SHORT).show();
                 }
+
             }
         }
-
-
     }
+
+
+}
 

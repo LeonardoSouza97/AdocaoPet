@@ -36,6 +36,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -162,8 +163,10 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
 
     private void atualizaPerfilUsuario() {
 
-
         auth = FirebaseAuth.getInstance();
+
+        AlterarSenha();
+
         auth.signInWithEmailAndPassword(auth.getCurrentUser().getEmail(), usuario.getSenha())
                 .addOnCompleteListener(AlterarUsuarioActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -181,6 +184,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
                             ref.child("rg").setValue(usuario.getRg());
                             ref.child("cpf").setValue(usuario.getCpf());
                             ref.child("dataNasc").setValue(usuario.getDataNasc());
+
 
                             Toast.makeText(AlterarUsuarioActivity.this, getString(R.string.atualiza_usuario_sucesso), Toast.LENGTH_SHORT).show();
 
@@ -208,7 +212,8 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            Toast.makeText(AlterarUsuarioActivity.this, getString(R.string.cadastro_usuario_erro), Toast.LENGTH_SHORT).show();
+
+                             Toast.makeText(AlterarUsuarioActivity.this, getString(R.string.cadastro_usuario_erro), Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -345,6 +350,23 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    private void AlterarSenha(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        user.updatePassword(editSenha.getText().toString())
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(getApplicationContext(),"Senha alterada com sucesso!",Toast.LENGTH_SHORT);
+                        }else{
+                            Toast.makeText(getApplicationContext(), "Erro ao alterar a senha", Toast.LENGTH_SHORT);
+                        }
+                    }
+                });
+
     }
 
 }

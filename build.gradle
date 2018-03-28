@@ -16,6 +16,12 @@ buildscript {
     }
 }
 
+configurations.all {
+    resolutionStrategy {
+        force 'com.android.support:support-v4:26+'
+    }
+}
+
 allprojects {
     repositories {
         google()

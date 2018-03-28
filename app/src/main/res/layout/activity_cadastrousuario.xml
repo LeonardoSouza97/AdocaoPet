@@ -98,8 +98,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/editCpf"
         android:ems="10"
-        android:inputType="date"
-        android:hint="@string/data_de_nascimento" />
+        android:hint="@string/data_de_nascimento"
+        android:inputType="date" />
 
     <Button
         android:id="@+id/btnCadastrarUsuario"

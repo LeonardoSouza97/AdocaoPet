@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "931686752551-e7iatm1l5f8s8l5sh5bkcds85f83ci7i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.fatec.br.adocaopet",
+            "certificate_hash": "05000d8bbc592b2d92e22344d7a3ae1d4bdd4d7a"
+          }
+        },
+        {
           "client_id": "931686752551-6msdqsfr2lbjrmgjua8ggugfei0qk13q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
