@@ -40,6 +40,12 @@
 
         </activity>
 
+        <activity android:name=".Activity.RedefinicaoSenhaActivity"
+            android:label="Redefinição de Senha"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
+
         <!--<Activity
             android:name=".Activity."
             android:label="Alterar Perfil"

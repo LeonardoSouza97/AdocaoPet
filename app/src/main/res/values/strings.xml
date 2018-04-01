@@ -6,7 +6,7 @@
     <string name="prompt_password">Senha</string>
     <string name="action_sign_in">Efetuar Login</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">Esse endereço de email é inválido</string>
+    <string name="error_invalid_email">A senha precisa ser no mínimo de 6 caracteres</string>
     <string name="error_invalid_password">A senha é muito curta</string>
     <string name="error_incorrect_password">A senha está incorreta</string>
     <string name="error_field_required">Campo Obrigatório</string>
@@ -31,9 +31,11 @@
     <string name="title_activity_menu">Perfil</string>
     <string name="invalid_password_on_save">Senha inválida</string>
     <string name="invalid_email_on_save">Email inválido</string>
-    <string name="duplicated_email">Email duplicado</string>
+    <string name="duplicated_email">Email já cadastrado</string>
     <string name="generic_error">erro generico</string>
     <string name="title_activity_perfil">Home</string>
+    <string name="email_redefinicao_enviado">E-mail enviado com sucesso</string>
+    <string name="email_redefinicao_enviado_erro">Erro ao enviar o e-mail</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

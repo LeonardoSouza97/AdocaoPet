@@ -134,6 +134,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
                 try {
                     ValidarCampos();
 
+
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -198,17 +199,14 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
 
 
                         } else {
-                            String error = "";
+
                             try {
                                 throw task.getException();
                             } catch (FirebaseAuthWeakPasswordException e) {
-                                error = getString(R.string.invalid_password_on_save);
-                            } catch (FirebaseAuthInvalidCredentialsException e) {
-                                error = getString(R.string.invalid_email_on_save);
-                            } catch (FirebaseAuthUserCollisionException e) {
-                                error = getString(R.string.duplicated_email);
-                            } catch (Exception e) {
-                                error = getString(R.string.generic_error);
+                                editSenha.setError("No mínimo 6 caracteres");
+                                editSenha.requestFocus();
+                            }   catch (Exception e) {
+                                Toast.makeText(AlterarUsuarioActivity.this, getString(R.string.generic_error), Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();
                             }
 
@@ -344,6 +342,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
                     usuario.setDataNasc(editDataNasc.getText().toString());
 
                     atualizaPerfilUsuario();
+
                 } else {
                     Toast.makeText(AlterarUsuarioActivity.this, getString(R.string.not_same_password), Toast.LENGTH_SHORT).show();
                 }

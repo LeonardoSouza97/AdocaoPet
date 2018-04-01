@@ -86,7 +86,6 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-
             }
 
         });
@@ -133,11 +132,14 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                             try {
                                 throw task.getException();
                             } catch (FirebaseAuthWeakPasswordException e) {
-                                Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.error_invalid_email), Toast.LENGTH_SHORT).show();
+                                editSenha.setError("No mínimo 6 caracteres");
+                                editSenha.requestFocus();
                             } catch (FirebaseAuthInvalidCredentialsException e) {
-                                Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.invalid_email_on_save), Toast.LENGTH_SHORT).show();
+                                editEmail.setError("E-mail inválido");
+                                editEmail.requestFocus();
                             } catch (FirebaseAuthUserCollisionException e) {
-                                Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.duplicated_email), Toast.LENGTH_SHORT).show();
+                                editEmail.setError("E-mail já cadastrado");
+                                editEmail.requestFocus();
                             } catch (Exception e) {
                                 Toast.makeText(CadastroUsuarioActivity.this, getString(R.string.generic_error), Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();

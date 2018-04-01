@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
 
         Button signInButton = findViewById(R.id.email_sign_in_button);
         Button registerButton = findViewById(R.id.regiter_button);
+        Button esqueceuButton = findViewById(R.id.esqueceu_senha_button);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -66,6 +67,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
                 finish();
             }
         });
+
+        esqueceuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, RedefinicaoSenhaActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
 
         mLoginFormView = findViewById(R.id.email_login_form);
         mProgressView = findViewById(R.id.login_progress);

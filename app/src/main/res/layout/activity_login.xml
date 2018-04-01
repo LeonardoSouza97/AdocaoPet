@@ -37,8 +37,8 @@
                 android:id="@+id/imageView"
                 android:layout_width="300dp"
                 android:layout_height="200dp"
-                android:onClick="takeAPicture"
                 android:layout_gravity="center"
+                android:onClick="takeAPicture"
                 app:srcCompat="@drawable/foto_inicial" />
 
             <android.support.design.widget.TextInputLayout
@@ -93,8 +93,15 @@
                 android:text="@string/register_button"
                 android:textStyle="bold" />
 
+            <Button
+                android:id="@+id/esqueceu_senha_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Esqueceu sua senha?" />
 
         </LinearLayout>
+
 
     </ScrollView>
 </LinearLayout>
