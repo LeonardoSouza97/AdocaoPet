@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -48,6 +49,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Created by Leo on 25/03/2018.
@@ -191,12 +194,13 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
 
 
                             if (hasPicture) {
-                                saveUserWithPicture();
+                                AlterarFotoUsuario();
                             }
 
                             Preferencias preferencias = new Preferencias(AlterarUsuarioActivity.this);
                             preferencias.salvarUsuarioPreferencias(usuario.getId(), usuario.getNome());
 
+                            finishUsuario();
 
                         } else {
 
@@ -205,13 +209,13 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
                             } catch (FirebaseAuthWeakPasswordException e) {
                                 editSenha.setError("No mínimo 6 caracteres");
                                 editSenha.requestFocus();
-                            }   catch (Exception e) {
+                            } catch (Exception e) {
                                 Toast.makeText(AlterarUsuarioActivity.this, getString(R.string.generic_error), Toast.LENGTH_SHORT).show();
                                 e.printStackTrace();
                             }
 
 
-                             Toast.makeText(AlterarUsuarioActivity.this, getString(R.string.cadastro_usuario_erro), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AlterarUsuarioActivity.this, getString(R.string.cadastro_usuario_erro), Toast.LENGTH_SHORT).show();
 
                         }
 
@@ -236,10 +240,10 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
         }
     }
 
-    public void saveUserWithPicture() {
+    private void saveUserWithPicture() {
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference riversRef = storageRef.child("user/" + usuario.getId() + ".png");
+        StorageReference riversRef = storageRef.child("user/" + identificacaoUsuario + ".png");
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         foto.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
@@ -260,6 +264,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
                 });
     }
 
+
     public void takeAPicture(View v) {
         useCamera();
     }
@@ -277,6 +282,11 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
     public void takeAPicture() {
         Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(i, REQUEST_CAMERA);
+
+        editTelefone.addTextChangedListener(MaskEditUtil.mask(editTelefone, MaskEditUtil.FORMAT_FONE));
+        editCpf.addTextChangedListener(MaskEditUtil.mask(editCpf, MaskEditUtil.FORMAT_CPF));
+        editRg.addTextChangedListener(MaskEditUtil.mask(editRg, MaskEditUtil.FORMAT_RG));
+        editDataNasc.addTextChangedListener(MaskEditUtil.mask(editDataNasc, MaskEditUtil.FORMAT_DATE));
 
     }
 
@@ -351,16 +361,16 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
         }
     }
 
-    private void AlterarSenha(){
+    private void AlterarSenha() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         user.updatePassword(editSenha.getText().toString())
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(getApplicationContext(),"Senha alterada com sucesso!",Toast.LENGTH_SHORT);
-                        }else{
+                        if (task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "Senha alterada com sucesso!", Toast.LENGTH_SHORT);
+                        } else {
                             Toast.makeText(getApplicationContext(), "Erro ao alterar a senha", Toast.LENGTH_SHORT);
                         }
                     }
@@ -368,4 +378,26 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
 
     }
 
+    private void AlterarFotoUsuario() {
+
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference();
+        StorageReference riversRef = storageRef.child("user/" + identificacaoUsuario + ".png");
+
+        riversRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                saveUserWithPicture();
+            }
+        });
+
+    }
+
+
+    private void finishUsuario() {
+
+        Intent intentMap = new Intent(AlterarUsuarioActivity.this, PerfilActivity.class);
+        startActivity(intentMap);
+        finish();
+
+    }
 }

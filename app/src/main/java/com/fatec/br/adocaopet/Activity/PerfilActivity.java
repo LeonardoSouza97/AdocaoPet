@@ -53,7 +53,6 @@ public class PerfilActivity extends AppCompatActivity
 
         identificacaoUsuario = FirebaseAuthUtils.getUUID();
 
-        System.out.println("IDENTIFICAÇÃO PERFIL: " + identificacaoUsuario);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -84,6 +83,8 @@ public class PerfilActivity extends AppCompatActivity
         auth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("users").child(auth.getCurrentUser().getUid());
+
+        pegarFotoUsuario();
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -158,7 +159,7 @@ public class PerfilActivity extends AppCompatActivity
             if (id == R.id.nav_cadastrar_pet) {
 
             }else if (id == R.id.nav_principal){
-
+                pegarFotoUsuario();
             } else if (id == R.id.nav_meus_pets) {
 
             } else if (id == R.id.nav_buscar_usuario) {
@@ -166,6 +167,7 @@ public class PerfilActivity extends AppCompatActivity
             } else if (id == R.id.nav_editar_perfil) {
                 Intent i = new Intent(PerfilActivity.this, AlterarUsuarioActivity.class);
                 startActivity(i);
+                finish();
             }
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
