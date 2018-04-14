@@ -157,6 +157,9 @@ public class PerfilActivity extends AppCompatActivity
             int id = item.getItemId();
 
             if (id == R.id.nav_cadastrar_pet) {
+                Intent i = new Intent(PerfilActivity.this, CadastroPetActivity.class);
+                startActivity(i);
+                finish();
 
             }else if (id == R.id.nav_principal){
                 pegarFotoUsuario();

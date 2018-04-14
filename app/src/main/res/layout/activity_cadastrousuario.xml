@@ -24,9 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/imageCamera"
-        android:hint="@string/nome_completo"
         android:ems="10"
-        android:inputType="textPersonName"/>
+        android:hint="@string/nome_completo"
+        android:inputType="textPersonName" />
 
     <EditText
         android:id="@+id/editEmail"

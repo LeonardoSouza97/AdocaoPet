@@ -46,10 +46,12 @@
 
         </activity>
 
-        <!--<Activity
-            android:name=".Activity."
-            android:label="Alterar Perfil"
-            android:theme="@style/AppTheme.NoActionBar"></Activity>-->
+        <activity android:name=".Activity.CadastroPetActivity"
+            android:label="Cadastrar Pet"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
 
     </application>
 
