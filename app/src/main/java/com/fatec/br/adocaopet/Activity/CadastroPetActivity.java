@@ -1,13 +1,17 @@
 package com.fatec.br.adocaopet.Activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.fatec.br.adocaopet.Common.ListRaca;
 import com.fatec.br.adocaopet.R;
@@ -24,7 +28,7 @@ public class CadastroPetActivity extends AppCompatActivity {
     private EditText pesoPet;
     private Spinner cbEspecie;
     private Spinner cbPorte;
-    private AutoCompleteTextView autoEditRaca;
+    private Spinner cbRaca;
     private RadioButton rbMacho;
     private RadioButton rbFemea;
 
@@ -38,28 +42,63 @@ public class CadastroPetActivity extends AppCompatActivity {
 
         inicializaComponentes();
 
-        listRaca = new ListRaca();
-
-        //Alimentando AutoCompleteTextView
-        ArrayAdapter listaCachorros = new ArrayAdapter(this, android.R.layout.select_dialog_item, listRaca.ListaCachorro());
-        autoEditRaca.setThreshold(1);
-        autoEditRaca.setAdapter(listaCachorros);
-
-
+        alimentaCombos();
+        
     }
-
 
     private void inicializaComponentes() {
 
-        autoEditRaca = (AutoCompleteTextView) findViewById(R.id.autoEditRaca);
         fotoPet = (ImageView) findViewById(R.id.fotoPet);
         nomePet = (EditText) findViewById(R.id.editNomePet);
         idadePet = (EditText) findViewById(R.id.editIdadePet);
         pesoPet = (EditText) findViewById(R.id.editPesoPet);
         cbEspecie = (Spinner) findViewById(R.id.cbEspecie);
         cbPorte = (Spinner) findViewById(R.id.cbPorte);
+        cbRaca = (Spinner) findViewById(R.id.cbRaca);
         rbMacho = (RadioButton) findViewById(R.id.rbMacho);
         rbFemea = (RadioButton) findViewById(R.id.rbFemea);
 
+    }
+
+    private void alimentaCombos(){
+        listRaca = new ListRaca();
+
+        //Alimentando Combos
+
+        ArrayAdapter listaEspecie = new ArrayAdapter(this, android.R.layout.select_dialog_item, listRaca.ListaEspecie());
+        cbEspecie.setAdapter(listaEspecie);
+
+        ArrayAdapter listaPorte = new ArrayAdapter(this, android.R.layout.select_dialog_item, listRaca.ListaPorte());
+        cbPorte.setAdapter(listaPorte);
+
+        cbEspecie.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                switch (i){
+
+                    case 0:
+                        ArrayAdapter listaCachorros = new ArrayAdapter(CadastroPetActivity.this, android.R.layout.select_dialog_item, listRaca.ListaCachorro());
+                        cbRaca.setAdapter(listaCachorros);
+
+                        Toast.makeText(CadastroPetActivity.this,"Cachorro",Toast.LENGTH_SHORT);
+                        break;
+
+                    case 1:
+                        ArrayAdapter listaGatos = new ArrayAdapter(CadastroPetActivity.this, android.R.layout.select_dialog_item, listRaca.ListaGatos());
+                        cbRaca.setAdapter(listaGatos);
+
+                        Toast.makeText(CadastroPetActivity.this,"Gato",Toast.LENGTH_SHORT);
+                        break;
+
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 }

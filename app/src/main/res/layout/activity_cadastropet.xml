@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="457dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="8dp">
@@ -37,82 +37,83 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Nome" />
+            android:hint="Nome"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editIdadePet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Idade" />
+            android:hint="Idade"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/editPesoPet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number"
-            android:text="Peso" />
+            android:hint="Peso"
+            android:inputType="number" />
 
         <Spinner
             android:id="@+id/cbEspecie"
-            android:hint="Espécie"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:hint="Espécie" />
 
         <Spinner
             android:id="@+id/cbPorte"
-            android:hint="Porte"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <AutoCompleteTextView
-            android:id="@+id/autoEditRaca"
-            android:hint="Raça"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Raça" />
+            android:hint="Porte" />
+
+        <Spinner
+            android:id="@+id/cbRaca"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Raça" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/rbMacho"
-                android:layout_width="135dp"
-                android:layout_height="wrap_content"
+            <RadioGroup
+                android:id="@+id/rbgSexo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Macho" />
+                android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/rbFemea"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Fêmea" />
+                <RadioButton
+                    android:id="@+id/rbFemea"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Fêmea" />
+
+                <RadioButton
+                    android:id="@+id/rbMacho"
+                    android:layout_width="135dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Macho" />
+            </RadioGroup>
 
         </LinearLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/btnCadastrarPet"
             android:layout_width="match_parent"
-            android:layout_height="172dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:text="Cadastrar" />
 
-            <Button
-                android:id="@+id/btnCadastrarPet"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cadastrar" />
-
-            <Button
-                android:id="@+id/btnVoltar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Voltar" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/btnVoltar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Voltar" />
 
     </LinearLayout>
 

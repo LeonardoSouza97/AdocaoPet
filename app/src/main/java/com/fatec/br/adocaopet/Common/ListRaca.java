@@ -10,11 +10,31 @@ public class ListRaca {
 
     public String[] ListaCachorro() {
 
-        String[] caes = {"Beagle", "Pinscher", "Boxer"};
+        String [] caes = {"Beagle", "Pinscher", "Boxer"};
 
         return caes;
     }
 
+    public String[] ListaGatos() {
+
+        String [] gatos = {"Persa", "Azul russo", "Maine Coon"};
+
+        return gatos;
+    }
+
+    public String[] ListaPorte() {
+
+        String[] porte = {"Pequeno", "Médio", "Grande"};
+
+        return porte;
+    }
+
+    public String[] ListaEspecie() {
+
+        String[] especie = {"Cachorro", "Gato"};
+
+        return especie;
+    }
 
 }
 
