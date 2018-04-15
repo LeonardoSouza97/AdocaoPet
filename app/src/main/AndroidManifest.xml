@@ -51,7 +51,11 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity android:name=".Activity.MeusPetsActivity"
+            android:label="Meus Pets"
+            android:theme="@style/AppTheme.NoActionBar">
 
+        </activity>
 
     </application>
 

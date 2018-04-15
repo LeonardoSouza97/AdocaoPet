@@ -7,114 +7,135 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context="com.fatec.br.adocaopet.Activity.CadastroPetActivity">
-    >
 
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="8dp">
-
-        <TextView
-            android:id="@+id/txtCadastroPet"
-            android:layout_width="match_parent"
-            android:layout_height="62dp"
-            android:text="Cadastro Pet"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/fotoPet"
-            android:layout_width="match_parent"
-            android:layout_height="42dp"
-            android:textAlignment="center"
-            app:srcCompat="@drawable/ic_menu_camera" />
-
-        <EditText
-            android:id="@+id/editNomePet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Nome"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/editIdadePet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Idade"
-            android:inputType="textPersonName" />
-
-        <EditText
-            android:id="@+id/editPesoPet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Peso"
-            android:inputType="number" />
-
-        <Spinner
-            android:id="@+id/cbEspecie"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Espécie" />
-
-        <Spinner
-            android:id="@+id/cbPorte"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Porte" />
-
-        <Spinner
-            android:id="@+id/cbRaca"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Raça" />
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <RadioGroup
-                android:id="@+id/rbgSexo"
+            <TextView
+                android:id="@+id/txtCadastroPet"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:text="Cadastro Pet"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/fotoPet"
+                android:layout_width="match_parent"
+                android:layout_height="57dp"
+                android:onClick="takeAPicture"
+                android:textAlignment="center"
+                app:srcCompat="@drawable/ic_menu_camera" />
+
+            <EditText
+                android:id="@+id/editNomePet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Nome"
+                android:imeActionLabel="Nome"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editIdadePet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Idade"
+                android:imeActionLabel="Idade"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/editPesoPet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Peso"
+                android:imeActionLabel="Peso"
+                android:inputType="number" />
+
+            <Spinner
+                android:id="@+id/cbEspecie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="Especie"
+                android:hint="Espécie" />
+
+            <Spinner
+                android:id="@+id/cbPorte"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="Porte"
+                android:hint="Porte" />
+
+            <Spinner
+                android:id="@+id/cbRaca"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeActionLabel="Raça"
+                android:hint="Raça" />
+
+            <EditText
+                android:id="@+id/editDescricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Descrição"
+                android:imeActionLabel="Descrição"
+                android:inputType="textMultiLine" />
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/rbFemea"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
+                <RadioGroup
+                    android:id="@+id/rbgSexo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Fêmea" />
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/rbMacho"
-                    android:layout_width="135dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Macho" />
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/rbFemea"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Fêmea" />
+
+                    <RadioButton
+                        android:id="@+id/rbMacho"
+                        android:layout_width="135dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Macho" />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnCadastrarPet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cadastrar" />
+
+            <Button
+                android:id="@+id/btnVoltar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Voltar" />
 
         </LinearLayout>
+    </ScrollView>
 
-        <Button
-            android:id="@+id/btnCadastrarPet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Cadastrar" />
-
-        <Button
-            android:id="@+id/btnVoltar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Voltar" />
-
-    </LinearLayout>
 
 </LinearLayout>

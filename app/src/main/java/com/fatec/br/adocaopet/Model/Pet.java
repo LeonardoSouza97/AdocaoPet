@@ -1,11 +1,13 @@
 package com.fatec.br.adocaopet.Model;
 
+import com.google.firebase.database.DatabaseReference;
+
 /**
  * Created by Leo on 14/04/2018.
  */
 
 public class Pet {
-    private String id_pet;
+    private String idPet;
     private String nome;
     private String idade;
     private String peso;
@@ -13,12 +15,19 @@ public class Pet {
     private String raca;
     private String especie;
     private String sexo;
-    private String id_usuario;
+    private String idUsuario;
+    private String descricao;
 
     public Pet(){};
 
-    public Pet(String id_pet, String nome, String idade, String peso, String porte, String raca, String especie, String sexo, String id_usuario) {
-        this.id_pet = id_pet;
+    public Pet(String nome, String idade, String descricao){
+        this.nome = nome;
+        this.idade = idade;
+        this.descricao = descricao;
+    }
+
+    public Pet(String idPet, String nome, String idade, String peso, String porte, String raca, String especie, String sexo, String idUsuario, String descricao) {
+        this.idPet = idPet;
         this.nome = nome;
         this.idade = idade;
         this.peso = peso;
@@ -26,15 +35,31 @@ public class Pet {
         this.raca = raca;
         this.especie = especie;
         this.sexo = sexo;
-        this.id_usuario = id_usuario;
+        this.idUsuario = idUsuario;
+        this.descricao = descricao;
     }
 
-    public String getId_pet() {
-        return id_pet;
+//
+//    public boolean adicionaPet(){
+//        try{
+//            String strCatID = this.getIdPet();
+//            DatabaseReference referenciaDataBase = FirebaseUtils.getInstance();
+//            referenciaDataBase.child("Pet").child(strCatID).setValue(this);
+//            return true;
+//        } catch (Exception e) {
+//            System.out.println("Erro: " + e.getMessage().toString());
+//            e.printStackTrace();
+//            return false;
+//        }
+//    }
+
+
+    public String getIdPet() {
+        return idPet;
     }
 
-    public void setId_pet(String id_pet) {
-        this.id_pet = id_pet;
+    public void setIdPet(String idPet) {
+        this.idPet = idPet;
     }
 
     public String getNome() {
@@ -93,11 +118,19 @@ public class Pet {
         this.sexo = sexo;
     }
 
-    public String getId_usuario() {
-        return id_usuario;
+    public String getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId_usuario(String id_usuario) {
-        this.id_usuario = id_usuario;
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }
