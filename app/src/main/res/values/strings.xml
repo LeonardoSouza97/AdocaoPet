@@ -25,6 +25,7 @@
     <string name="not_same_password">As senhas não conferem!</string>
     <string name="cadastro_usuario_sucesso">Usuário cadastrado com sucesso</string>
     <string name="cadastro_pet_sucesso">Pet cadastrado com sucesso</string>
+    <string name="atualiza_pet_sucesso">Pet atualizado com sucesso</string>
     <string name="atualiza_usuario_sucesso">Usuário Atualizado com sucesso</string>
     <string name="cadastro_usuario_erro">Erro ao cadastrar o Usuário!</string>
     <string name="title_cadastro_user_activity">Cadastro de Usuário</string>

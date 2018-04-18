@@ -96,6 +96,10 @@ public class MeusPetsActivity extends AppCompatActivity {
                 removePet(item.getGroupId());
                 break;
             case 1:
+                Intent i = new Intent(MeusPetsActivity.this, AlterarPetActivity.class);
+                i.putExtra("idPet", pegaPet(item.getGroupId()));
+                startActivity(i);
+                finish();
                 break;
         }
 
@@ -170,6 +174,12 @@ public class MeusPetsActivity extends AppCompatActivity {
     private void removePet(int position){
         databaseReference.child(result.get(position).getIdPet()).removeValue();
 
+    }
+
+    private String pegaPet(int position){
+        String idPet = databaseReference.child(result.get(position).getIdPet()).toString();
+
+        return idPet;
     }
 
     private void CheckListaVazia(){
