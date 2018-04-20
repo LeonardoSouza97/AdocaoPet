@@ -94,6 +94,8 @@ public class AlterarPetActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
+        //Toast.makeText(getApplicationContext(), identificadorPetSeparado[4], Toast.LENGTH_SHORT).show();
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("pets").child(identificadorPetSeparado[4]);
 
@@ -229,7 +231,7 @@ public class AlterarPetActivity extends AppCompatActivity {
 
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference ref = database.getReference("pets").child(identificadorPetGlobal);
+        DatabaseReference ref = database.getReference("pets").child(identificadorPetSeparado[4]);
 
         ref.child("nome").setValue(pet.getNome());
         ref.child("idade").setValue(pet.getIdade());

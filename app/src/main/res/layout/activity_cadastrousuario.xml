@@ -53,7 +53,7 @@
         android:layout_below="@+id/editPassword"
         android:ems="10"
         android:inputType="textPassword"
-        android:hint="@string/password" />
+        android:hint="@string/repeatPassword" />
 
     <EditText
         android:id="@+id/editTelefone"
@@ -106,17 +106,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="25dp"
-        android:layout_toStartOf="@+id/imageCamera"
+        android:layout_marginBottom="20dp"
+        android:layout_toEndOf="@+id/imageCamera"
         android:text="Confirmar" />
 
     <Button
         android:id="@+id/btnVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_toEndOf="@+id/imageCamera"
+        android:layout_alignTop="@+id/btnCadastrarUsuario"
+        android:layout_toStartOf="@+id/imageCamera"
         android:text="Voltar" />
 
 

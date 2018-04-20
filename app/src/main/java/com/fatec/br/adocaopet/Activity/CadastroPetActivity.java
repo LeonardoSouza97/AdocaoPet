@@ -51,6 +51,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.text.Normalizer;
+import java.util.regex.Pattern;
 
 /**
  * Created by Leo on 14/04/2018.
@@ -223,6 +225,47 @@ public class CadastroPetActivity extends AppCompatActivity {
         }
     }
 
+    public String converte(String text) {
+        return text.replaceAll("[ãâàáä]", "a")
+                .replaceAll("[êèéë]", "e")
+                .replaceAll("[îìíï]", "i")
+                .replaceAll("[õôòóö]", "o")
+                .replaceAll("[ûúùü]", "u")
+                .replaceAll("[ÃÂÀÁÄ]", "A")
+                .replaceAll("[ÊÈÉË]", "E")
+                .replaceAll("[ÎÌÍÏ]", "I")
+                .replaceAll("[ÕÔÒÓÖ]", "O")
+                .replaceAll("[ÛÙÚÜ]", "U")
+                .replace('ç', 'c')
+                .replace('Ç', 'C')
+                .replace('ñ', 'n')
+                .replace('Ñ', 'N')
+                .replace("'", "")
+                .replace("?", "")
+                .replace("!", "")
+                .replace("$", "")
+                .replace("%", "")
+                .replace("=", "")
+                .replace("^", "")
+                .replace("~", "")
+                .replace(":", "")
+                .replace(";", "")
+                .replace("º", "")
+                .replace("ª", "")
+                .replace("+", "")
+                .replace("_", "")
+                .replace("#", "")
+                .replace("´", "")
+                .replace("`", "")
+                .replace("@", "")
+                .replace("¨", "")
+                .replace("*", "")
+                .replace("_", "")
+                .replace("\\(\\)\\=\\{\\}\\[\\]\\~\\^\\]","")
+                .replace("[\\.\\;\\-\\_\\+\\'\\ª\\º\\:\\;\\/]","")
+                .replace(" ","");
+    }
+
     public void savePetWithPicture() {
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
@@ -311,9 +354,15 @@ public class CadastroPetActivity extends AppCompatActivity {
 
                 pet = new Pet();
 
-                String strCatId = Base64Custom.codificarBase64(nome + raca + user.getUid());
+                String strCatId = nome + raca + user.getUid();
+                String strCatId2 = converte(strCatId);
 
-                pet.setIdPet(strCatId);
+                //Toast.makeText(getApplicationContext(), strCatId, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), strCatId2, Toast.LENGTH_SHORT).show();
+
+
+
+                pet.setIdPet(strCatId2.trim());
                 pet.setNome(nomePet.getText().toString());
                 pet.setIdade(idadePet.getText().toString());
                 pet.setDescricao(descricaoPet.getText().toString());
