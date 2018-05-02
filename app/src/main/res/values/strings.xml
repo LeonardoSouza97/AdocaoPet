@@ -39,6 +39,8 @@
     <string name="email_redefinicao_enviado">E-mail enviado com sucesso</string>
     <string name="email_redefinicao_enviado_erro">Erro ao enviar o e-mail</string>
     <string name="foto_deletada">Foto deletada com sucesso</string>
+    <string name="facebook_app_id">358718491307847</string>
+    <string name="fb_login_protocol_scheme">fb358718491307847</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

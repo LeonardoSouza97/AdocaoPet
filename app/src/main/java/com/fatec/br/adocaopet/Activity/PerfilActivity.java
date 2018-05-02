@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.login.LoginManager;
 import com.fatec.br.adocaopet.Common.PetAdapter;
 import com.fatec.br.adocaopet.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayInputStream;
 
@@ -95,7 +97,13 @@ public class PerfilActivity extends AppCompatActivity
                     Usuario usuarioCarregado = dataSnapshot.getValue(Usuario.class);
 
                     if (usuarioCarregado == null) {
-                        Notify.showNotify(PerfilActivity.this, "Nothing");
+                        editNome.setText(auth.getCurrentUser().getDisplayName());
+                        editWelcome.setText(auth.getCurrentUser().getDisplayName());
+                        editEmail.setText(auth.getCurrentUser().getEmail());
+
+                        Picasso.get().load(auth.getCurrentUser().getPhotoUrl()).into(fotoUsuario);
+                        Picasso.get().load(auth.getCurrentUser().getPhotoUrl()).into(fotoTelaUsuario);
+
                     } else {
                         editNome.setText(usuarioCarregado.getNome());
                         editWelcome.setText(usuarioCarregado.getNome());
@@ -145,6 +153,7 @@ public class PerfilActivity extends AppCompatActivity
                 Intent i = new Intent(PerfilActivity.this, LoginActivity.class);
                 startActivity(i);
                 finish();
+                LoginManager.getInstance().logOut();
             }
 
             return super.onOptionsItemSelected(item);

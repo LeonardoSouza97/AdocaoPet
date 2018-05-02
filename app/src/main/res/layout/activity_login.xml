@@ -11,7 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.fatec.br.adocaopet.Activity.LoginActivity">
 
-
     <!-- Login progress -->
     <ProgressBar
         android:id="@+id/login_progress"
@@ -85,12 +84,20 @@
                 android:textColor="#5d5954"
                 android:textStyle="bold" />
 
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="321dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center_horizontal" />
+                <!--android:layout_marginTop="30dp"-->
+                <!--android:layout_marginBottom="30dp" />-->
+
             <Button
                 android:id="@+id/regiter_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="0dp"
                 android:text="@string/register_button"
                 android:textColor="#5d5954"
                 android:textStyle="bold" />
@@ -99,7 +106,7 @@
                 android:id="@+id/esqueceu_senha_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="0dp"
                 android:autoText="true"
                 android:text="Esqueceu sua senha?"
                 android:textColor="@color/colorPrimaryDark" />
