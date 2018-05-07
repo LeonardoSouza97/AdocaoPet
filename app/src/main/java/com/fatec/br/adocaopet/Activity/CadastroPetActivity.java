@@ -319,6 +319,7 @@ public class CadastroPetActivity extends AppCompatActivity {
 
     private void ValidarCampos() throws InterruptedException {
 
+
         FirebaseUser user = auth.getCurrentUser();
 
         nomePet.setError(null);
@@ -356,11 +357,6 @@ public class CadastroPetActivity extends AppCompatActivity {
 
                 String strCatId = nome + raca + user.getUid();
                 String strCatId2 = converte(strCatId);
-
-                //Toast.makeText(getApplicationContext(), strCatId, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getApplicationContext(), strCatId2, Toast.LENGTH_SHORT).show();
-
-
 
                 pet.setIdPet(strCatId2.trim());
                 pet.setNome(nomePet.getText().toString());

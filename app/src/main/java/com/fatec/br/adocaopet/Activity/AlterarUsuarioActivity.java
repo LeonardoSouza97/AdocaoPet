@@ -41,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -101,7 +102,12 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
                     Usuario usuarioCarregado = dataSnapshot.getValue(Usuario.class);
 
                     if (usuarioCarregado == null) {
-                        Notify.showNotify(AlterarUsuarioActivity.this, "Nothing");
+                        Notify.showNotify(AlterarUsuarioActivity.this, "Complete o cadastro!");
+                        editNome.setText(auth.getCurrentUser().getDisplayName());
+                        editTelefone.setText(auth.getCurrentUser().getPhoneNumber());
+                        Picasso.get().load(auth.getCurrentUser().getPhotoUrl()).into(fotoUsuario);
+
+
                     } else {
                         editNome.setText(usuarioCarregado.getNome());
                         editTelefone.setText(usuarioCarregado.getTelefone());
@@ -144,6 +150,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
     private void pegarFotoUsuario() {
         try {
             StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
+
             final long ONE_MEGABYTE = 1024 * 1024;
             firebaseStorage.child("user/" + identificacaoUsuario + ".png").getBytes(ONE_MEGABYTE)
                     .addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -157,6 +164,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
         } catch (Exception e) {
             Notify.showNotify(this, e.getMessage());
             System.out.println(e.toString());
+
         }
     }
 
@@ -257,6 +265,8 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
                         exception.printStackTrace();
                     }
                 });
+
+
     }
 
 

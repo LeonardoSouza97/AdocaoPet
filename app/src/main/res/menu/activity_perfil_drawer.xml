@@ -18,9 +18,9 @@
             android:icon="@mipmap/ic_meus_pets"
             android:title="Meus pets" />
         <item
-            android:id="@+id/nav_buscar_usuario"
+            android:id="@+id/nav_buscar_pet"
             android:icon="@mipmap/ic_usuario"
-            android:title="Buscar Usuário" />
+            android:title="Buscar Pet" />
         <item
             android:id="@+id/nav_editar_perfil"
             android:icon="@mipmap/ic_editar_perfil"

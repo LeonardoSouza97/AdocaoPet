@@ -1,5 +1,7 @@
 package com.fatec.br.adocaopet.Model;
 
+import android.graphics.Bitmap;
+
 import com.google.firebase.database.DatabaseReference;
 
 /**
@@ -39,19 +41,6 @@ public class Pet {
         this.descricao = descricao;
     }
 
-//
-//    public boolean adicionaPet(){
-//        try{
-//            String strCatID = this.getIdPet();
-//            DatabaseReference referenciaDataBase = FirebaseUtils.getInstance();
-//            referenciaDataBase.child("Pet").child(strCatID).setValue(this);
-//            return true;
-//        } catch (Exception e) {
-//            System.out.println("Erro: " + e.getMessage().toString());
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
 
 
     public String getIdPet() {

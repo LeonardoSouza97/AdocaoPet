@@ -3,6 +3,7 @@ package com.fatec.br.adocaopet.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import com.facebook.login.LoginManager;
 import com.fatec.br.adocaopet.Common.PetAdapter;
 import com.fatec.br.adocaopet.R;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -177,7 +179,10 @@ public class PerfilActivity extends AppCompatActivity
                 startActivity(i);
                 finish();
 
-            } else if (id == R.id.nav_buscar_usuario) {
+            } else if (id == R.id.nav_buscar_pet) {
+                Intent i = new Intent(PerfilActivity.this, BuscaPetActivity.class);
+                startActivity(i);
+                finish();
 
             } else if (id == R.id.nav_editar_perfil) {
                 Intent i = new Intent(PerfilActivity.this, AlterarUsuarioActivity.class);
@@ -196,12 +201,20 @@ public class PerfilActivity extends AppCompatActivity
             StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
             final long ONE_MEGABYTE = 1024 * 1024;
             firebaseStorage.child("user/" + identificacaoUsuario + ".png").getBytes(ONE_MEGABYTE)
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Picasso.get().load(auth.getCurrentUser().getPhotoUrl()).into(fotoTelaUsuario);
+                            Picasso.get().load(auth.getCurrentUser().getPhotoUrl()).into(fotoUsuario);
+                        }
+                    })
                     .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                         @Override
                         public void onSuccess(byte[] bytes) {
                             fotoUsuario.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(bytes)));
                             fotoTelaUsuario.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(bytes)));
                         }
+
                     });
 
         } catch (Exception e) {

@@ -61,6 +61,11 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity android:name=".Activity.BuscaPetActivity"
+            android:label="Busca Pets"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <meta-data android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id"/>
 
