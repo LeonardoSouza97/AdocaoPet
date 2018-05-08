@@ -2,40 +2,83 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="100dp">
 
-    <ImageView
-        android:id="@+id/fotoPetView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="29dp"
-        app:srcCompat="@mipmap/ic_pet_icon" />
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fotoCircleViewPet"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="7dp"
+        android:src="@mipmap/ic_pet_icon"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp" />
+
 
     <TextView
         android:id="@+id/editNomePetLista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/fotoPetView"
-        android:layout_marginStart="20dp"
-        android:layout_toEndOf="@+id/fotoPetView"
+        android:layout_alignTop="@+id/fotoCircleViewPet"
+        android:layout_marginStart="24dp"
+        android:layout_toEndOf="@+id/fotoCircleViewPet"
+        android:text="nome" />
+        <!--android:layout_alignBaseline="@+id/editDescricaoPetLista"-->
+        <!--android:layout_alignBottom="@+id/editDescricaoPetLista"-->
+        android:layout_toEndOf="@+id/textView2"
         android:text="Nome Pet" />
 
     <TextView
         android:id="@+id/editIdadePetLista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/editDescricaoPetLista"
-        android:layout_below="@+id/editDescricaoPetLista"
-        android:text="Idade" />
-
-    <TextView
-        android:id="@+id/editDescricaoPetLista"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignStart="@+id/editNomePetLista"
         android:layout_below="@+id/editNomePetLista"
-        android:text="Descrição" />
+        android:text="Idade" />
+
+    <!--<TextView-->
+        <!--android:id="@+id/editDescricaoPetLista"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignBaseline="@+id/textView3"-->
+        <!--android:layout_alignBottom="@+id/textView3"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:text="Descrição"-->
+        <!--android:visibility="invisible" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/textView3"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignStart="@+id/textView2"-->
+        <!--android:layout_alignTop="@+id/fotoCircleViewPet"-->
+        <!--android:text="Descrição:"-->
+        <!--android:visibility="invisible" />-->
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imageEspecie"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/fotoCircleViewPet"
+        android:layout_toStartOf="@+id/imageSexo"
+        app:srcCompat="@color/cardview_light_background" />
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/imageSexo"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/imageEspecie"
+        android:layout_marginEnd="7dp"
+        app:srcCompat="@color/cardview_light_background" />
+
+    <TextView
+        android:id="@+id/editRacaPetLista"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editIdadePetLista"
+        android:layout_below="@+id/editIdadePetLista"
+        android:text="Raça" />
+
 </RelativeLayout>

@@ -54,7 +54,7 @@
     <Spinner
         android:id="@+id/cbEspecieBusca"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editPesquisa"
         android:hint="Espécie" />
@@ -64,8 +64,8 @@
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editPesquisa"
-        android:layout_marginTop="23dp">
+        android:layout_below="@+id/cbEspecieBusca"
+        android:layout_marginTop="21dp">
 
     </android.support.v7.widget.RecyclerView>
 

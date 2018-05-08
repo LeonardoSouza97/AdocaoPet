@@ -19,6 +19,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by Leo on 15/04/2018.
  */
@@ -42,8 +44,20 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetsViewHolder> 
         Pet pets = listaPets.get(position);
 
         holder.nomePet.setText(pets.getNome());
-        holder.idadePet.setText(pets.getIdade());
-        holder.descricaoPet.setText(pets.getDescricao());
+        holder.idadePet.setText(pets.getIdade() + " anos");
+        holder.racaPet.setText(pets.getRaca());
+
+        if(pets.getSexo().equals("femea")){
+            holder.sexoPet.setBackgroundResource(R.mipmap.ic_feminino);
+        }else{
+            holder.sexoPet.setBackgroundResource(R.mipmap.ic_masculino);
+        }
+
+        if(pets.getEspecie().equals("Gato")){
+            holder.especiePet.setBackgroundResource(R.mipmap.ic_gato);
+        }else{
+            holder.especiePet.setBackgroundResource(R.mipmap.ic_cachorro);
+        }
 
         StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
 
@@ -54,7 +68,7 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetsViewHolder> 
             url_pet.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri downloadUrl) {
-                    Picasso.get().load(downloadUrl.toString()).into(holder.fotoPet);
+                    Picasso.get().load(downloadUrl.toString()).into(holder.fotoCirclePet);
                 }
             });
 
@@ -80,16 +94,19 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetsViewHolder> 
 
     class PetsViewHolder extends RecyclerView.ViewHolder {
 
-        TextView nomePet, descricaoPet, idadePet;
-        ImageView fotoPet;
+        TextView nomePet, racaPet, idadePet;
+        CircleImageView fotoPet, sexoPet, especiePet;
+        CircleImageView fotoCirclePet;
 
         public PetsViewHolder(View itemView) {
             super(itemView);
 
-            fotoPet = (ImageView) itemView.findViewById(R.id.fotoPetView);
             nomePet = (TextView) itemView.findViewById(R.id.editNomePetLista);
-            descricaoPet = (TextView) itemView.findViewById(R.id.editIdadePetLista);
-            idadePet = (TextView) itemView.findViewById(R.id.editDescricaoPetLista);
+            racaPet = (TextView) itemView.findViewById(R.id.editRacaPetLista);
+            idadePet = (TextView) itemView.findViewById(R.id.editIdadePetLista);
+            sexoPet = (CircleImageView) itemView.findViewById(R.id.imageSexo);
+            fotoCirclePet = (CircleImageView) itemView.findViewById(R.id.fotoCircleViewPet);
+            especiePet = (CircleImageView) itemView.findViewById(R.id.imageEspecie);
 
         }
     }

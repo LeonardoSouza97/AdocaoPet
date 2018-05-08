@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -33,6 +34,8 @@ import com.google.firebase.database.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by Leo on 06/05/2018.
  */
@@ -42,7 +45,6 @@ public class BuscaPetActivity extends AppCompatActivity {
     private RecyclerView listaPets;
     private List<Pet> result;
     private PetAdapter petAdapter;
-    private TextView SemPets;
     String identificacaoUsuario;
     FirebaseUser auth;
     private FirebaseDatabase firebaseDatabase;
@@ -52,6 +54,7 @@ public class BuscaPetActivity extends AppCompatActivity {
     private EditText editPesquisa;
     private Spinner cbEspecie;
     private ListRaca listRaca;
+    private CircleImageView fotoPet;
 
 
     @Override
@@ -68,6 +71,7 @@ public class BuscaPetActivity extends AppCompatActivity {
         btn_pesquisa = (ImageButton) findViewById(R.id.search_btn);
         editPesquisa = (EditText) findViewById(R.id.editPesquisa);
         cbEspecie = (Spinner) findViewById(R.id.cbEspecieBusca);
+        fotoPet = (CircleImageView) findViewById(R.id.fotoCircleViewPet);
 //        SemPets = (TextView) findViewById(R.id.txtSemPets);
 
         alimentaCombos();
@@ -137,58 +141,68 @@ public class BuscaPetActivity extends AppCompatActivity {
 
         String pesquisa = editPesquisa.getText().toString();
 
-        if (cbEspecie.getSelectedItem().toString() == "Cachorro") {
-
-            query = firebaseDatabase.getReference("pets").orderByChild("nome").startAt(pesquisa).endAt(pesquisa + "\\uf8ff");
+        if (TextUtils.isEmpty(pesquisa)) {
+            editPesquisa.setError(getString(R.string.error_field_required));
+            editPesquisa.requestFocus();
 
         } else {
 
-            query = firebaseDatabase.getReference("pets").orderByChild("nome").startAt(pesquisa).endAt(pesquisa + "\\uf8ff");
+            if (cbEspecie.getSelectedItem().toString().equals("Nome")) {
+
+                query = firebaseDatabase.getReference("pets").orderByChild("nome").startAt(pesquisa).endAt(pesquisa + "\\uf8ff");
+
+            } else if (cbEspecie.getSelectedItem().toString().equals("Raça")) {
+
+                query = firebaseDatabase.getReference("pets").orderByChild("raca").startAt(pesquisa).endAt(pesquisa + "\\uf8ff");
+
+            } else {
+
+                query = firebaseDatabase.getReference("pets").orderByChild("especie").startAt(pesquisa).endAt(pesquisa + "\\uf8ff");
+            }
+
+            query.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                    result.add(dataSnapshot.getValue(Pet.class));
+                    petAdapter.notifyDataSetChanged();
+//                CheckListaVazia();
+                    Toast.makeText(BuscaPetActivity.this, "Busca iniciada", Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Pet pet = dataSnapshot.getValue(Pet.class);
+
+                    int index = getItemIndex(pet);
+
+                    result.set(index, pet);
+                    petAdapter.notifyItemChanged(index);
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                    Pet pet = dataSnapshot.getValue(Pet.class);
+
+                    int index = getItemIndex(pet);
+
+                    result.remove(index);
+                    petAdapter.notifyItemRemoved(index);
+//                CheckListaVazia();
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
         }
-
-        query.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                result.add(dataSnapshot.getValue(Pet.class));
-                petAdapter.notifyDataSetChanged();
-//                CheckListaVazia();
-                Toast.makeText(BuscaPetActivity.this, "Busca iniciada", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Pet pet = dataSnapshot.getValue(Pet.class);
-
-                int index = getItemIndex(pet);
-
-                result.set(index, pet);
-                petAdapter.notifyItemChanged(index);
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-                Pet pet = dataSnapshot.getValue(Pet.class);
-
-                int index = getItemIndex(pet);
-
-                result.remove(index);
-                petAdapter.notifyItemRemoved(index);
-//                CheckListaVazia();
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
-
     private int getItemIndex(Pet pet) {
 
         int index = -1;
@@ -225,7 +239,7 @@ public class BuscaPetActivity extends AppCompatActivity {
 
         //Alimentando Combos
 
-        ArrayAdapter listaEspecie = new ArrayAdapter(this, android.R.layout.select_dialog_item, listRaca.ListaEspecie());
+        ArrayAdapter listaEspecie = new ArrayAdapter(this, android.R.layout.select_dialog_item, listRaca.ListaOpcoes());
         cbEspecie.setAdapter(listaEspecie);
 
     }
