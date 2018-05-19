@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="#FF8C00"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/dialog_pet_foto"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/ic_home"
+            app:srcCompat="@color/cardview_light_background" />
+
+
+        <TextView
+            android:id="@+id/dialog_name_pet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nome"
+            android:textAlignment="center"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/dialog_raca_pet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Raça"
+            android:textAlignment="center"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/dialog_idade_pet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Idade"
+            android:textAlignment="center"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="vertical"
+            android:text="Teste"
+            android:layout_marginTop="60dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="25sp">
+
+            <Button
+                android:id="@+id/btnAdotar"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_call_black_24dp"
+                android:text="SOLICITAR ADOÇÃO" />
+
+            <Button
+                android:id="@+id/btnEnviarMensagem"
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_message_black_24dp"
+                android:text="Enviar Mensagem" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

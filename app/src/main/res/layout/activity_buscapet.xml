@@ -31,11 +31,12 @@
         android:layout_toStartOf="@+id/search_btn"
         android:ems="10"
         android:hint="Pesquise aqui"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords|textCapSentences"
         android:paddingBottom="10dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:paddingTop="10dp"
+        android:selectAllOnFocus="false"
         android:textColor="#999999"
         android:textSize="16sp" />
 

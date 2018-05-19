@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.fatec.br.adocaopet.Common.ListRaca;
 import com.fatec.br.adocaopet.Common.PetAdapter;
+import com.fatec.br.adocaopet.Common.PetAdapterBusca;
 import com.fatec.br.adocaopet.DAO.FirebaseAuthUtils;
 import com.fatec.br.adocaopet.Model.Pet;
 import com.fatec.br.adocaopet.R;
@@ -44,7 +45,7 @@ public class BuscaPetActivity extends AppCompatActivity {
 
     private RecyclerView listaPets;
     private List<Pet> result;
-    private PetAdapter petAdapter;
+    private PetAdapterBusca petAdapter;
     String identificacaoUsuario;
     FirebaseUser auth;
     private FirebaseDatabase firebaseDatabase;
@@ -86,7 +87,7 @@ public class BuscaPetActivity extends AppCompatActivity {
 
         listaPets.setLayoutManager(llm);
 
-        petAdapter = new PetAdapter(result);
+        petAdapter = new PetAdapterBusca(result);
 
         listaPets.setAdapter(petAdapter);
 
@@ -166,16 +167,14 @@ public class BuscaPetActivity extends AppCompatActivity {
 
                     result.add(dataSnapshot.getValue(Pet.class));
                     petAdapter.notifyDataSetChanged();
-//                CheckListaVazia();
-                    Toast.makeText(BuscaPetActivity.this, "Busca iniciada", Toast.LENGTH_SHORT).show();
+                    CheckListaVazia();
+
                 }
 
                 @Override
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                     Pet pet = dataSnapshot.getValue(Pet.class);
-
                     int index = getItemIndex(pet);
-
                     result.set(index, pet);
                     petAdapter.notifyItemChanged(index);
                 }
@@ -188,7 +187,7 @@ public class BuscaPetActivity extends AppCompatActivity {
 
                     result.remove(index);
                     petAdapter.notifyItemRemoved(index);
-//                CheckListaVazia();
+                    CheckListaVazia();
                 }
 
                 @Override
@@ -200,9 +199,11 @@ public class BuscaPetActivity extends AppCompatActivity {
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
+
             });
         }
     }
+
     private int getItemIndex(Pet pet) {
 
         int index = -1;
@@ -224,15 +225,11 @@ public class BuscaPetActivity extends AppCompatActivity {
         return idPet;
     }
 
-//    private void CheckListaVazia() {
-//        if (result.size() == 0) {
-//            listaPets.setVisibility(View.INVISIBLE);
-//            SemPets.setVisibility(View.VISIBLE);
-//        } else {
-//            listaPets.setVisibility(View.VISIBLE);
-//            SemPets.setVisibility(View.INVISIBLE);
-//        }
-//    }
+    private void CheckListaVazia() {
+        if (result.size() == 0) {
+            Toast.makeText(BuscaPetActivity.this, "Pets não encontrados", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     private void alimentaCombos() {
         listRaca = new ListRaca();
