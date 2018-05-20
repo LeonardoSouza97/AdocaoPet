@@ -108,7 +108,11 @@ public class BuscaPetActivity extends AppCompatActivity {
         btn_pesquisa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                atualizarLista();
+                try {
+                    atualizarLista();
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -132,7 +136,7 @@ public class BuscaPetActivity extends AppCompatActivity {
 //    }
 
 
-    private void atualizarLista() {
+    private void atualizarLista() throws InterruptedException {
 
         result.clear();
 

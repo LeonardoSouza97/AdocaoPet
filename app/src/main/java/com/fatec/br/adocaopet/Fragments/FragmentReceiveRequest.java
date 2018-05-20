@@ -31,10 +31,6 @@ import com.google.firebase.database.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Leo on 19/05/2018.
- */
-
 public class FragmentReceiveRequest extends android.support.v4.app.Fragment {
 
     View view;
@@ -66,12 +62,17 @@ public class FragmentReceiveRequest extends android.support.v4.app.Fragment {
         result = new ArrayList<>();
         adocoesAdapter = new AdocoesAdapter(result);
 
-        atualizarLista();
+        try {
+            atualizarLista();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+
+        }
 
     }
 
-    private void atualizarLista() {
-
+    private void atualizarLista() throws InterruptedException {
 
         Query query;
 
