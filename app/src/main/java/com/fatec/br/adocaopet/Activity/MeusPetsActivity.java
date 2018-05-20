@@ -125,9 +125,7 @@ public class MeusPetsActivity extends AppCompatActivity {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
                 Pet pet = dataSnapshot.getValue(Pet.class);
-
                 int index = getItemIndex(pet);
-
                 result.set(index, pet);
                 petAdapter.notifyItemChanged(index);
             }

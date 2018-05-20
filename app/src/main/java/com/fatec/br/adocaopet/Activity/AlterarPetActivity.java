@@ -388,7 +388,6 @@ public class AlterarPetActivity extends AppCompatActivity {
 
     }
 
-
     private int getIndex(Spinner spinner, String myString) {
         int index = 0;
 
