@@ -34,8 +34,8 @@
             android:layout_height="75dp"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/appBarLayout"
-            android:layout_marginStart="36dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:adjustViewBounds="false"
             android:visibility="visible"
             app:srcCompat="@mipmap/ic_usuario" />
@@ -46,8 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/txtNomeUsuario"
             android:layout_alignBottom="@+id/txtNomeUsuario"
-            android:layout_alignStart="@+id/lstMeusAnimais"
-            android:layout_marginStart="34dp"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/imageFotoPerfil"
             android:text="BEM VINDO(A)"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -56,21 +56,34 @@
             android:id="@+id/txtNomeUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/imageFotoPerfil"
-            android:layout_marginStart="17dp"
+            android:layout_alignBottom="@+id/imageFotoPerfil"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
             android:layout_toEndOf="@+id/txtWelcome"
-            android:text="TextView"
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="USUARIO" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listPets"
+        <android.support.design.widget.TabLayout
+            android:id="@+id/table_layout_id"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/appBarLayout"
+            android:layout_marginTop="125dp"
+            android:background="@color/colorAccent"
+            app:tabIndicatorColor="@color/com_facebook_blue"
+            app:tabSelectedTextColor="@color/cardview_light_background">
+
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/txtWelcome"
-            android:layout_marginTop="91dp" />
+            android:layout_below="@+id/table_layout_id"
+            android:visibility="visible" />
 
     </RelativeLayout>
 
