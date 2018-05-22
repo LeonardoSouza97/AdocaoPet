@@ -99,11 +99,11 @@ public class PerfilActivity extends AppCompatActivity
         //IMPLEMENTANDO MENU NOVO
 
         tableLayout = (TabLayout) findViewById(R.id.table_layout_id);
-        viewPager = (ViewPager)findViewById(R.id.view_pager_id);
+        viewPager = (ViewPager) findViewById(R.id.view_pager_id);
 
         adapter = new ViewPageAdapter(getSupportFragmentManager());
 
-        adapter.AdicionaFragmentos(new FragmentMessages(),"Mensagens");
+        adapter.AdicionaFragmentos(new FragmentMessages(), "Mensagens");
         adapter.AdicionaFragmentos(new FragmentMyRequest(), "Minhas Solicitações");
         adapter.AdicionaFragmentos(new FragmentReceiveRequest(), "Solitações Recebidas");
         viewPager.setAdapter(adapter);
@@ -152,74 +152,73 @@ public class PerfilActivity extends AppCompatActivity
         });
 
     }
-        @Override
-        public void onBackPressed () {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            if (drawer.isDrawerOpen(GravityCompat.START)) {
-                drawer.closeDrawer(GravityCompat.START);
-            } else {
-                super.onBackPressed();
-            }
-        }
 
-        @Override
-        public boolean onCreateOptionsMenu (Menu menu){
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.perfil, menu);
-            return true;
-        }
-
-        @Override
-        public boolean onOptionsItemSelected (MenuItem item){
-            // Handle action bar item clicks here. The action bar will
-            // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
-            int id = item.getItemId();
-
-            //noinspection SimplifiableIfStatement
-            if (id == R.id.btn_logout) {
-                Intent i = new Intent(PerfilActivity.this, LoginActivity.class);
-                startActivity(i);
-                finish();
-                LoginManager.getInstance().logOut();
-            }
-
-            return super.onOptionsItemSelected(item);
-        }
-
-        @SuppressWarnings("StatementWithEmptyBody")
-        @Override
-        public boolean onNavigationItemSelected (MenuItem item){
-            // Handle navigation view item clicks here.
-            int id = item.getItemId();
-
-            if (id == R.id.nav_cadastrar_pet) {
-                Intent i = new Intent(PerfilActivity.this, CadastroPetActivity.class);
-                startActivity(i);
-                finish();
-
-            }else if (id == R.id.nav_principal){
-                pegarFotoUsuario();
-            } else if (id == R.id.nav_meus_pets) {
-                Intent i = new Intent(PerfilActivity.this, MeusPetsActivity.class);
-                startActivity(i);
-                finish();
-
-            } else if (id == R.id.nav_buscar_pet) {
-                Intent i = new Intent(PerfilActivity.this, BuscaPetActivity.class);
-                startActivity(i);
-                finish();
-
-            } else if (id == R.id.nav_editar_perfil) {
-                Intent i = new Intent(PerfilActivity.this, AlterarUsuarioActivity.class);
-                startActivity(i);
-                finish();
-            }
-
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-            return true;
+        } else {
+            super.onBackPressed();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.perfil, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+
+        if (id == R.id.btn_logout) {
+            Intent i = new Intent(PerfilActivity.this, LoginActivity.class);
+            startActivity(i);
+            finish();
+            LoginManager.getInstance().logOut();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.nav_cadastrar_pet) {
+            Intent i = new Intent(PerfilActivity.this, CadastroPetActivity.class);
+            startActivity(i);
+            onStop();
+
+        } else if (id == R.id.nav_principal) {
+            pegarFotoUsuario();
+        } else if (id == R.id.nav_meus_pets) {
+            Intent i = new Intent(PerfilActivity.this, MeusPetsActivity.class);
+            startActivity(i);
+            onStop();
+
+        } else if (id == R.id.nav_buscar_pet) {
+            Intent i = new Intent(PerfilActivity.this, BuscaPetActivity.class);
+            startActivity(i);
+            onStop();
+
+        } else if (id == R.id.nav_editar_perfil) {
+            Intent i = new Intent(PerfilActivity.this, AlterarUsuarioActivity.class);
+            startActivity(i);
+            onStop();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
 
     private void pegarFotoUsuario() {
 
@@ -249,7 +248,4 @@ public class PerfilActivity extends AppCompatActivity
         }
     }
 
-    private void AdicionaFragmento(){
-
-    }
 }
