@@ -14,6 +14,8 @@ import com.fatec.br.adocaopet.Model.Adocoes;
 import com.fatec.br.adocaopet.Model.Pet;
 import com.fatec.br.adocaopet.R;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -29,6 +31,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AdocoesAdapter extends RecyclerView.Adapter<AdocoesAdapter.AdocoesViewHolder> {
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref;
+
     private List<Adocoes> listaAdocoes;
 
     public AdocoesAdapter(List<Adocoes> listaAdocoes) {
@@ -43,6 +48,43 @@ public class AdocoesAdapter extends RecyclerView.Adapter<AdocoesAdapter.AdocoesV
     @Override
     public void onBindViewHolder(final AdocoesAdapter.AdocoesViewHolder holder, int position) {
 
+        final Adocoes adocoes = listaAdocoes.get(position);
+
+        holder.nomeAdotante.setText(adocoes.getSolicitante().getNome());
+        holder.nomePet.setText(adocoes.getPet().getNome());
+        holder.dataAdocao.setText(adocoes.getDataAdocao());
+
+        ref = database.getReference("adoções").child(adocoes.getIdAdocao());
+
+        final StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
+
+        try {
+            StorageReference url_pet = firebaseStorage.child("pet/" + adocoes.getPet().getIdPet() + ".png");
+
+            url_pet.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri downloadUrl) {
+                    Picasso.get().load(downloadUrl.toString()).into(holder.fotoCirclePet);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        holder.btnAceitar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ref.child("status").setValue(adocoes.getIdDono() + "Confirmado");
+            }
+        });
+
+        holder.btnRecusar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ref.child("status").setValue(adocoes.getIdDono() + "Recusado");
+            }
+        });
     }
 
     @Override
@@ -60,7 +102,7 @@ public class AdocoesAdapter extends RecyclerView.Adapter<AdocoesAdapter.AdocoesV
             super(itemView);
 
             nomePet = (TextView) itemView.findViewById(R.id.editNomePetAdocao);
-            nomeAdotante = (TextView) itemView.findViewById(R.id.editNomePetAdocao);
+            nomeAdotante = (TextView) itemView.findViewById(R.id.editNomeAdotante);
             dataAdocao = (TextView) itemView.findViewById(R.id.editDataAdocao);
             fotoCirclePet = (CircleImageView) itemView.findViewById(R.id.fotoCircleViewPetAdocaoTela);
             btnAceitar = (ImageButton) itemView.findViewById(R.id.btnAceitar);

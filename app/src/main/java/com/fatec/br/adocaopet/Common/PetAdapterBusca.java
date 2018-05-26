@@ -20,12 +20,17 @@ import com.fatec.br.adocaopet.Activity.AdocaoActivity;
 import com.fatec.br.adocaopet.DAO.FirebaseAuthUtils;
 import com.fatec.br.adocaopet.Model.Adocoes;
 import com.fatec.br.adocaopet.Model.Pet;
+import com.fatec.br.adocaopet.Model.Usuario;
 import com.fatec.br.adocaopet.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -37,20 +42,16 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by Leo on 15/04/2018.
- */
 
 public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsViewHolder> {
 
     private List<Pet> listaPets;
-    private String idPet, idAdocao, idAdotante, dataAdocao, idDono, status;
     private TextView nomePetTelaVisualiza, racaPetTelaVisualiza, idadePetTelaVisualiza;
     private Button btnAdotar;
     Dialog dialog;
-    AdocaoActivity adocao;
-    FirebaseAuth auth;
-
+    Usuario donoCarregado;
+    Pet petCarregado;
+    private FirebaseAuth auth;
 
     public PetAdapterBusca(List<Pet> listaPets) {
         this.listaPets = listaPets;
@@ -61,6 +62,7 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
     public PetsViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
 
         View view;
+        auth = FirebaseAuth.getInstance();
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_pets, parent, false);
         final PetsViewHolder viewHolder = new PetsViewHolder(view);
 
@@ -110,29 +112,38 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
                         Format formatter = new SimpleDateFormat("dd/MM/yy");
                         String dataFormatada = formatter.format(data);
 
-                        adocoes.setId_dono(listaPets.get(viewHolder.getAdapterPosition()).getIdUsuario());
-                        adocoes.setId_pet(listaPets.get(viewHolder.getAdapterPosition()).getIdPet());
-                        adocoes.setId_adotante(FirebaseAuthUtils.getUUID());
-                        adocoes.setStatus("Pendente");
-                        adocoes.setData_adocao(dataFormatada);
-                        adocoes.setId_adocao(adocoes.getId_dono() + adocoes.getId_pet() + adocoes.getId_dono());
+                        adocoes.setIdDono(listaPets.get(viewHolder.getAdapterPosition()).getIdUsuario());
+                        adocoes.setIdPet(listaPets.get(viewHolder.getAdapterPosition()).getIdPet());
+                        adocoes.setId_adotante(auth.getCurrentUser().getUid());
+                        adocoes.setDataAdocao(dataFormatada);
+                        adocoes.setIdAdocao(adocoes.getIdDono() + adocoes.getIdPet() + adocoes.getId_adotante());
+                        adocoes.setSolicitante(ConsultaSolicitante(adocoes.getId_adotante()));
+                        adocoes.setStatus(adocoes.getIdDono() + "Pendente");
+                        adocoes.setPet(ConsultaPet(adocoes.getIdPet()));
+
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
 
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference dataAdocao = database.getReference("adoções").child(adocoes.getId_adocao());
+                        DatabaseReference dataAdocao = database.getReference("adoções").child(adocoes.getIdAdocao());
 
-                        dataAdocao.child("idAdocao").setValue(adocoes.getId_adocao());
-                        dataAdocao.child("idDono").setValue(adocoes.getId_dono());
+                        dataAdocao.child("idAdocao").setValue(adocoes.getIdAdocao());
+                        dataAdocao.child("idDono").setValue(adocoes.getIdDono());
                         dataAdocao.child("idAdotante").setValue(adocoes.getId_adotante());
-                        dataAdocao.child("dataAdocao").setValue(adocoes.getData_adocao());
+                        dataAdocao.child("dataAdocao").setValue(adocoes.getDataAdocao());
                         dataAdocao.child("status").setValue(adocoes.getStatus());
-                        dataAdocao.child("idPet").setValue(adocoes.getId_pet());
+                        dataAdocao.child("idPet").setValue(adocoes.getIdPet());
+                        dataAdocao.child("solicitante").setValue(adocoes.getSolicitante());
+                        dataAdocao.child("pet").setValue(adocoes.getPet());
+
 
                         Toast.makeText(parent.getContext(), "Solicitação de Adoção Enviada!", Toast.LENGTH_SHORT).show();
 
-//                        adocao.realizaAdocao(idAdocao, idDono, idAdotante, status, dataAdocao, idPet);
                     }
                 });
-
 
             }
 
@@ -190,7 +201,7 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
 
         RelativeLayout petPerfil;
         TextView nomePet, racaPet, idadePet;
-        CircleImageView fotoPet, sexoPet, especiePet;
+        CircleImageView sexoPet, especiePet;
         CircleImageView fotoCirclePet;
 
         public PetsViewHolder(View itemView) {
@@ -206,4 +217,51 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
 
         }
     }
+
+    private Usuario ConsultaSolicitante(String idDono) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference dataDono = database.getReference("users").child(idDono);
+
+        dataDono.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                donoCarregado = dataSnapshot.getValue(Usuario.class);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("ERRO" + databaseError.toString());
+            }
+
+        });
+
+        return donoCarregado;
+    }
+
+    private Pet ConsultaPet(String idPet) {
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference dataPet = database.getReference("pets").child(idPet);
+
+        dataPet.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                petCarregado = dataSnapshot.getValue(Pet.class);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                System.out.println("ERRO" + databaseError.toString());
+            }
+
+        });
+
+        return petCarregado;
+    }
+
 }

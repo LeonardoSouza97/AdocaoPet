@@ -1,30 +1,21 @@
 package com.fatec.br.adocaopet.Fragments;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.fatec.br.adocaopet.Activity.BuscaPetActivity;
-import com.fatec.br.adocaopet.Activity.PerfilActivity;
 import com.fatec.br.adocaopet.Common.AdocoesAdapter;
-import com.fatec.br.adocaopet.Common.PetAdapterBusca;
-import com.fatec.br.adocaopet.DAO.FirebaseAuthUtils;
 import com.fatec.br.adocaopet.Model.Adocoes;
-import com.fatec.br.adocaopet.Model.Pet;
 import com.fatec.br.adocaopet.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
@@ -35,7 +26,6 @@ public class FragmentReceiveRequest extends android.support.v4.app.Fragment {
 
     View view;
     FirebaseUser auth;
-    String identificacaoUsuario;
     private AdocoesAdapter adocoesAdapter;
     private RecyclerView listaAdocoes;
     private List<Adocoes> result;
@@ -47,7 +37,7 @@ public class FragmentReceiveRequest extends android.support.v4.app.Fragment {
         view = inflater.inflate(R.layout.fragment_solicitacoes_recebidas, container, false);
 
         listaAdocoes = (RecyclerView) view.findViewById(R.id.lista_solicitacoes_recebidas);
-//        listaAdocoes.setHasFixedSize(true);
+        listaAdocoes.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         listaAdocoes.setLayoutManager(llm);
@@ -80,7 +70,7 @@ public class FragmentReceiveRequest extends android.support.v4.app.Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        query = database.getReference("adoções").orderByChild("idDono").equalTo(auth.getUid());
+        query = database.getReference("adoções").orderByChild("status").equalTo(auth.getUid() + "Pendente");
 
         query.addChildEventListener(new ChildEventListener() {
             @Override
@@ -130,7 +120,7 @@ public class FragmentReceiveRequest extends android.support.v4.app.Fragment {
         int index = -1;
 
         for (int i = 0; i < result.size(); i++) {
-            if (result.get(i).getId_adocao().equals(adocoes.getId_adocao())) {
+            if (result.get(i).getIdAdocao().equals(adocoes.getIdAdocao())) {
                 index = i;
                 break;
             }

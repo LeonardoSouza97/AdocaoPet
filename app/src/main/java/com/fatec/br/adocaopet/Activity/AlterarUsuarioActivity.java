@@ -93,6 +93,18 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("users").child(auth.getCurrentUser().getUid());
 
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override

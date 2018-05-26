@@ -1,9 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_height="100dp"
     android:id="@+id/adocaoPerfil"
-    android:layout_height="100dp">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fotoCircleViewPetAdocaoTela"
@@ -40,22 +40,13 @@
         android:layout_below="@+id/editNomePetAdocao"
         android:text="Data Adoção" />
 
-    <ImageButton
-        android:id="@+id/btnAceitar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/editNomeAdotante"
-        android:layout_marginEnd="18dp"
-        android:layout_toStartOf="@+id/btnRecusar"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
-    <ImageButton
-        android:id="@+id/btnRecusar"
+    <ImageView
+        android:id="@+id/imageStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/btnAceitar"
-        android:layout_marginEnd="14dp"
-        app:srcCompat="@android:drawable/ic_delete" />
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="48dp"
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </RelativeLayout>
