@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="350dp"
         android:background="#FF8C00"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -18,13 +18,12 @@
             android:src="@mipmap/ic_home"
             app:srcCompat="@color/cardview_light_background" />
 
-
         <TextView
             android:id="@+id/dialog_name_pet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nome"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
             android:textSize="24sp" />
 
@@ -33,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Raça"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
             android:textSize="18sp" />
 
@@ -42,7 +41,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Idade"
-            android:textAlignment="center"
+            android:textAlignment="viewStart"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/dialog_peso_pet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Peso"
+            android:textAlignment="viewStart"
+            android:textColor="@color/cardview_light_background" />
+
+        <TextView
+            android:id="@+id/dialog_porte_pet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Porte"
+            android:textAlignment="viewStart"
+            android:textColor="@color/cardview_light_background" />
+
+        <TextView
+            android:id="@+id/dialog_descricao_pet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:text="Descrição"
+            android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
             android:textSize="14sp" />
 
@@ -51,7 +77,6 @@
             android:layout_height="80dp"
             android:orientation="vertical"
             android:text="Teste"
-            android:layout_marginTop="60dp"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="25sp">
@@ -73,8 +98,6 @@
                 android:text="Enviar Mensagem" />
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </RelativeLayout>

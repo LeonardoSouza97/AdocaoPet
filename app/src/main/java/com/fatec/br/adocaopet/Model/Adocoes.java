@@ -66,11 +66,11 @@ public class Adocoes {
         this.id_dono = id_dono;
     }
 
-    public String getId_adotante() {
+    public String getIdAdotante() {
         return id_adotante;
     }
 
-    public void setId_adotante(String id_adotante) {
+    public void setIdAdotante(String id_adotante) {
         this.id_adotante = id_adotante;
     }
 

@@ -33,6 +33,7 @@ import com.fatec.br.adocaopet.Model.Pet;
 import com.fatec.br.adocaopet.Model.Usuario;
 import com.fatec.br.adocaopet.R;
 import com.fatec.br.adocaopet.Utils.Base64Custom;
+import com.fatec.br.adocaopet.Utils.MaskEditUtil;
 import com.fatec.br.adocaopet.Utils.Preferencias;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -134,6 +135,9 @@ public class CadastroPetActivity extends AppCompatActivity {
         descricaoPet = (EditText) findViewById(R.id.editDescricao);
         btnConfirmar = (Button) findViewById(R.id.btnCadastrarPet);
         btnVoltar = (Button) findViewById(R.id.btnVoltar);
+
+        pesoPet.addTextChangedListener(MaskEditUtil.mask(pesoPet, MaskEditUtil.FORMAT_PESO));
+        idadePet.addTextChangedListener(MaskEditUtil.mask(idadePet, MaskEditUtil.FORMAT_IDADE));
 
     }
 
@@ -261,9 +265,9 @@ public class CadastroPetActivity extends AppCompatActivity {
                 .replace("¨", "")
                 .replace("*", "")
                 .replace("_", "")
-                .replace("\\(\\)\\=\\{\\}\\[\\]\\~\\^\\]","")
-                .replace("[\\.\\;\\-\\_\\+\\'\\ª\\º\\:\\;\\/]","")
-                .replace(" ","");
+                .replace("\\(\\)\\=\\{\\}\\[\\]\\~\\^\\]", "")
+                .replace("[\\.\\;\\-\\_\\+\\'\\ª\\º\\:\\;\\/]", "")
+                .replace(" ", "");
     }
 
     public void savePetWithPicture() {

@@ -9,10 +9,6 @@ import android.view.ViewGroup;
 
 import com.fatec.br.adocaopet.R;
 
-/**
- * Created by Leo on 19/05/2018.
- */
-
 public class FragmentMessages extends android.support.v4.app.Fragment{
 
     View view;

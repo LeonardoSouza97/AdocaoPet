@@ -1,17 +1,16 @@
 package com.fatec.br.adocaopet.Common;
 
-import android.content.Context;
+
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fatec.br.adocaopet.Model.Adocoes;
-import com.fatec.br.adocaopet.Model.Pet;
 import com.fatec.br.adocaopet.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -24,32 +23,39 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-
-public class AdocoesAdapter extends RecyclerView.Adapter<AdocoesAdapter.AdocoesViewHolder> {
-
+public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdapter.AdocoesViewHolder>{
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref;
 
     private List<Adocoes> listaAdocoes;
     private Adocoes adocoes;
 
-    public AdocoesAdapter(List<Adocoes> listaAdocoes) {
+    public MinhasAdocoesAdapter(List<Adocoes> listaAdocoes) {
         this.listaAdocoes = listaAdocoes;
     }
 
     @Override
-    public AdocoesAdapter.AdocoesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new AdocoesAdapter.AdocoesViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_adocao, parent, false));
+    public MinhasAdocoesAdapter.AdocoesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new MinhasAdocoesAdapter.AdocoesViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_minhas_adocoes, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final AdocoesAdapter.AdocoesViewHolder holder, int position) {
+    public void onBindViewHolder(final MinhasAdocoesAdapter.AdocoesViewHolder holder, int position) {
 
         adocoes = listaAdocoes.get(position);
 
         holder.nomeAdotante.setText(adocoes.getSolicitante().getNome());
         holder.nomePet.setText(adocoes.getPet().getNome());
         holder.dataAdocao.setText(adocoes.getDataAdocao());
+
+        if(adocoes.getStatus().equals(adocoes.getIdDono() + "Pendente")){
+            holder.imageStatus.setBackgroundResource(R.mipmap.ic_pendente);
+        }else if (adocoes.getStatus().equals(adocoes.getIdDono() + "Recusado")){
+            holder.imageStatus.setBackgroundResource(R.mipmap.ic_recusado);
+        }else{
+            holder.imageStatus.setBackgroundResource(R.mipmap.ic_aprovado);
+        }
+
 
         ref = database.getReference("adoções").child(adocoes.getIdAdocao());
 
@@ -69,19 +75,6 @@ public class AdocoesAdapter extends RecyclerView.Adapter<AdocoesAdapter.AdocoesV
             e.printStackTrace();
         }
 
-        holder.btnAceitar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ref.child("status").setValue(adocoes.getIdDono() + "Confirmado");
-            }
-        });
-
-        holder.btnRecusar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ref.child("status").setValue(adocoes.getIdDono() + "Recusado");
-            }
-        });
     }
 
     @Override
@@ -93,7 +86,7 @@ public class AdocoesAdapter extends RecyclerView.Adapter<AdocoesAdapter.AdocoesV
 
         TextView nomePet, nomeAdotante, dataAdocao;
         CircleImageView fotoCirclePet;
-        ImageButton btnAceitar, btnRecusar;
+        ImageView imageStatus;
 
         public AdocoesViewHolder(View itemView) {
             super(itemView);
@@ -102,9 +95,7 @@ public class AdocoesAdapter extends RecyclerView.Adapter<AdocoesAdapter.AdocoesV
             nomeAdotante = (TextView) itemView.findViewById(R.id.editNomeAdotante);
             dataAdocao = (TextView) itemView.findViewById(R.id.editDataAdocao);
             fotoCirclePet = (CircleImageView) itemView.findViewById(R.id.fotoCircleViewPetAdocaoTela);
-            btnAceitar = (ImageButton) itemView.findViewById(R.id.btnAceitar);
-            btnRecusar = (ImageButton) itemView.findViewById(R.id.btnRecusar);
-
+            imageStatus = (ImageView) itemView.findViewById(R.id.imageStatus);
 
         }
     }

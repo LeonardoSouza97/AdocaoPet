@@ -116,7 +116,6 @@ public class MeusPetsActivity extends AppCompatActivity {
          query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
                 result.add(dataSnapshot.getValue(Pet.class));
                 petAdapter.notifyDataSetChanged();
                 CheckListaVazia();
@@ -133,9 +132,7 @@ public class MeusPetsActivity extends AppCompatActivity {
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
                 Pet pet = dataSnapshot.getValue(Pet.class);
-
                 int index = getItemIndex(pet);
-
                 result.remove(index);
                 petAdapter.notifyItemRemoved(index);
                 CheckListaVazia();

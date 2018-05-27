@@ -31,6 +31,7 @@ import com.fatec.br.adocaopet.Model.Pet;
 import com.fatec.br.adocaopet.Model.Usuario;
 import com.fatec.br.adocaopet.R;
 import com.fatec.br.adocaopet.Utils.Base64Custom;
+import com.fatec.br.adocaopet.Utils.MaskEditUtil;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -173,6 +174,9 @@ public class AlterarPetActivity extends AppCompatActivity {
         descricaoPet = (EditText) findViewById(R.id.editDescricao);
         btnAlterarPet = (Button) findViewById(R.id.btnAlterarPet);
         btnVoltar = (Button) findViewById(R.id.btnVoltar);
+
+        pesoPet.addTextChangedListener(MaskEditUtil.mask(pesoPet, MaskEditUtil.FORMAT_PESO));
+        idadePet.addTextChangedListener(MaskEditUtil.mask(idadePet, MaskEditUtil.FORMAT_IDADE));
 
     }
 
