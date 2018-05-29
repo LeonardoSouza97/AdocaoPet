@@ -8,10 +8,10 @@ public class Adocoes {
     private String id_adotante;
     private String data_adocao;
     private String status;
-    private Usuario solicitante;
+    private Usuario solicitante, dono;
     private Pet pet;
 
-    public Adocoes(String id_adocao, String id_pet, String id_dono, String id_adotante, String data_adocao, String status, Usuario solicitante, Pet pet) {
+    public Adocoes(String id_adocao, String id_pet, String id_dono, String id_adotante, String data_adocao, String status, Usuario solicitante, Usuario dono, Pet pet) {
         this.id_adocao = id_adocao;
         this.id_pet = id_pet;
         this.id_dono = id_dono;
@@ -19,12 +19,20 @@ public class Adocoes {
         this.data_adocao = data_adocao;
         this.status = status;
         this.solicitante = solicitante;
+        this.dono = dono;
         this.pet = pet;
     }
 
     public Adocoes() {
     }
 
+    public Usuario getDono() {
+        return dono;
+    }
+
+    public void setDono(Usuario dono) {
+        this.dono = dono;
+    }
 
     public Pet getPet() {
         return pet;

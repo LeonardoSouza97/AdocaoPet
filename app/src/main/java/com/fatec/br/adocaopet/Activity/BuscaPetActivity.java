@@ -73,7 +73,6 @@ public class BuscaPetActivity extends AppCompatActivity {
         editPesquisa = (EditText) findViewById(R.id.editPesquisa);
         cbEspecie = (Spinner) findViewById(R.id.cbEspecieBusca);
         fotoPet = (CircleImageView) findViewById(R.id.fotoCircleViewPet);
-//        SemPets = (TextView) findViewById(R.id.txtSemPets);
 
         alimentaCombos();
 

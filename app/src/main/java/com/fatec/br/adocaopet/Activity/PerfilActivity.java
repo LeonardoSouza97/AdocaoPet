@@ -103,12 +103,14 @@ public class PerfilActivity extends AppCompatActivity
 
         adapter = new ViewPageAdapter(getSupportFragmentManager());
 
-        adapter.AdicionaFragmentos(new FragmentMessages(), "Mensagens");
-        adapter.AdicionaFragmentos(new FragmentMyRequest(), "Minhas Solicitações");
-        adapter.AdicionaFragmentos(new FragmentReceiveRequest(), "Solitações Recebidas");
+//        adapter.AdicionaFragmentos(new FragmentMessages(), "Mensagens");
+        adapter.AdicionaFragmentos(new FragmentMyRequest(), "");
+        adapter.AdicionaFragmentos(new FragmentReceiveRequest(), "");
         viewPager.setAdapter(adapter);
-
         tableLayout.setupWithViewPager(viewPager);
+
+        tableLayout.getTabAt(0).setIcon(R.drawable.ic_send_black_24dp);
+        tableLayout.getTabAt(1).setIcon(R.drawable.ic_notifications_active_black_24dp);
 
         auth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();

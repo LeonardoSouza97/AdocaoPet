@@ -7,23 +7,23 @@
 
         <item
             android:id="@+id/nav_principal"
-            android:icon="@mipmap/ic_home"
+            android:icon="@drawable/ic_home_black_24dp"
             android:title="Home" />
         <item
             android:id="@+id/nav_cadastrar_pet"
-            android:icon="@mipmap/ic_pet_icon"
+            android:icon="@drawable/ic_add_black_24dp"
             android:title="Cadastrar Pet" />
         <item
             android:id="@+id/nav_meus_pets"
-            android:icon="@mipmap/ic_meus_pets"
+            android:icon="@drawable/ic_pets_black_24dp"
             android:title="Meus pets" />
         <item
             android:id="@+id/nav_buscar_pet"
-            android:icon="@mipmap/ic_usuario"
+            android:icon="@drawable/ic_search_black_24dp"
             android:title="Buscar Pet" />
         <item
             android:id="@+id/nav_editar_perfil"
-            android:icon="@mipmap/ic_editar_perfil"
+            android:icon="@drawable/ic_edit_black_24dp"
             android:title="Editar Perfil" />
     </group>
 
