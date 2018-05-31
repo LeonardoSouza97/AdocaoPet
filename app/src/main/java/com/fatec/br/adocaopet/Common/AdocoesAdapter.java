@@ -93,7 +93,7 @@ public class AdocoesAdapter extends RecyclerView.Adapter<AdocoesAdapter.AdocoesV
 
         TextView nomePet, nomeAdotante, dataAdocao;
         CircleImageView fotoCirclePet;
-        ImageButton btnAceitar, btnRecusar;
+        ImageButton btnAceitar, btnRecusar, btnInfo;
 
         public AdocoesViewHolder(View itemView) {
             super(itemView);
@@ -104,6 +104,7 @@ public class AdocoesAdapter extends RecyclerView.Adapter<AdocoesAdapter.AdocoesV
             fotoCirclePet = (CircleImageView) itemView.findViewById(R.id.fotoCircleViewPetAdocaoTela);
             btnAceitar = (ImageButton) itemView.findViewById(R.id.btnAceitar);
             btnRecusar = (ImageButton) itemView.findViewById(R.id.btnRecusar);
+            btnInfo = (ImageButton) itemView.findViewById(R.id.btnInfo);
 
 
         }

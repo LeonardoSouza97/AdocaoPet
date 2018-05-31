@@ -236,6 +236,7 @@ public class AlterarPetActivity extends AppCompatActivity {
         DatabaseReference ref = database.getReference("pets").child(identificadorPetSeparado[4]);
 
         ref.child("nome").setValue(pet.getNome());
+        ref.child("email").setValue(auth.getCurrentUser().getEmail());
         ref.child("idade").setValue(pet.getIdade());
         ref.child("peso").setValue(pet.getPeso());
         ref.child("porte").setValue(pet.getPorte());

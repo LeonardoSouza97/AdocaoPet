@@ -12,14 +12,14 @@
         android:orientation="vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/dialog_pet_foto"
+            android:id="@+id/dialog_usuario_foto"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@mipmap/ic_home"
             app:srcCompat="@color/cardview_light_background" />
 
         <TextView
-            android:id="@+id/dialog_name_pet"
+            android:id="@+id/dialog_name_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nome"
@@ -28,46 +28,40 @@
             android:textSize="24sp" />
 
         <TextView
-            android:id="@+id/dialog_raca_pet"
+            android:id="@+id/dialog_endereco_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Raça"
+            android:text="Endereço"
             android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/dialog_idade_pet"
+            android:id="@+id/dialog_telefone_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Idade"
+            android:ems="10"
+            android:text="Telefone"
             android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/dialog_peso_pet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Peso"
-            android:textAlignment="viewStart"
-            android:textColor="@color/cardview_light_background" />
-
-        <TextView
-            android:id="@+id/dialog_porte_pet"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Porte"
-            android:textAlignment="viewStart"
-            android:textColor="@color/cardview_light_background" />
-
-        <TextView
-            android:id="@+id/dialog_descricao_pet"
+            android:id="@+id/dialog_email_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textMultiLine"
-            android:text="Descrição"
+            android:text="Email"
+            android:textAlignment="viewStart"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/dialog_data_usuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:text="Data de Nascimento"
             android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
             android:textSize="14sp" />
@@ -87,7 +81,7 @@
                 android:layout_height="5dp"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_call_black_24dp"
-                android:text="SOLICITAR ADOÇÃO" />
+                android:text="Ligar" />
 
             <Button
                 android:id="@+id/btnEnviarMensagem"
@@ -95,7 +89,7 @@
                 android:layout_height="5dp"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/ic_message_black_24dp"
-                android:text="Enviar Mensagem" />
+                android:text="Enviar Email" />
         </LinearLayout>
 
     </LinearLayout>

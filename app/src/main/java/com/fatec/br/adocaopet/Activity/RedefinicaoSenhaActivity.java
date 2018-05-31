@@ -69,14 +69,12 @@ public class RedefinicaoSenhaActivity extends AppCompatActivity {
 
     }
 
-
     private void inicializaComponentes() {
 
         editEmail = (EditText) findViewById(R.id.editEmail);
         btnEnviar = (Button) findViewById(R.id.btnEnviarEmail);
         btnEnviar = (Button) findViewById(R.id.btnEnviarEmail);
         btnVoltar = (Button) findViewById(R.id.btnVoltar);
-
 
     }
 

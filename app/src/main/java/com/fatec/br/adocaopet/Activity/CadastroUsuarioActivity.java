@@ -183,7 +183,6 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get a URL to the uploaded content
                         taskSnapshot.getDownloadUrl();
                     }
                 })

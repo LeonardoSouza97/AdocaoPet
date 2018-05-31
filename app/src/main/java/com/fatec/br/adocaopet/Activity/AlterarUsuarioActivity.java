@@ -48,10 +48,6 @@ import java.io.ByteArrayOutputStream;
 
 import static java.lang.Thread.sleep;
 
-/**
- * Created by Leo on 25/03/2018.
- */
-
 public class AlterarUsuarioActivity extends AppCompatActivity {
 
     private EditText editNome, editSenha, editEndereco, editConfirmarSenha, editTelefone, editCpf, editRg, editDataNasc;
@@ -198,6 +194,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
                             ref.child("uid").setValue(auth.getCurrentUser().getUid());
                             ref.child("nome").setValue(usuario.getNome());
                             ref.child("senha").setValue(usuario.getSenha());
+                            ref.child("email").setValue(auth.getCurrentUser().getEmail());
                             ref.child("telefone").setValue(usuario.getTelefone());
                             ref.child("endereco").setValue(usuario.getEndereco());
                             ref.child("rg").setValue(usuario.getRg());

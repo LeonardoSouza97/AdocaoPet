@@ -21,10 +21,6 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by Leo on 15/04/2018.
- */
-
 public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetsViewHolder> {
 
     private List<Pet> listaPets;

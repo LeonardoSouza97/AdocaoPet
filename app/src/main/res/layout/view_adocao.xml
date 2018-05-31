@@ -45,17 +45,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/editNomeAdotante"
-        android:layout_marginEnd="18dp"
-        android:layout_toStartOf="@+id/btnRecusar"
+        android:layout_marginStart="7dp"
+        android:layout_toEndOf="@+id/editDataAdocao"
         app:srcCompat="@android:drawable/ic_input_add" />
 
     <ImageButton
         android:id="@+id/btnRecusar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/btnAceitar"
-        android:layout_marginEnd="14dp"
+        android:layout_marginStart="7dp"
+        android:layout_toEndOf="@+id/btnAceitar"
         app:srcCompat="@android:drawable/ic_delete" />
+
+    <ImageButton
+        android:id="@+id/btnInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/btnRecusar"
+        android:layout_marginEnd="9dp"
+        app:srcCompat="@android:drawable/ic_dialog_info" />
 
 </RelativeLayout>
