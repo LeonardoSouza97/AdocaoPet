@@ -76,7 +76,7 @@
             android:textSize="25sp">
 
             <Button
-                android:id="@+id/btnAdotar"
+                android:id="@+id/btnLigar"
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:layout_weight="1"

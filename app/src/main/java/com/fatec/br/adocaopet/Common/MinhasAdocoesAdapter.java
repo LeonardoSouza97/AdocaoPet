@@ -1,15 +1,25 @@
 package com.fatec.br.adocaopet.Common;
 
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fatec.br.adocaopet.Model.Adocoes;
 import com.fatec.br.adocaopet.R;
@@ -26,7 +36,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdapter.AdocoesViewHolder>{
+public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdapter.AdocoesViewHolder> {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference ref;
 
@@ -35,6 +45,8 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
     private Dialog dialog;
     private TextView nomeUsuarioVisualiza, dataUsuarioVisualiza, enderecoUsuarioVisualiza, telefoneUsuarioVisualiza, emailUsuarioVisualiza;
     private CircleImageView fotoUsuarioVisualiza;
+    private Button btnLigar;
+    private Context context;
 
     public MinhasAdocoesAdapter(List<Adocoes> listaAdocoes) {
         this.listaAdocoes = listaAdocoes;
@@ -52,6 +64,7 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
         emailUsuarioVisualiza = (TextView) dialog.findViewById(R.id.dialog_email_usuario);
         telefoneUsuarioVisualiza = (TextView) dialog.findViewById(R.id.dialog_telefone_usuario);
         fotoUsuarioVisualiza = (CircleImageView) dialog.findViewById(R.id.dialog_usuario_foto);
+        btnLigar = (Button) dialog.findViewById(R.id.btnLigar);
 
         return new MinhasAdocoesAdapter.AdocoesViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_minhas_adocoes, parent, false));
     }
@@ -64,11 +77,11 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
         holder.nomePet.setText(adocoes.getPet().getNome());
         holder.dataAdocao.setText(adocoes.getDataAdocao());
 
-        if(adocoes.getStatus().equals(adocoes.getIdDono() + "Pendente")){
+        if (adocoes.getStatus().equals(adocoes.getIdDono() + "Pendente")) {
             holder.imageStatus.setBackgroundResource(R.mipmap.ic_pendente);
-        }else if (adocoes.getStatus().equals(adocoes.getIdDono() + "Recusado")){
+        } else if (adocoes.getStatus().equals(adocoes.getIdDono() + "Recusado")) {
             holder.imageStatus.setBackgroundResource(R.mipmap.ic_recusado);
-        }else{
+        } else {
             holder.imageStatus.setBackgroundResource(R.mipmap.ic_aprovado);
             holder.imageCall.setVisibility(View.VISIBLE);
         }
@@ -85,7 +98,7 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
                 final StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
 
                 try {
-                    StorageReference url_pet = firebaseStorage.child("pet/" + (listaAdocoes.get(holder.getAdapterPosition()).getIdDono() + ".png"));
+                    StorageReference url_pet = firebaseStorage.child("user/" + (listaAdocoes.get(holder.getAdapterPosition()).getIdDono() + ".png"));
 
                     url_pet.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
@@ -97,8 +110,26 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
                 dialog.show();
+
+                btnLigar.setOnClickListener(new View.OnClickListener() {
+                    @SuppressLint("Range")
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(context, "Testando ligação", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(Intent.ACTION_CALL);
+                        i.setData(Uri.parse("tel:" + pegaTelefone(listaAdocoes.get(holder.getAdapterPosition()).getDono().getTelefone())));
+                        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE},123);
+                        }else{
+                            context.startActivity(i);
+                        }
+                    }
+                });
+
             }
+
         });
 
 
@@ -137,6 +168,8 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
         public AdocoesViewHolder(View itemView) {
             super(itemView);
 
+            context = itemView.getContext();
+
             nomePet = (TextView) itemView.findViewById(R.id.editNomePetAdocao);
             nomeAdotante = (TextView) itemView.findViewById(R.id.editNomeAdotante);
             dataAdocao = (TextView) itemView.findViewById(R.id.editDataAdocao);
@@ -146,4 +179,12 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
 
         }
     }
+
+    public String pegaTelefone(String telefone){
+
+        telefone = telefone.replaceAll("[^\\d.]", "");
+        return telefone.substring(2);
+    }
+
+
 }

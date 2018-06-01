@@ -58,6 +58,7 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_pets, parent, false);
         final PetsViewHolder viewHolder = new PetsViewHolder(view);
 
+
         //Dados exibidos quando o usuário clica em algum pet na tela de Busca.
         dialog = new Dialog(parent.getContext());
         dialog.setContentView(R.layout.activity_visualizapet);

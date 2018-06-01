@@ -45,7 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/editNomeAdotante"
-        android:layout_marginStart="7dp"
+        android:layout_marginStart="32dp"
         android:layout_toEndOf="@+id/editDataAdocao"
         app:srcCompat="@android:drawable/ic_input_add" />
 
@@ -54,8 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/btnAceitar"
-        android:layout_marginStart="7dp"
-        android:layout_toEndOf="@+id/btnAceitar"
+        android:layout_toStartOf="@+id/btnInfo"
         app:srcCompat="@android:drawable/ic_delete" />
 
     <ImageButton
@@ -64,7 +63,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/btnRecusar"
-        android:layout_marginEnd="9dp"
         app:srcCompat="@android:drawable/ic_dialog_info" />
 
 </RelativeLayout>
