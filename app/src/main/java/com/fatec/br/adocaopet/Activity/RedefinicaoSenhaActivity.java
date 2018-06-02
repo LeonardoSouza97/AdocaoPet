@@ -16,11 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-/**
- * Created by Leo on 01/04/2018.
- */
-
-
 public class RedefinicaoSenhaActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;

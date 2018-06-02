@@ -100,7 +100,6 @@ public class PerfilActivity extends AppCompatActivity
 
         tableLayout = (TabLayout) findViewById(R.id.table_layout_id);
         viewPager = (ViewPager) findViewById(R.id.view_pager_id);
-
         adapter = new ViewPageAdapter(getSupportFragmentManager());
 
 //        adapter.AdicionaFragmentos(new FragmentMessages(), "Mensagens");

@@ -227,10 +227,7 @@ public class AlterarPetActivity extends AppCompatActivity {
 
         String[] identificadorPetSeparado = identificadorPet.split("/");
 
-        String identificadorPetGlobal = identificadorPetSeparado[4];
-
         auth = FirebaseAuth.getInstance();
-
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("pets").child(identificadorPetSeparado[4]);
@@ -245,18 +242,14 @@ public class AlterarPetActivity extends AppCompatActivity {
         ref.child("sexo").setValue(pet.getSexo());
         ref.child("descricao").setValue(pet.getDescricao());
 
-
         Toast.makeText(AlterarPetActivity.this, getString(R.string.atualiza_pet_sucesso), Toast.LENGTH_SHORT).show();
-
 
         if (hasPicture) {
             AlterarFotoPet();
         }
 
         finishPet();
-
     }
-
 
     @Override
     protected void onStart() {
@@ -292,7 +285,6 @@ public class AlterarPetActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get a URL to the uploaded content
                         taskSnapshot.getDownloadUrl();
                     }
                 })
@@ -332,22 +324,16 @@ public class AlterarPetActivity extends AppCompatActivity {
     }
 
     private void ValidarCampos() throws InterruptedException {
-
-        FirebaseUser user = auth.getCurrentUser();
-
         nomePet.setError(null);
         idadePet.setError(null);
         pesoPet.setError(null);
         descricaoPet.setError(null);
-
 
         String nome = nomePet.getText().toString();
         String idade = idadePet.getText().toString();
         String peso = pesoPet.getText().toString();
         String descricao = descricaoPet.getText().toString();
         String raca = cbRaca.getSelectedItem().toString();
-
-        boolean valid = true;
 
         if (TextUtils.isEmpty(nome)) {
             nomePet.setError(getString(R.string.error_field_required));
@@ -376,18 +362,14 @@ public class AlterarPetActivity extends AppCompatActivity {
                 pet.setEspecie(cbEspecie.getSelectedItem().toString());
                 pet.setRaca(cbRaca.getSelectedItem().toString());
 
-
                 if (rbMacho.isChecked()) {
                     pet.setSexo("macho");
                 } else {
                     pet.setSexo("femea");
                 }
-
                 atualizarPet();
-
             }
         }
-
 
     }
 

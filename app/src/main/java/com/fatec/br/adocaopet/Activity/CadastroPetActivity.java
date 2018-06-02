@@ -55,10 +55,6 @@ import java.io.ByteArrayOutputStream;
 import java.text.Normalizer;
 import java.util.regex.Pattern;
 
-/**
- * Created by Leo on 14/04/2018.
- */
-
 public class CadastroPetActivity extends AppCompatActivity {
 
     private ImageView fotoPet;
@@ -171,7 +167,6 @@ public class CadastroPetActivity extends AppCompatActivity {
 
                         Toast.makeText(CadastroPetActivity.this, "Gato", Toast.LENGTH_SHORT);
                         break;
-
                 }
             }
 
@@ -185,7 +180,6 @@ public class CadastroPetActivity extends AppCompatActivity {
     private void criarPet() {
 
         auth = FirebaseAuth.getInstance();
-
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("pets").child(pet.getIdPet());
@@ -282,7 +276,6 @@ public class CadastroPetActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get a URL to the uploaded content
                         taskSnapshot.getDownloadUrl();
                     }
                 })

@@ -51,7 +51,6 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
     private Usuario usuario;
     private ImageView fotoUsuario;
     private Bitmap foto;
-    private boolean existeUsuario;
     String identificacaoUsuario;
 
     private boolean hasPicture = false;

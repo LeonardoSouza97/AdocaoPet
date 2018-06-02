@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,8 +31,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -45,7 +44,7 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
     private Dialog dialog;
     private TextView nomeUsuarioVisualiza, dataUsuarioVisualiza, enderecoUsuarioVisualiza, telefoneUsuarioVisualiza, emailUsuarioVisualiza;
     private CircleImageView fotoUsuarioVisualiza;
-    private Button btnLigar;
+    private Button btnLigar, btnEnviaEmail;
     private Context context;
 
     public MinhasAdocoesAdapter(List<Adocoes> listaAdocoes) {
@@ -65,6 +64,7 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
         telefoneUsuarioVisualiza = (TextView) dialog.findViewById(R.id.dialog_telefone_usuario);
         fotoUsuarioVisualiza = (CircleImageView) dialog.findViewById(R.id.dialog_usuario_foto);
         btnLigar = (Button) dialog.findViewById(R.id.btnLigar);
+        btnEnviaEmail = (Button) dialog.findViewById(R.id.btnEnviarEmailDono);
 
         return new MinhasAdocoesAdapter.AdocoesViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_minhas_adocoes, parent, false));
     }
@@ -86,6 +86,14 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
             holder.imageCall.setVisibility(View.VISIBLE);
         }
 
+        holder.itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo contextMenuInfo) {
+                menu.add(holder.getAdapterPosition(), 0, 0, "Remover Adoção");
+            }
+        });
+
+        //REALIZANDO ADOÇÃO
         holder.imageCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +125,6 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
                     @SuppressLint("Range")
                     @Override
                     public void onClick(View view) {
-                        Toast.makeText(context, "Testando ligação", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(Intent.ACTION_CALL);
                         i.setData(Uri.parse("tel:" + pegaTelefone(listaAdocoes.get(holder.getAdapterPosition()).getDono().getTelefone())));
                         if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
@@ -125,6 +132,13 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
                         }else{
                             context.startActivity(i);
                         }
+                    }
+                });
+
+                btnEnviaEmail.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        enviarEmail(listaAdocoes.get(holder.getAdapterPosition()).getDono().getEmail());
                     }
                 });
 
@@ -169,7 +183,6 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
             super(itemView);
 
             context = itemView.getContext();
-
             nomePet = (TextView) itemView.findViewById(R.id.editNomePetAdocao);
             nomeAdotante = (TextView) itemView.findViewById(R.id.editNomeAdotante);
             dataAdocao = (TextView) itemView.findViewById(R.id.editDataAdocao);
@@ -186,5 +199,14 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
         return telefone.substring(2);
     }
 
+    public void enviarEmail(String email)
+    {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/html");
+        intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { email });
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Tenho interesse em seu pet! ");
+        context.startActivity(Intent.createChooser(intent, "Enviar email para o dono"));
+
+    }
 
 }

@@ -1,10 +1,12 @@
 package com.fatec.br.adocaopet.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
@@ -32,6 +35,10 @@ public class FragmentMyRequest extends android.support.v4.app.Fragment {
     private RecyclerView listaAdocoes;
     private List<Adocoes> result;
     private Adocoes adocoes;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference databaseReference;
+
+
 
     public FragmentMyRequest() {
     }
@@ -55,6 +62,8 @@ public class FragmentMyRequest extends android.support.v4.app.Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("adoções");
         result = new ArrayList<>();
         adocoesAdapter = new MinhasAdocoesAdapter(result);
 
@@ -68,8 +77,23 @@ public class FragmentMyRequest extends android.support.v4.app.Fragment {
 
     }
 
-    private void atualizarLista() throws InterruptedException {
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
 
+        switch (item.getItemId()) {
+            case 0:
+                removeAdocao(item.getGroupId());
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
+    private void removeAdocao(int position){
+        databaseReference.child(result.get(position).getIdAdocao()).removeValue();
+    }
+
+    private void atualizarLista() throws InterruptedException {
         Query query;
 
         auth = FirebaseAuth.getInstance().getCurrentUser();
@@ -140,5 +164,7 @@ public class FragmentMyRequest extends android.support.v4.app.Fragment {
 
         }
     }
+
+
 
 }

@@ -51,30 +51,23 @@ public class MeusPetsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_meuspets);
 
         identificacaoUsuario = FirebaseAuthUtils.getUUID();
-
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("pets");
-
 
         btnVoltarPerfil = (Button) findViewById(R.id.btnVoltarPerfil);
         SemPets = (TextView) findViewById(R.id.txtSemPets);
 
         listaPets = (RecyclerView) findViewById(R.id.recyclerViewPets);
         listaPets.setHasFixedSize(true);
-
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
 
         result = new ArrayList<>();
-
         listaPets.setLayoutManager(llm);
-
         petAdapter = new PetAdapter(result);
-
         listaPets.setAdapter(petAdapter);
 
         atualizarLista();
-
         CheckListaVazia();
 
         btnVoltarPerfil.setOnClickListener(new View.OnClickListener(){

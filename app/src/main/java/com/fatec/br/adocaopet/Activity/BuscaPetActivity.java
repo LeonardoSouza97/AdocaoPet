@@ -37,10 +37,6 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by Leo on 06/05/2018.
- */
-
 public class BuscaPetActivity extends AppCompatActivity {
 
     private RecyclerView listaPets;
@@ -90,10 +86,6 @@ public class BuscaPetActivity extends AppCompatActivity {
 
         listaPets.setAdapter(petAdapter);
 
-//        atualizarLista();
-//
-//        CheckListaVazia();
-
         btn_voltar.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -109,30 +101,12 @@ public class BuscaPetActivity extends AppCompatActivity {
             public void onClick(View view) {
                 try {
                     atualizarLista();
-                }catch (InterruptedException e){
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         });
     }
-
-//    @Override
-//    public boolean onContextItemSelected(MenuItem item) {
-//
-//        switch (item.getItemId()) {
-//            case 0:
-//                removePet(item.getGroupId());
-//                break;
-//            case 1:
-//                Intent i = new Intent(BuscaPetActivity.this, AlterarPetActivity.class);
-//                i.putExtra("idPet", pegaPet(item.getGroupId()));
-//                startActivity(i);
-//                finish();
-//                break;
-//        }
-//
-//        return super.onContextItemSelected(item);
-//    }
 
 
     private void atualizarLista() throws InterruptedException {
@@ -221,13 +195,6 @@ public class BuscaPetActivity extends AppCompatActivity {
         return index;
     }
 
-
-    private String pegaPet(int position) {
-        String idPet = databaseReference.child(result.get(position).getIdPet()).toString();
-
-        return idPet;
-    }
-
     private void CheckListaVazia() {
         if (result.size() == 0) {
             Toast.makeText(BuscaPetActivity.this, "Pets não encontrados", Toast.LENGTH_SHORT).show();
@@ -236,8 +203,6 @@ public class BuscaPetActivity extends AppCompatActivity {
 
     private void alimentaCombos() {
         listRaca = new ListRaca();
-
-        //Alimentando Combos
 
         ArrayAdapter listaEspecie = new ArrayAdapter(this, android.R.layout.select_dialog_item, listRaca.ListaOpcoes());
         cbEspecie.setAdapter(listaEspecie);
