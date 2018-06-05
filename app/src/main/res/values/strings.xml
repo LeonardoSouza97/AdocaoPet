@@ -29,7 +29,7 @@
     <string name="atualiza_usuario_sucesso">Usuário Atualizado com sucesso</string>
     <string name="cadastro_usuario_erro">Erro ao cadastrar o Usuário!</string>
     <string name="title_cadastro_user_activity">Cadastro de Usuário</string>
-    <string name="app_name">Adota Pets</string>
+    <string name="app_name">Pet Box</string>
     <string name="title_activity_menu">Perfil</string>
     <string name="invalid_password_on_save">Senha inválida</string>
     <string name="invalid_email_on_save">Email inválido</string>
@@ -41,10 +41,8 @@
     <string name="foto_deletada">Foto deletada com sucesso</string>
     <string name="facebook_app_id">358718491307847</string>
     <string name="fb_login_protocol_scheme">fb358718491307847</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_logout">Sair</string>
 
     <!-- TODO: Remove or change this placeholder text -->

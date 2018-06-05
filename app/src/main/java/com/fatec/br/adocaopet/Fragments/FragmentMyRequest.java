@@ -38,8 +38,6 @@ public class FragmentMyRequest extends android.support.v4.app.Fragment {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
-
-
     public FragmentMyRequest() {
     }
 

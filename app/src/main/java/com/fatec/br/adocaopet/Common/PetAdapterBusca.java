@@ -1,6 +1,8 @@
 package com.fatec.br.adocaopet.Common;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,6 +28,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -83,7 +86,6 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
                 portePetTelaVisualiza.setText("Porte: " + listaPets.get(viewHolder.getAdapterPosition()).getPorte());
                 descricaoPetTelaVisualiza.setText("Descrição: " + listaPets.get(viewHolder.getAdapterPosition()).getDescricao());
 
-
                 final StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
 
                 try {
@@ -105,37 +107,63 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
                     @Override
                     public void onClick(View view) {
 
-                        adocoes = new Adocoes();
+                        final ProgressDialog progressDialog = new ProgressDialog(parent.getContext());
+                        progressDialog.setMessage("Realizando adoção..");
+                        progressDialog.show();
 
-                        Date data = new Date(System.currentTimeMillis());
+                        Thread Adocao = new Thread() {
+                            public void run() {
+                                adocoes = new Adocoes();
 
-                        Format formatter = new SimpleDateFormat("dd/MM/yy");
-                        String dataFormatada = formatter.format(data);
+                                donoCarregado = ConsultaDono(listaPets.get(viewHolder.getAdapterPosition()).getIdUsuario());
+                                adotanteCarregado = ConsultaSolicitante(auth.getCurrentUser().getUid());
+                                petCarregado = ConsultaPet(listaPets.get(viewHolder.getAdapterPosition()).getIdPet());
 
-                        adocoes.setIdDono(listaPets.get(viewHolder.getAdapterPosition()).getIdUsuario());
-                        adocoes.setIdPet(listaPets.get(viewHolder.getAdapterPosition()).getIdPet());
-                        adocoes.setIdAdotante(auth.getCurrentUser().getUid());
-                        adocoes.setDataAdocao(dataFormatada);
-                        adocoes.setIdAdocao(adocoes.getIdDono() + adocoes.getIdPet() + adocoes.getIdAdotante());
-                        adocoes.setSolicitante(ConsultaSolicitante(auth.getCurrentUser().getUid()));
-                        adocoes.setStatus(adocoes.getIdDono() + "Pendente");
-                        adocoes.setPet(ConsultaPet(listaPets.get(viewHolder.getAdapterPosition()).getIdPet()));
-                        adocoes.setDono(ConsultaDono(adocoes.getIdDono()));
+                                try {
+                                    Thread.sleep(5000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
 
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference dataAdocao = database.getReference("adoções").child(adocoes.getIdAdocao());
+                                ((Activity) parent.getContext()).runOnUiThread(new Runnable() {
+                                    public void run() {
 
-                        dataAdocao.child("idAdocao").setValue(adocoes.getIdAdocao());
-                        dataAdocao.child("idDono").setValue(adocoes.getIdDono());
-                        dataAdocao.child("idAdotante").setValue(adocoes.getIdAdotante());
-                        dataAdocao.child("dataAdocao").setValue(adocoes.getDataAdocao());
-                        dataAdocao.child("status").setValue(adocoes.getStatus());
-                        dataAdocao.child("idPet").setValue(adocoes.getIdPet());
-                        dataAdocao.child("solicitante").setValue(adocoes.getSolicitante());
-                        dataAdocao.child("pet").setValue(adocoes.getPet());
-                        dataAdocao.child("dono").setValue(adocoes.getDono());
+                                        Date data = new Date(System.currentTimeMillis());
 
-                        Toast.makeText(parent.getContext(), "Solicitação de Adoção Enviada!", Toast.LENGTH_SHORT).show();
+                                        Format formatter = new SimpleDateFormat("dd/MM/yy");
+                                        String dataFormatada = formatter.format(data);
+
+                                        adocoes.setIdDono(listaPets.get(viewHolder.getAdapterPosition()).getIdUsuario());
+                                        adocoes.setIdPet(listaPets.get(viewHolder.getAdapterPosition()).getIdPet());
+                                        adocoes.setIdAdotante(auth.getCurrentUser().getUid());
+                                        adocoes.setDataAdocao(dataFormatada);
+                                        adocoes.setIdAdocao(adocoes.getIdDono() + adocoes.getIdPet() + adocoes.getIdAdotante());
+                                        adocoes.setSolicitante(adotanteCarregado);
+                                        adocoes.setStatus(adocoes.getIdDono() + "Pendente");
+                                        adocoes.setPet(petCarregado);
+                                        adocoes.setDono(donoCarregado);
+
+                                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                        DatabaseReference dataAdocao = database.getReference("adoções").child(adocoes.getIdAdocao());
+
+                                        dataAdocao.child("idAdocao").setValue(adocoes.getIdAdocao());
+                                        dataAdocao.child("idDono").setValue(adocoes.getIdDono());
+                                        dataAdocao.child("idAdotante").setValue(adocoes.getIdAdotante());
+                                        dataAdocao.child("dataAdocao").setValue(adocoes.getDataAdocao());
+                                        dataAdocao.child("status").setValue(adocoes.getStatus());
+                                        dataAdocao.child("idPet").setValue(adocoes.getIdPet());
+                                        dataAdocao.child("solicitante").setValue(adocoes.getSolicitante());
+                                        dataAdocao.child("pet").setValue(adocoes.getPet());
+                                        dataAdocao.child("dono").setValue(adocoes.getDono());
+
+                                        progressDialog.dismiss();
+
+                                    }
+                                });
+                            }
+
+                        };
+                        Adocao.start();
 
                     }
                 });
@@ -143,7 +171,6 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
             }
 
         });
-
         return viewHolder;
     }
 
