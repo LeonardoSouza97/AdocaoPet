@@ -158,6 +158,8 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
 
                                         progressDialog.dismiss();
 
+                                        Toast.makeText(parent.getContext(), "Adoção realizada com sucesso!", Toast.LENGTH_SHORT).show();
+
                                     }
                                 });
                             }
