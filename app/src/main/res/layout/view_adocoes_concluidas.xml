@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:id="@+id/adocaoConcluidas"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/fotoCircleViewPetAdocaoTela"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="7dp"
+        android:src="@mipmap/ic_pet_icon"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp" />
+
+    <TextView
+        android:id="@+id/editNomeAdotante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/fotoCircleViewPetAdocaoTela"
+        android:layout_marginStart="24dp"
+        android:layout_toEndOf="@+id/fotoCircleViewPetAdocaoTela"
+        android:text="Adotante" />
+
+    <TextView
+        android:id="@+id/editNomePetAdocao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editNomeAdotante"
+        android:layout_below="@+id/editNomeAdotante"
+        android:text="Nome Pet" />
+
+    <TextView
+        android:id="@+id/editDataAdocao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/editNomePetAdocao"
+        android:layout_below="@+id/editNomePetAdocao"
+        android:text="Data Adoção" />
+
+    <ImageView
+        android:id="@+id/imageStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="48dp"/>
+
+    <ImageButton
+        android:id="@+id/imageCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/fotoCircleViewPetAdocaoTela"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/ic_call_black_24dp" />
+
+</RelativeLayout>

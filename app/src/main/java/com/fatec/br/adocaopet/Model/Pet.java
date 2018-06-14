@@ -4,10 +4,6 @@ import android.graphics.Bitmap;
 
 import com.google.firebase.database.DatabaseReference;
 
-/**
- * Created by Leo on 14/04/2018.
- */
-
 public class Pet {
     private String idPet;
     private String nome;
@@ -19,6 +15,8 @@ public class Pet {
     private String sexo;
     private String idUsuario;
     private String descricao;
+    private String vermifugado;
+    private String vacinado;
 
     public Pet(){};
 
@@ -28,7 +26,7 @@ public class Pet {
         this.descricao = descricao;
     }
 
-    public Pet(String idPet, String nome, String idade, String peso, String porte, String raca, String especie, String sexo, String idUsuario, String descricao) {
+    public Pet(String idPet, String nome, String idade, String peso, String porte, String raca, String especie, String sexo, String idUsuario, String descricao, String vermifugado, String vacinado) {
         this.idPet = idPet;
         this.nome = nome;
         this.idade = idade;
@@ -39,9 +37,25 @@ public class Pet {
         this.sexo = sexo;
         this.idUsuario = idUsuario;
         this.descricao = descricao;
+        this.vermifugado = vermifugado;
+        this.vacinado = vacinado;
     }
 
+    public String getVermifugado() {
+        return vermifugado;
+    }
 
+    public void setVermifugado(String vermifugado) {
+        this.vermifugado = vermifugado;
+    }
+
+    public String getVacinado() {
+        return vacinado;
+    }
+
+    public void setVacinado(String vacinado) {
+        this.vacinado = vacinado;
+    }
 
     public String getIdPet() {
         return idPet;

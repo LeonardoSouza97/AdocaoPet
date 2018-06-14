@@ -27,20 +27,16 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-
 
 public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsViewHolder> {
 
     private List<Pet> listaPets;
-    private TextView nomePetTelaVisualiza, racaPetTelaVisualiza, idadePetTelaVisualiza, pesoPetTelaVisualiza, descricaoPetTelaVisualiza, portePetTelaVisualiza;
+    private TextView nomePetTelaVisualiza, racaPetTelaVisualiza, idadePetTelaVisualiza, pesoPetTelaVisualiza, descricaoPetTelaVisualiza, portePetTelaVisualiza, vacinadoPetTelaVisualiza, vermifugadoPetTelaVisualiza;
     private Button btnAdotar;
     Dialog dialog;
     Usuario donoCarregado, adotanteCarregado;
@@ -61,7 +57,6 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
         view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_pets, parent, false);
         final PetsViewHolder viewHolder = new PetsViewHolder(view);
 
-
         //Dados exibidos quando o usuário clica em algum pet na tela de Busca.
         dialog = new Dialog(parent.getContext());
         dialog.setContentView(R.layout.activity_visualizapet);
@@ -76,6 +71,8 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
                 pesoPetTelaVisualiza = (TextView) dialog.findViewById(R.id.dialog_peso_pet);
                 portePetTelaVisualiza = (TextView) dialog.findViewById(R.id.dialog_porte_pet);
                 descricaoPetTelaVisualiza = (TextView) dialog.findViewById(R.id.dialog_descricao_pet);
+                vacinadoPetTelaVisualiza = (TextView) dialog.findViewById(R.id.dialog_vermifugado_pet);
+                vermifugadoPetTelaVisualiza = (TextView) dialog.findViewById(R.id.dialog_vacionado_pet);
                 btnAdotar = (Button) dialog.findViewById(R.id.btnAdotar);
                 final CircleImageView fotoPetTelaVisualiza = (CircleImageView) dialog.findViewById(R.id.dialog_pet_foto);
 
@@ -83,6 +80,8 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
                 racaPetTelaVisualiza.setText("Raça: " + listaPets.get(viewHolder.getAdapterPosition()).getRaca());
                 idadePetTelaVisualiza.setText("Idade: " + listaPets.get(viewHolder.getAdapterPosition()).getIdade() + "anos");
                 pesoPetTelaVisualiza.setText("Peso: " + listaPets.get(viewHolder.getAdapterPosition()).getPeso() + "kg");
+                vacinadoPetTelaVisualiza.setText("Vacinado: " + listaPets.get(viewHolder.getAdapterPosition()).getVacinado());
+                vermifugadoPetTelaVisualiza.setText("Vermifugado: " + listaPets.get(viewHolder.getAdapterPosition()).getVermifugado());
                 portePetTelaVisualiza.setText("Porte: " + listaPets.get(viewHolder.getAdapterPosition()).getPorte());
                 descricaoPetTelaVisualiza.setText("Descrição: " + listaPets.get(viewHolder.getAdapterPosition()).getDescricao());
 
@@ -108,7 +107,7 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
                     public void onClick(View view) {
 
                         final ProgressDialog progressDialog = new ProgressDialog(parent.getContext());
-                        progressDialog.setMessage("Realizando adoção..");
+                        progressDialog.setMessage("Realizando solicitação..");
                         progressDialog.show();
 
                         Thread Adocao = new Thread() {

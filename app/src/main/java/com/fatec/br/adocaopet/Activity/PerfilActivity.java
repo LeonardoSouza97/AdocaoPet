@@ -2,12 +2,10 @@ package com.fatec.br.adocaopet.Activity;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -23,9 +21,8 @@ import android.support.design.widget.TabLayout;
 import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
-import com.fatec.br.adocaopet.Common.PetAdapter;
 import com.fatec.br.adocaopet.Common.ViewPageAdapter;
-import com.fatec.br.adocaopet.Fragments.FragmentMessages;
+import com.fatec.br.adocaopet.Fragments.FragmentAdocaoConcluida;
 import com.fatec.br.adocaopet.Fragments.FragmentMyRequest;
 import com.fatec.br.adocaopet.Fragments.FragmentReceiveRequest;
 import com.fatec.br.adocaopet.R;
@@ -45,8 +42,6 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayInputStream;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerfilActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -102,14 +97,14 @@ public class PerfilActivity extends AppCompatActivity
         viewPager = (ViewPager) findViewById(R.id.view_pager_id);
         adapter = new ViewPageAdapter(getSupportFragmentManager());
 
-//        adapter.AdicionaFragmentos(new FragmentMessages(), "Mensagens");
+        adapter.AdicionaFragmentos(new FragmentAdocaoConcluida(), "Adoções Concluídas");
         adapter.AdicionaFragmentos(new FragmentMyRequest(), "");
         adapter.AdicionaFragmentos(new FragmentReceiveRequest(), "");
         viewPager.setAdapter(adapter);
         tableLayout.setupWithViewPager(viewPager);
 
-        tableLayout.getTabAt(0).setIcon(R.drawable.ic_send_black_24dp);
-        tableLayout.getTabAt(1).setIcon(R.drawable.ic_notifications_active_black_24dp);
+        tableLayout.getTabAt(1).setIcon(R.drawable.ic_send_black_24dp);
+        tableLayout.getTabAt(2).setIcon(R.drawable.ic_notifications_active_black_24dp);
 
         auth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();

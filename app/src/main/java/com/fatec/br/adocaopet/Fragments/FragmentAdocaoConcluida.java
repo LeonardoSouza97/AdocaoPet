@@ -1,6 +1,5 @@
 package com.fatec.br.adocaopet.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.fatec.br.adocaopet.Common.AdocoesAdapter;
+import com.fatec.br.adocaopet.Common.AdocoesConcluidasAdapter;
 import com.fatec.br.adocaopet.Common.MinhasAdocoesAdapter;
 import com.fatec.br.adocaopet.Model.Adocoes;
 import com.fatec.br.adocaopet.R;
@@ -26,27 +25,26 @@ import com.google.firebase.database.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class FragmentMyRequest extends android.support.v4.app.Fragment {
+public class FragmentAdocaoConcluida extends android.support.v4.app.Fragment{
 
     View view;
     FirebaseUser auth;
-    private MinhasAdocoesAdapter adocoesAdapter;
+    private AdocoesConcluidasAdapter adocoesAdapter;
     private RecyclerView listaAdocoes;
     private List<Adocoes> result;
     private Adocoes adocoes;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
 
-    public FragmentMyRequest() {
+    public FragmentAdocaoConcluida() {
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_solicitacoes, container, false);
+        view = inflater.inflate(R.layout.fragment_adocoesconcluidas, container, false);
 
-        listaAdocoes = (RecyclerView) view.findViewById(R.id.lista_minhas_solicitacoes);
+        listaAdocoes = (RecyclerView) view.findViewById(R.id.lista_adocoes_concluidas);
         listaAdocoes.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -62,7 +60,7 @@ public class FragmentMyRequest extends android.support.v4.app.Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("adoções");
         result = new ArrayList<>();
-        adocoesAdapter = new MinhasAdocoesAdapter(result);
+        adocoesAdapter = new AdocoesConcluidasAdapter(result);
 
         try {
             atualizarLista();
@@ -74,6 +72,22 @@ public class FragmentMyRequest extends android.support.v4.app.Fragment {
 
     }
 
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case 0:
+                removeAdocao(item.getGroupId());
+                break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
+    private void removeAdocao(int position){
+        databaseReference.child(result.get(position).getIdAdocao()).removeValue();
+    }
+
     private void atualizarLista() throws InterruptedException {
         Query query;
 
@@ -81,7 +95,7 @@ public class FragmentMyRequest extends android.support.v4.app.Fragment {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        query = database.getReference("adoções").orderByChild("idAdotante").equalTo(auth.getUid());
+        query = database.getReference("adoções").orderByChild("status").equalTo(auth.getUid() + "Confirmado");
 
         query.addChildEventListener(new ChildEventListener() {
             @Override
@@ -145,7 +159,5 @@ public class FragmentMyRequest extends android.support.v4.app.Fragment {
 
         }
     }
-
-
 
 }

@@ -27,10 +27,6 @@ import com.google.firebase.database.Query;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Leo on 15/04/2018.
- */
-
 public class MeusPetsActivity extends AppCompatActivity {
 
     private RecyclerView listaPets;

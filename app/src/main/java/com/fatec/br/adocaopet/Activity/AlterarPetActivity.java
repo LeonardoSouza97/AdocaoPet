@@ -61,12 +61,10 @@ public class AlterarPetActivity extends AppCompatActivity {
     private Spinner cbEspecie;
     private Spinner cbPorte;
     private Spinner cbRaca;
-    private RadioButton rbMacho;
-    private RadioButton rbFemea;
-    private RadioGroup rbgSexo;
+    private RadioButton rbMacho, rbFemea, rbVermifugadoSim, rbVermifugadoNao, rbVacionadoSim, rbVacionadoNao;
+    private RadioGroup rbgSexo, rbgVacinado, rbgVermifugado;
     private Button btnAlterarPet;
     private Button btnVoltar;
-    private Usuario usuario;
     private Pet pet;
     private Bitmap foto;
 
@@ -122,6 +120,18 @@ public class AlterarPetActivity extends AppCompatActivity {
                             rbFemea.setChecked(true);
                         }
 
+                        if (petCarregado.getVermifugado().equals("sim")) {
+                            rbVermifugadoSim.setChecked(true);
+                        } else {
+                            rbVermifugadoNao.setChecked(true);
+                        }
+
+                        if (petCarregado.getVacinado().equals("sim")) {
+                            rbVacionadoSim.setChecked(true);
+                        } else {
+                            rbVacionadoNao.setChecked(true);
+                        }
+
                         pegarFotoUsuario();
                     }
                 } catch (Exception ex) {
@@ -174,6 +184,12 @@ public class AlterarPetActivity extends AppCompatActivity {
         descricaoPet = (EditText) findViewById(R.id.editDescricao);
         btnAlterarPet = (Button) findViewById(R.id.btnAlterarPet);
         btnVoltar = (Button) findViewById(R.id.btnVoltar);
+        rbVacionadoSim = (RadioButton) findViewById(R.id.rbVacinadoSim);
+        rbVacionadoNao = (RadioButton) findViewById(R.id.rbVacinadoNao);
+        rbVermifugadoNao = (RadioButton) findViewById(R.id.rbVermifugadoNao);
+        rbVermifugadoSim = (RadioButton) findViewById(R.id.rbVermifugadoSim);
+        rbgVacinado = (RadioGroup) findViewById(R.id.rbgVacinado);
+        rbgVermifugado = (RadioGroup) findViewById(R.id.rbgVermifugado);
 
         pesoPet.addTextChangedListener(MaskEditUtil.mask(pesoPet, MaskEditUtil.FORMAT_PESO));
         idadePet.addTextChangedListener(MaskEditUtil.mask(idadePet, MaskEditUtil.FORMAT_IDADE));
@@ -240,6 +256,8 @@ public class AlterarPetActivity extends AppCompatActivity {
         ref.child("raca").setValue(pet.getRaca());
         ref.child("especie").setValue(pet.getEspecie());
         ref.child("sexo").setValue(pet.getSexo());
+        ref.child("vermifugado").setValue(pet.getVermifugado());
+        ref.child("vacinado").setValue(pet.getVacinado());
         ref.child("descricao").setValue(pet.getDescricao());
 
         Toast.makeText(AlterarPetActivity.this, getString(R.string.atualiza_pet_sucesso), Toast.LENGTH_SHORT).show();
@@ -367,6 +385,19 @@ public class AlterarPetActivity extends AppCompatActivity {
                 } else {
                     pet.setSexo("femea");
                 }
+
+                if (rbVermifugadoSim.isChecked()) {
+                    pet.setVermifugado("sim");
+                } else {
+                    pet.setVermifugado("não");
+                }
+
+                if (rbVacionadoSim.isChecked()) {
+                    pet.setVacinado("sim");
+                } else {
+                    pet.setVacinado("não");
+                }
+
                 atualizarPet();
             }
         }

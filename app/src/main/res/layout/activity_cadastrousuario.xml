@@ -106,17 +106,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:layout_toEndOf="@+id/imageCamera"
         android:text="Confirmar" />
 
     <Button
         android:id="@+id/btnVoltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/btnCadastrarUsuario"
-        android:layout_toStartOf="@+id/imageCamera"
-        android:text="Voltar" />
+        android:layout_alignBaseline="@+id/btnCadastrarUsuario"
+        android:layout_alignBottom="@+id/btnCadastrarUsuario"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="13dp"
+        android:text="Voltar"
+        android:visibility="invisible" />
 
 
 </RelativeLayout>

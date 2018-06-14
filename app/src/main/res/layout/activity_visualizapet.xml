@@ -46,6 +46,20 @@
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/dialog_vacionado_pet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vacinado"
+            android:textColor="@color/cardview_light_background" />
+
+        <TextView
+            android:id="@+id/dialog_vermifugado_pet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vermifugado"
+            android:textColor="@color/cardview_light_background" />
+
+        <TextView
             android:id="@+id/dialog_peso_pet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -41,5 +41,6 @@
         android:layout_below="@+id/btnEnviarEmail"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="33dp"
-        android:text="Voltar" />
+        android:text="Voltar"
+        android:visibility="invisible" />
 </RelativeLayout>

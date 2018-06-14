@@ -65,12 +65,10 @@ public class CadastroPetActivity extends AppCompatActivity {
     private Spinner cbEspecie;
     private Spinner cbPorte;
     private Spinner cbRaca;
-    private RadioButton rbMacho;
-    private RadioButton rbFemea;
-    private RadioGroup rbgSexo;
+    private RadioButton rbMacho, rbFemea, rbVermifugadoSim, rbVermifugadoNao, rbVacionadoSim, rbVacionadoNao;
+    private RadioGroup rbgSexo, rbgVacinado, rbgVermifugado;
     private Button btnConfirmar;
     private Button btnVoltar;
-    private Usuario usuario;
     private Pet pet;
     private Bitmap foto;
 
@@ -128,6 +126,13 @@ public class CadastroPetActivity extends AppCompatActivity {
         rbgSexo = (RadioGroup) findViewById(R.id.rbgSexo);
         rbMacho = (RadioButton) findViewById(R.id.rbMacho);
         rbFemea = (RadioButton) findViewById(R.id.rbFemea);
+        rbVacionadoSim = (RadioButton) findViewById(R.id.rbVacinadoSim);
+        rbVacionadoNao = (RadioButton) findViewById(R.id.rbVacinadoNao);
+        rbVermifugadoNao = (RadioButton) findViewById(R.id.rbVermifugadoNao);
+        rbVermifugadoSim = (RadioButton) findViewById(R.id.rbVermifugadoSim);
+        rbgVacinado = (RadioGroup) findViewById(R.id.rbgVacinado);
+        rbgVermifugado = (RadioGroup) findViewById(R.id.rbgVermifugado);
+
         descricaoPet = (EditText) findViewById(R.id.editDescricao);
         btnConfirmar = (Button) findViewById(R.id.btnCadastrarPet);
         btnVoltar = (Button) findViewById(R.id.btnVoltar);
@@ -192,11 +197,12 @@ public class CadastroPetActivity extends AppCompatActivity {
         ref.child("raca").setValue(pet.getRaca());
         ref.child("especie").setValue(pet.getEspecie());
         ref.child("sexo").setValue(pet.getSexo());
+        ref.child("vacinado").setValue(pet.getVacinado());
+        ref.child("vermifugado").setValue(pet.getVermifugado());
         ref.child("descricao").setValue(pet.getDescricao());
         ref.child("idUsuario").setValue(auth.getCurrentUser().getUid());
 
         Toast.makeText(CadastroPetActivity.this, getString(R.string.cadastro_pet_sucesso), Toast.LENGTH_SHORT).show();
-
 
         if (hasPicture) {
             savePetWithPicture();
@@ -331,7 +337,6 @@ public class CadastroPetActivity extends AppCompatActivity {
         String descricao = descricaoPet.getText().toString();
         String raca = cbRaca.getSelectedItem().toString();
 
-        boolean valid = true;
 
         if (TextUtils.isEmpty(nome)) {
             nomePet.setError(getString(R.string.error_field_required));
@@ -371,6 +376,20 @@ public class CadastroPetActivity extends AppCompatActivity {
                 } else {
                     pet.setSexo("femea");
                 }
+
+                if (rbVermifugadoSim.isChecked()) {
+                    pet.setVermifugado("sim");
+                } else {
+                    pet.setVermifugado("não");
+                }
+
+
+                if (rbVacionadoSim.isChecked()) {
+                    pet.setVacinado("sim");
+                } else {
+                    pet.setVacinado("não");
+                }
+
 
                 criarPet();
 

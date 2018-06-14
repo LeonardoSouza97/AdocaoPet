@@ -5,10 +5,6 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
 
-/**
- * Created by Leo on 18/03/2018.
- */
-
 public class Notify {
     public static void showNotify(Context context, String strMessage){
         Toast.makeText(context,strMessage, Toast.LENGTH_SHORT).show();
