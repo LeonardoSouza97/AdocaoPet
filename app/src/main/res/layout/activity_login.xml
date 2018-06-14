@@ -40,7 +40,7 @@
                 android:layout_height="200dp"
                 android:layout_gravity="center"
                 android:onClick="takeAPicture"
-                app:srcCompat="@drawable/foto_inicial_nova" />
+                app:srcCompat="@drawable/icone_atualizado" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
