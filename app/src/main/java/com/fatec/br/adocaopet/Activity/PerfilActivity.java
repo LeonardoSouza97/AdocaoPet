@@ -43,12 +43,14 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayInputStream;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class PerfilActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     TextView editNome, editEmail, editWelcome;
-    ImageView fotoUsuario;
-    ImageView fotoTelaUsuario;
+    CircleImageView fotoUsuario;
+    CircleImageView fotoTelaUsuario;
     String identificacaoUsuario;
     FirebaseAuth auth;
     TabLayout tableLayout;
@@ -87,8 +89,8 @@ public class PerfilActivity extends AppCompatActivity
         View header = navigationView.getHeaderView(0);
         editNome = header.findViewById(R.id.txtNomeUsuario);
         editEmail = header.findViewById(R.id.txtEmail);
-        fotoUsuario = header.findViewById(R.id.imageFotoPerfil);
-        fotoTelaUsuario = findViewById(R.id.imageFotoPerfil);
+        fotoUsuario = (CircleImageView) header.findViewById(R.id.imageFotoPerfil);
+        fotoTelaUsuario =  (CircleImageView) findViewById(R.id.imageFotoPerfil);
         editWelcome = findViewById(R.id.txtNomeUsuario);
 
         //IMPLEMENTANDO MENU NOVO

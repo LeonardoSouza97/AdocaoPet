@@ -13,30 +13,31 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/imageFotoPerfil"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="12dp"
-        android:layout_marginStart="20dp"
-        android:cropToPadding="false"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:scaleType="center"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        android:layout_below="@+id/appBarLayout"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:adjustViewBounds="false"
+        android:visibility="visible"
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp"
+        android:src="@mipmap/ic_usuario" />
 
     <TextView
         android:id="@+id/txtNomeUsuario"
         android:layout_width="200dp"
         android:layout_height="35dp"
-        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/imageFotoPerfil"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="31dp"
+        android:layout_toEndOf="@+id/imageFotoPerfil"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Android Studio"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="18sp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/txtEmail"
