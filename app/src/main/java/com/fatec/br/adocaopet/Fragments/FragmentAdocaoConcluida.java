@@ -1,5 +1,6 @@
 package com.fatec.br.adocaopet.Fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -122,6 +123,7 @@ public class FragmentAdocaoConcluida extends android.support.v4.app.Fragment{
                 result.remove(index);
                 adocoesAdapter.notifyItemRemoved(index);
                 CheckListaVazia();
+
             }
 
             @Override
