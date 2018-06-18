@@ -223,7 +223,7 @@ public class PerfilActivity extends AppCompatActivity
         try {
             StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
             final long ONE_MEGABYTE = 1024 * 1024;
-            firebaseStorage.child("user/" + identificacaoUsuario + ".png").getBytes(ONE_MEGABYTE)
+            firebaseStorage.child("user/" + auth.getCurrentUser().getUid() + ".png").getBytes(ONE_MEGABYTE)
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {

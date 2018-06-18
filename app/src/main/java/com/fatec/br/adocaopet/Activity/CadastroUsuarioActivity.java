@@ -173,7 +173,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
     public void saveUserWithPicture() {
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference riversRef = storageRef.child("user/" + usuario.getId() + ".png");
+        StorageReference riversRef = storageRef.child("user/" + auth.getCurrentUser().getUid() + ".png");
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         foto.compress(Bitmap.CompressFormat.PNG, 0, outputStream);

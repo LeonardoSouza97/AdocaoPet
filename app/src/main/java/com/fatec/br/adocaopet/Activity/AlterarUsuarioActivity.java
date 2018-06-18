@@ -160,7 +160,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
             StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
 
             final long ONE_MEGABYTE = 1024 * 1024;
-            firebaseStorage.child("user/" + identificacaoUsuario + ".png").getBytes(ONE_MEGABYTE)
+            firebaseStorage.child("user/" + auth.getCurrentUser().getUid() + ".png").getBytes(ONE_MEGABYTE)
                     .addOnSuccessListener(new OnSuccessListener<byte[]>() {
                         @Override
                         public void onSuccess(byte[] bytes) {
@@ -255,7 +255,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
     private void saveUserWithPicture() {
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference riversRef = storageRef.child("user/" + identificacaoUsuario + ".png");
+        StorageReference riversRef = storageRef.child("user/" + auth.getCurrentUser().getUid() + ".png");
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         foto.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
@@ -394,7 +394,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
     private void AlterarFotoUsuario() {
 
         StorageReference storageRef = FirebaseStorage.getInstance().getReference();
-        StorageReference riversRef = storageRef.child("user/" + identificacaoUsuario + ".png");
+        StorageReference riversRef = storageRef.child("user/" + auth.getCurrentUser().getUid() + ".png");
 
         riversRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
