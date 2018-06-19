@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nome"
+            android:drawableLeft="@drawable/ic_account_box_black_24dp"
             android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
             android:textSize="24sp" />
@@ -32,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Endereço"
+            android:drawableLeft="@drawable/ic_place_black_24dp"
             android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
             android:textSize="18sp" />
@@ -42,6 +44,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:text="Telefone"
+            android:drawableLeft="@drawable/ic_contact_phone_black_24dp"
             android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
             android:textSize="14sp" />
@@ -52,6 +55,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:text="Email"
+            android:drawableLeft="@drawable/ic_email_black_24dp"
             android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
             android:textSize="14sp" />
@@ -62,13 +66,15 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:text="Data de Nascimento"
+            android:layout_marginBottom="10dp"
+            android:drawableLeft="@drawable/ic_date_range_black_24dp"
             android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
             android:textSize="14sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="100dp"
             android:orientation="vertical"
             android:text="Teste"
             android:textAlignment="center"
@@ -77,19 +83,39 @@
 
             <Button
                 android:id="@+id/btnLigar"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_weight="1"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/buttonshape"
                 android:drawableLeft="@drawable/ic_call_black_24dp"
-                android:text="Ligar" />
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Ligar"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnEnviarEmailDono"
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:layout_weight="1"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/buttonshape"
                 android:drawableLeft="@drawable/ic_message_black_24dp"
-                android:text="Enviar Email" />
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
+                android:text="Enviar Email"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>

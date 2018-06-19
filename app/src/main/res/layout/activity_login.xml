@@ -48,13 +48,15 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/prompt_email"
+                    android:layout_width="280dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/et_bg"
+                    android:drawableLeft="@drawable/ic_email_black_24dp"
+                    android:hint="Email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true" />
-
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
@@ -63,8 +65,12 @@
 
                 <EditText
                     android:id="@+id/password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="280dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/et_bg"
+                    android:drawableLeft="@drawable/ic_https_black_24dp"
                     android:hint="@string/prompt_password"
                     android:imeActionId="6"
                     android:imeActionLabel="@string/action_sign_in_short"
@@ -77,40 +83,58 @@
 
             <Button
                 android:id="@+id/email_sign_in_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/buttonshape"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
                 android:text="@string/action_sign_in"
-                android:textColor="#5d5954"
-                android:textStyle="bold" />
-
-            <com.facebook.login.widget.LoginButton
-                android:id="@+id/login_button"
-                android:layout_width="321dp"
-                android:layout_height="300dp"
-                android:layout_gravity="center_horizontal" />
-                <!--android:layout_marginTop="30dp"-->
-                <!--android:layout_marginBottom="30dp" />-->
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/regiter_button"
-                style="?android:textAppearanceSmall"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/buttonshape"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
                 android:text="@string/register_button"
-                android:textColor="#5d5954"
-                android:textStyle="bold" />
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/esqueceu_senha_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:autoText="true"
+                android:layout_width="280dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/buttonshape"
+                android:shadowColor="#A8A8A8"
+                android:shadowDx="0"
+                android:shadowDy="0"
+                android:shadowRadius="5"
                 android:text="Esqueceu sua senha?"
-                android:textColor="@color/colorPrimaryDark" />
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textSize="10sp" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/login_button"
+                android:layout_width="280dp"
+                android:layout_height="45dp"
+                android:layout_marginBottom="5dp"
+                android:layout_gravity="center_horizontal" />
 
         </LinearLayout>
 

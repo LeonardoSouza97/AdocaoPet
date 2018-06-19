@@ -17,6 +17,7 @@
         android:layout_marginStart="29dp"
         android:layout_marginTop="31dp"
         android:text="Buscar Pets"
+        android:gravity="center_horizontal"
         android:textColor="#555555"
         android:textSize="24sp" />
 
@@ -28,6 +29,7 @@
         android:layout_below="@+id/heading_label"
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/et_bg"
         android:layout_toStartOf="@+id/search_btn"
         android:ems="10"
         android:hint="Pesquise aqui"
@@ -77,6 +79,7 @@
         android:layout_below="@+id/listaTodosPets"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="7dp"
-        android:text="Voltar" />
+        android:text="Voltar"
+        android:visibility="invisible" />
 
 </RelativeLayout>

@@ -33,6 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nome"
+                android:drawableLeft="@drawable/ic_perm_contact_calendar_black_24dp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="24sp" />
@@ -42,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Endereço"
+                android:drawableLeft="@drawable/ic_place_black_24dp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="14sp" />
@@ -52,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Telefone"
+                android:drawableLeft="@drawable/ic_place_black_24dp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="14sp" />
@@ -62,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Email"
+                android:drawableLeft="@drawable/ic_email_black_24dp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="14sp" />
@@ -71,6 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
                 android:text="Data de Nascimento"
                 android:textAlignment="viewStart"
                 android:textColor="@color/cardview_light_background"
@@ -107,6 +112,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nome pet"
+                android:drawableLeft="@drawable/ic_perm_contact_calendar_black_24dp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="24sp" />
@@ -116,6 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Raça"
+                android:drawableLeft="@drawable/ic_pets_black_24dp"
                 android:textAlignment="viewStart"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="14sp" />
@@ -124,6 +131,7 @@
                 android:id="@+id/dialog_idade_pet_adocao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
                 android:text="Idade"
                 android:textColor="@color/cardview_light_background" />
 
@@ -133,6 +141,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Sexo"
+                android:drawableLeft="@drawable/ic_sexo"
                 android:textAlignment="viewStart"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="14sp" />
@@ -142,6 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:drawableLeft="@drawable/ic_weight_tool"
                 android:text="Peso"
                 android:textAlignment="viewStart"
                 android:textColor="@color/cardview_light_background"
@@ -153,6 +163,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:text="Porte"
+                android:drawableLeft="@drawable/ic_porte"
                 android:textAlignment="viewStart"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="14sp" />

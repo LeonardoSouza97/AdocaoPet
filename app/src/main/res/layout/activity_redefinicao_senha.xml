@@ -7,22 +7,32 @@
 
     <EditText
         android:id="@+id/editEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="30dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="136dp"
+        android:background="@drawable/et_bg"
+        android:drawableLeft="@drawable/ic_email_black_24dp"
         android:ems="10"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress" />
 
     <Button
         android:id="@+id/btnEnviarEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="280dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/editEmail"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Enviar e-mail de redefinição" />
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="42dp"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        android:text="Enviar e-mail de redefinição"
+        android:textColor="@color/cardview_light_background" />
 
     <TextView
         android:id="@+id/textView"
