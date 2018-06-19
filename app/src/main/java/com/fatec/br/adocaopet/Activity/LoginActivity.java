@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, CadastroUsuarioActivity.class);
                 startActivity(intent);
-                finish();
+                onStop();
             }
         });
 
@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, RedefinicaoSenhaActivity.class);
                 startActivity(intent);
-                finish();
+                onStop();
             }
         });
 

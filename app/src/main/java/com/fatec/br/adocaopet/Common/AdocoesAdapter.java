@@ -111,17 +111,17 @@ public class AdocoesAdapter extends RecyclerView.Adapter<AdocoesAdapter.AdocoesV
             @Override
             public void onClick(View view) {
                 nomeUsuarioVisualiza.setText(listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getNome());
-                dataUsuarioVisualiza.setText("Data de Nascimento: " + listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getDataNasc());
-                telefoneUsuarioVisualiza.setText("Telefone: " + listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getTelefone());
-                emailUsuarioVisualiza.setText("Email: " + listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getEmail());
-                enderecoUsuarioVisualiza.setText("Endereço: " + listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getEndereco());
+                dataUsuarioVisualiza.setText(listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getDataNasc());
+                telefoneUsuarioVisualiza.setText(listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getTelefone());
+                emailUsuarioVisualiza.setText(listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getEmail());
+                enderecoUsuarioVisualiza.setText(listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getEndereco());
 
                 nomePetVisualiza.setText(listaAdocoes.get(holder.getAdapterPosition()).getPet().getNome());
-                racaPetVisualiza.setText("Raça: " + listaAdocoes.get(holder.getAdapterPosition()).getPet().getRaca());
-                idadePetVisualiza.setText("Idade: " + listaAdocoes.get(holder.getAdapterPosition()).getPet().getIdade());
-                sexoPetVisualiza.setText("Sexo: " + listaAdocoes.get(holder.getAdapterPosition()).getPet().getSexo());
-                pesoPetVisualiza.setText("Peso: " + listaAdocoes.get(holder.getAdapterPosition()).getPet().getPeso());
-                portePetVisualiza.setText("Porte: " + listaAdocoes.get(holder.getAdapterPosition()).getPet().getPorte());
+                racaPetVisualiza.setText(listaAdocoes.get(holder.getAdapterPosition()).getPet().getRaca());
+                idadePetVisualiza.setText(listaAdocoes.get(holder.getAdapterPosition()).getPet().getIdade() + " anos");
+                sexoPetVisualiza.setText(listaAdocoes.get(holder.getAdapterPosition()).getPet().getSexo());
+                pesoPetVisualiza.setText(listaAdocoes.get(holder.getAdapterPosition()).getPet().getPeso() + " kg");
+                portePetVisualiza.setText(listaAdocoes.get(holder.getAdapterPosition()).getPet().getPorte());
 
                 final StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
 
