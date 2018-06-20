@@ -46,6 +46,8 @@ import com.squareup.picasso.Picasso;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static java.lang.Thread.sleep;
 
 public class AlterarUsuarioActivity extends AppCompatActivity {
@@ -54,7 +56,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private Button btnAlterar, btnVoltar;
     private Usuario usuario;
-    private ImageView fotoUsuario;
+    private CircleImageView fotoUsuario;
     private Bitmap foto;
     String identificacaoUsuario;
 
@@ -68,7 +70,7 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
 
         identificacaoUsuario = FirebaseAuthUtils.getUUID();
 
-        fotoUsuario = (ImageView) findViewById(R.id.imageCamera);
+        fotoUsuario = (CircleImageView) findViewById(R.id.imageCamera);
         editNome = (EditText) findViewById(R.id.editNome);
         editSenha = (EditText) findViewById(R.id.editPassword);
         editConfirmarSenha = (EditText) findViewById(R.id.editConfirmPassword);

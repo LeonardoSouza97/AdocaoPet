@@ -15,6 +15,7 @@ import com.fatec.br.adocaopet.Common.PetAdapter;
 import com.fatec.br.adocaopet.DAO.FirebaseAuthUtils;
 import com.fatec.br.adocaopet.Model.Pet;
 import com.fatec.br.adocaopet.R;
+import com.fatec.br.adocaopet.Utils.SimpleDividerItemDecoration;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -65,6 +66,10 @@ public class MeusPetsActivity extends AppCompatActivity {
 
         atualizarLista();
         CheckListaVazia();
+
+        listaPets.addItemDecoration(new SimpleDividerItemDecoration(
+                getApplicationContext()
+        ));
 
         btnVoltarPerfil.setOnClickListener(new View.OnClickListener(){
 

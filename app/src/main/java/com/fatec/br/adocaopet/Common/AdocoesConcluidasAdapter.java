@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fatec.br.adocaopet.Model.Adocoes;
 import com.fatec.br.adocaopet.R;
@@ -77,11 +78,11 @@ public class AdocoesConcluidasAdapter extends RecyclerView.Adapter<AdocoesConclu
         holder.dataAdocao.setText(adocoes.getDataAdocao());
 
         if (adocoes.getStatus().equals(adocoes.getIdDono() + "Pendente")) {
-            holder.imageStatus.setBackgroundResource(R.mipmap.ic_pendente);
+            holder.imageStatus.setBackgroundResource(R.mipmap.ic_pendente_novo);
         } else if (adocoes.getStatus().equals(adocoes.getIdDono() + "Recusado")) {
-            holder.imageStatus.setBackgroundResource(R.mipmap.ic_recusado);
+            holder.imageStatus.setBackgroundResource(R.mipmap.ic_recusado_novo);
         } else {
-            holder.imageStatus.setBackgroundResource(R.mipmap.ic_aprovado);
+            holder.imageStatus.setBackgroundResource(R.mipmap.ic_aprovado_novo);
             holder.imageCall.setVisibility(View.VISIBLE);
         }
 
@@ -137,7 +138,11 @@ public class AdocoesConcluidasAdapter extends RecyclerView.Adapter<AdocoesConclu
                 btnEnviaEmail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        enviarEmail(listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getEmail());
+                        enviarEmail(listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getEmail()
+                        ,listaAdocoes.get(holder.getAdapterPosition()).getPet().getNome()
+                        ,listaAdocoes.get(holder.getAdapterPosition()).getDono().getNome()
+                        ,listaAdocoes.get(holder.getAdapterPosition()).getDono().getTelefone());
+
                     }
                 });
 
@@ -198,13 +203,18 @@ public class AdocoesConcluidasAdapter extends RecyclerView.Adapter<AdocoesConclu
         return telefone.substring(2);
     }
 
-    public void enviarEmail(String email)
+    public void enviarEmail(String email, String pet, String dono, String telefone)
     {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/html");
         intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { email });
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Tenho interesse em seu pet! ");
-        context.startActivity(Intent.createChooser(intent, "Enviar email para o dono"));
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Parabéns pela adoção!");
+        intent.putExtra(Intent.EXTRA_TEXT, "Olá sou(a) "+ dono +"! \n" +
+                "\n" + "Vi que se interessou no(a)" + pet + ". Gostaria de marcar um lugar para se encontrar?\n" +
+                "\n" +
+                "Pode me chamar nesse número:\n" +
+                telefone);
+        context.startActivity(Intent.createChooser(intent, "Enviar email para o solicitante"));
 
     }
 }

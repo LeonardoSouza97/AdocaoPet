@@ -2,6 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.fatec.br.adocaopet.Activity.RedefinicaoSenhaActivity">
 
@@ -32,7 +34,8 @@
         android:shadowDy="0"
         android:shadowRadius="5"
         android:text="Enviar e-mail de redefinição"
-        android:textColor="@color/cardview_light_background" />
+        android:textColor="@color/cardview_light_background"
+        android:textSize="10sp" />
 
     <TextView
         android:id="@+id/textView"

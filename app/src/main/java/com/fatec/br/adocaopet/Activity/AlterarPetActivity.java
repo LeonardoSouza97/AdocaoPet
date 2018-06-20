@@ -48,12 +48,11 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-/**
- * Created by Leo on 17/04/2018.
- */
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class AlterarPetActivity extends AppCompatActivity {
-    private ImageView fotoPet;
+    private CircleImageView fotoPet;
     private EditText nomePet;
     private EditText idadePet;
     private EditText pesoPet;
@@ -171,7 +170,7 @@ public class AlterarPetActivity extends AppCompatActivity {
 
     public void inicializaComponentes() {
 
-        fotoPet = (ImageView) findViewById(R.id.fotoPet);
+        fotoPet = (CircleImageView) findViewById(R.id.fotoPet);
         nomePet = (EditText) findViewById(R.id.editNomePet);
         idadePet = (EditText) findViewById(R.id.editIdadePet);
         pesoPet = (EditText) findViewById(R.id.editPesoPet);

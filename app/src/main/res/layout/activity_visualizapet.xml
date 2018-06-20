@@ -117,7 +117,9 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="5"
-                android:text="SOLICITAR ADOÇÃO" />
+                android:text="SOLICITAR ADOÇÃO"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/btnEnviarMensagem"
@@ -133,7 +135,9 @@
                 android:shadowDx="0"
                 android:shadowDy="0"
                 android:shadowRadius="5"
-                android:text="Enviar Mensagem" />
+                android:text="Enviar Mensagem"
+                android:textColor="@color/cardview_light_background"
+                android:textSize="10sp" />
         </LinearLayout>
 
     </LinearLayout>

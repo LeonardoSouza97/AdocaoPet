@@ -14,6 +14,7 @@ import com.fatec.br.adocaopet.Common.AdocoesConcluidasAdapter;
 import com.fatec.br.adocaopet.Common.MinhasAdocoesAdapter;
 import com.fatec.br.adocaopet.Model.Adocoes;
 import com.fatec.br.adocaopet.R;
+import com.fatec.br.adocaopet.Utils.SimpleDividerItemDecoration;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -25,6 +26,8 @@ import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 public class FragmentAdocaoConcluida extends android.support.v4.app.Fragment{
 
@@ -51,6 +54,10 @@ public class FragmentAdocaoConcluida extends android.support.v4.app.Fragment{
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         listaAdocoes.setLayoutManager(llm);
         listaAdocoes.setAdapter(adocoesAdapter);
+
+        listaAdocoes.addItemDecoration(new SimpleDividerItemDecoration(
+                getActivity()
+        ));
 
         return view;
     }

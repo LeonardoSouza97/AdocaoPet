@@ -16,10 +16,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="29dp"
         android:layout_marginTop="31dp"
-        android:text="Buscar Pets"
         android:gravity="center_horizontal"
+        android:text="Buscar Pets"
         android:textColor="#555555"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editPesquisa"

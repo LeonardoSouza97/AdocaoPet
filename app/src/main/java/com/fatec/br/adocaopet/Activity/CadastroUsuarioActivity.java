@@ -42,6 +42,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class CadastroUsuarioActivity extends AppCompatActivity {
 
@@ -49,7 +51,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private Button btnRegistrar, btnVoltar;
     private Usuario usuario;
-    private ImageView fotoUsuario;
+    private CircleImageView fotoUsuario;
     private Bitmap foto;
     String identificacaoUsuario;
 
@@ -194,7 +196,7 @@ public class CadastroUsuarioActivity extends AppCompatActivity {
     }
 
     public void inicializaComponentes() {
-        fotoUsuario = (ImageView) findViewById(R.id.imageCamera);
+        fotoUsuario = (CircleImageView) findViewById(R.id.imageCamera);
         editNome = (EditText) findViewById(R.id.editNome);
         editEmail = (EditText) findViewById(R.id.editEmail);
         editSenha = (EditText) findViewById(R.id.editPassword);

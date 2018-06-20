@@ -55,9 +55,11 @@ import java.io.ByteArrayOutputStream;
 import java.text.Normalizer;
 import java.util.regex.Pattern;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CadastroPetActivity extends AppCompatActivity {
 
-    private ImageView fotoPet;
+    private CircleImageView fotoPet;
     private EditText nomePet;
     private EditText idadePet;
     private EditText pesoPet;
@@ -71,9 +73,7 @@ public class CadastroPetActivity extends AppCompatActivity {
     private Button btnVoltar;
     private Pet pet;
     private Bitmap foto;
-
     private ListRaca listRaca;
-
     private FirebaseAuth auth;
     private boolean hasPicture = false;
     private static final int REQUEST_CAMERA = 1000;
@@ -116,7 +116,7 @@ public class CadastroPetActivity extends AppCompatActivity {
 
     public void inicializaComponentes() {
 
-        fotoPet = (ImageView) findViewById(R.id.fotoPet);
+        fotoPet = (CircleImageView) findViewById(R.id.fotoPet);
         nomePet = (EditText) findViewById(R.id.editNomePet);
         idadePet = (EditText) findViewById(R.id.editIdadePet);
         pesoPet = (EditText) findViewById(R.id.editPesoPet);

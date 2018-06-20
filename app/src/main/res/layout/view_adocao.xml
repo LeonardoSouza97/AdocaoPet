@@ -44,25 +44,30 @@
         android:id="@+id/btnAceitar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/editNomeAdotante"
-        android:layout_marginStart="32dp"
+        android:layout_alignBottom="@+id/editDataAdocao"
+        android:layout_marginStart="21dp"
         android:layout_toEndOf="@+id/editDataAdocao"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        android:background="@color/cardview_light_background"
+        android:src="@mipmap/ic_add_novo" />
 
     <ImageButton
         android:id="@+id/btnRecusar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/btnAceitar"
-        android:layout_toStartOf="@+id/btnInfo"
-        app:srcCompat="@android:drawable/ic_delete" />
+        android:layout_marginStart="13dp"
+        android:layout_toEndOf="@+id/btnAceitar"
+        android:background="@drawable/com_facebook_auth_dialog_background"
+        android:src="@mipmap/ic_recusado_novo" />
 
     <ImageButton
         android:id="@+id/btnInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/btnRecusar"
-        app:srcCompat="@android:drawable/ic_dialog_info" />
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/btnRecusar"
+        android:background="@color/cardview_light_background"
+        android:src="@mipmap/ic_info_novo" />
 
 </RelativeLayout>

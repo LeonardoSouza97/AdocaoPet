@@ -1,12 +1,10 @@
 package com.fatec.br.adocaopet.Common;
 
-import java.util.List;
-
 public class ListRaca {
 
     public String[] ListaCachorro() {
 
-        String[] caes = {"Beagle", "Pinscher", "Boxer"};
+        String[] caes = {"Beagle", "Pinscher", "Boxer", "Vira-Lata"};
 
         return caes;
     }

@@ -4,21 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context="com.fatec.br.adocaopet.Activity.CadastroUsuarioActivity">
 
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/imageCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
-        android:background="#FFFFFF"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:onClick="takeAPicture"
-        app:srcCompat="@mipmap/ic_add_camera" />
+        app:civ_border_color="#FF000000"
+        app:civ_border_width="2dp"
+        android:src="@mipmap/ic_add_camera" />
 
     <EditText
         android:id="@+id/editNome"
@@ -136,7 +137,8 @@
         android:shadowDy="0"
         android:shadowRadius="5"
         android:text="Confirmar"
-        android:textColor="@color/cardview_light_background" />
+        android:textColor="@color/cardview_light_background"
+        android:textSize="10sp" />
 
     <Button
         android:id="@+id/btnVoltar"

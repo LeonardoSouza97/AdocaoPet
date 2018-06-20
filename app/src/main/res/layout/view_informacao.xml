@@ -16,6 +16,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:src="@mipmap/ic_home"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
             app:srcCompat="@color/cardview_light_background" />
 
         <TextView
@@ -97,7 +99,7 @@
                 android:shadowRadius="5"
                 android:text="Ligar"
                 android:textColor="@color/cardview_light_background"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/btnEnviarEmailDono"
@@ -115,7 +117,7 @@
                 android:shadowRadius="5"
                 android:text="Enviar Email"
                 android:textColor="@color/cardview_light_background"
-                android:textSize="12sp" />
+                android:textSize="10sp" />
         </LinearLayout>
 
     </LinearLayout>

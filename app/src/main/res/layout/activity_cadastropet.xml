@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.fatec.br.adocaopet.Activity.CadastroPetActivity">
 
 
@@ -27,14 +29,15 @@
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/fotoPet"
-                android:layout_width="280dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_height="57dp"
                 android:onClick="takeAPicture"
-                android:textAlignment="center"
-                app:srcCompat="@mipmap/ic_add_camera" />
+                android:src="@mipmap/ic_add_camera"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp" />
 
             <EditText
                 android:id="@+id/editNomePet"
@@ -242,7 +245,8 @@
                 android:shadowDy="0"
                 android:shadowRadius="5"
                 android:text="Cadastrar"
-                android:textColor="@color/cardview_light_background" />
+                android:textColor="@color/cardview_light_background"
+                android:textSize="10sp" />
 
             <Button
                 android:id="@+id/btnVoltar"

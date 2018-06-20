@@ -23,6 +23,7 @@ import com.fatec.br.adocaopet.Common.PetAdapterBusca;
 import com.fatec.br.adocaopet.DAO.FirebaseAuthUtils;
 import com.fatec.br.adocaopet.Model.Pet;
 import com.fatec.br.adocaopet.R;
+import com.fatec.br.adocaopet.Utils.SimpleDividerItemDecoration;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -85,6 +86,10 @@ public class BuscaPetActivity extends AppCompatActivity {
         petAdapter = new PetAdapterBusca(result);
 
         listaPets.setAdapter(petAdapter);
+
+        listaPets.addItemDecoration(new SimpleDividerItemDecoration(
+                getApplicationContext()
+        ));
 
         btn_voltar.setOnClickListener(new View.OnClickListener() {
 

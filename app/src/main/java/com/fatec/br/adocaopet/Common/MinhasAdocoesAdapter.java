@@ -78,11 +78,11 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
         holder.dataAdocao.setText(adocoes.getDataAdocao());
 
         if (adocoes.getStatus().equals(adocoes.getIdDono() + "Pendente")) {
-            holder.imageStatus.setBackgroundResource(R.mipmap.ic_pendente);
+            holder.imageStatus.setBackgroundResource(R.mipmap.ic_pendente_novo);
         } else if (adocoes.getStatus().equals(adocoes.getIdDono() + "Recusado")) {
-            holder.imageStatus.setBackgroundResource(R.mipmap.ic_recusado);
+            holder.imageStatus.setBackgroundResource(R.mipmap.ic_recusado_novo);
         } else {
-            holder.imageStatus.setBackgroundResource(R.mipmap.ic_aprovado);
+            holder.imageStatus.setBackgroundResource(R.mipmap.ic_aprovado_novo);
             holder.imageCall.setVisibility(View.VISIBLE);
         }
 
@@ -131,7 +131,9 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
                 btnEnviaEmail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        enviarEmail(listaAdocoes.get(holder.getAdapterPosition()).getDono().getEmail());
+                        enviarEmail(listaAdocoes.get(holder.getAdapterPosition()).getDono().getEmail()
+                        ,listaAdocoes.get(holder.getAdapterPosition()).getPet().getNome()
+                        ,listaAdocoes.get(holder.getAdapterPosition()).getDono().getNome());
                     }
                 });
 
@@ -192,12 +194,20 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
         return telefone.substring(2);
     }
 
-    public void enviarEmail(String email)
+    public void enviarEmail(String email, String pet, String dono)
     {
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/html");
         intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { email });
         intent.putExtra(Intent.EXTRA_SUBJECT, "Tenho interesse em seu pet! ");
+        intent.putExtra(Intent.EXTRA_TEXT, "Olá! " + dono +" \n" +
+                "\n" +
+                "Obrigado por aceitar minha solicitação no PetBox!\n" +
+                "\n" +
+                "Vamos combinar o procedimento para adoção do(a) " + pet + "?\n" +
+                "\n" +
+                "Quando puder, por favor, responda esse e-mail ou verifique meus contatos através do aplicativo.\n" +
+                "Fico à disposição!");
         context.startActivity(Intent.createChooser(intent, "Enviar email para o dono"));
 
     }

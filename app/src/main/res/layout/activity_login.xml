@@ -49,7 +49,7 @@
                 <AutoCompleteTextView
                     android:id="@+id/email"
                     android:layout_width="280dp"
-                    android:layout_height="30dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center_horizontal"
                     android:background="@drawable/et_bg"
                     android:drawableLeft="@drawable/ic_email_black_24dp"
@@ -66,7 +66,7 @@
                 <EditText
                     android:id="@+id/password"
                     android:layout_width="280dp"
-                    android:layout_height="30dp"
+                    android:layout_height="35dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="10dp"
                     android:background="@drawable/et_bg"
