@@ -5,6 +5,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -46,6 +47,7 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
     private CircleImageView fotoUsuarioVisualiza;
     private Button btnLigar, btnEnviaEmail;
     private Context context;
+    private DisparaEmail disparaEmail;
 
     public MinhasAdocoesAdapter(List<Adocoes> listaAdocoes) {
         this.listaAdocoes = listaAdocoes;
@@ -121,8 +123,8 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
                         Intent i = new Intent(Intent.ACTION_CALL);
                         i.setData(Uri.parse("tel:" + pegaTelefone(listaAdocoes.get(holder.getAdapterPosition()).getDono().getTelefone())));
                         if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE},123);
-                        }else{
+                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE}, 123);
+                        } else {
                             context.startActivity(i);
                         }
                     }
@@ -131,16 +133,43 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
                 btnEnviaEmail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        enviarEmail(listaAdocoes.get(holder.getAdapterPosition()).getDono().getEmail()
-                        ,listaAdocoes.get(holder.getAdapterPosition()).getPet().getNome()
-                        ,listaAdocoes.get(holder.getAdapterPosition()).getDono().getNome());
+
+                        final ProgressDialog progressDialog = new ProgressDialog(context);
+                        progressDialog.setMessage("Enviando email..");
+                        progressDialog.show();
+
+                        Thread enviaEmail = new Thread() {
+                            public void run() {
+
+                                try {
+                                    Thread.sleep(3000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String nomeDono = listaAdocoes.get(holder.getAdapterPosition()).getDono().getNome();
+                                String nomePet = listaAdocoes.get(holder.getAdapterPosition()).getPet().getNome();
+                                String destinatario = listaAdocoes.get(holder.getAdapterPosition()).getDono().getEmail();
+
+                                disparaEmail = new DisparaEmail();
+                                disparaEmail.enviar("Tenho interesse em seu pet! ", "Olá! " + nomeDono + " \n" +
+                                        "\n" +
+                                        "Obrigado por aceitar minha solicitação no PetBox!\n" +
+                                        "\n" +
+                                        "Vamos combinar o procedimento para adoção do(a) " + nomePet + "?\n" +
+                                        "\n" +
+                                        "Quando puder, por favor, responda esse e-mail ou verifique meus contatos através do aplicativo.\n" +
+                                        "Fico à disposição!", destinatario);
+                                progressDialog.dismiss();
+                            }};
+                        enviaEmail.start();
+
+                        Toast.makeText(context, "Email enviado com sucesso!", Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
 
         });
-
 
         ref = database.getReference("adoções").child(adocoes.getIdAdocao());
 
@@ -188,28 +217,27 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
         }
     }
 
-    public String pegaTelefone(String telefone){
+    public String pegaTelefone(String telefone) {
 
         telefone = telefone.replaceAll("[^\\d.]", "");
         return telefone.substring(2);
     }
 
-    public void enviarEmail(String email, String pet, String dono)
-    {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/html");
-        intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { email });
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Tenho interesse em seu pet! ");
-        intent.putExtra(Intent.EXTRA_TEXT, "Olá! " + dono +" \n" +
-                "\n" +
-                "Obrigado por aceitar minha solicitação no PetBox!\n" +
-                "\n" +
-                "Vamos combinar o procedimento para adoção do(a) " + pet + "?\n" +
-                "\n" +
-                "Quando puder, por favor, responda esse e-mail ou verifique meus contatos através do aplicativo.\n" +
-                "Fico à disposição!");
-        context.startActivity(Intent.createChooser(intent, "Enviar email para o dono"));
-
-    }
+//    public void enviarEmail(String email, String pet, String dono) {
+//        Intent intent = new Intent(Intent.ACTION_SEND);
+//        intent.setType("text/html");
+//        intent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{email});
+//        intent.putExtra(Intent.EXTRA_SUBJECT, "Tenho interesse em seu pet! ");
+//        intent.putExtra(Intent.EXTRA_TEXT, "Olá! " + dono + " \n" +
+//                "\n" +
+//                "Obrigado por aceitar minha solicitação no PetBox!\n" +
+//                "\n" +
+//                "Vamos combinar o procedimento para adoção do(a) " + pet + "?\n" +
+//                "\n" +
+//                "Quando puder, por favor, responda esse e-mail ou verifique meus contatos através do aplicativo.\n" +
+//                "Fico à disposição!");
+//        context.startActivity(Intent.createChooser(intent, "Enviar email para o dono"));
+//
+//    }
 
 }

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -46,13 +47,14 @@ public class AdocoesConcluidasAdapter extends RecyclerView.Adapter<AdocoesConclu
     private CircleImageView fotoUsuarioVisualiza;
     private Button btnLigar, btnEnviaEmail;
     private Context context;
+    private DisparaEmail disparaEmail;
 
-    public  AdocoesConcluidasAdapter(List<Adocoes> listaAdocoes) {
+    public AdocoesConcluidasAdapter(List<Adocoes> listaAdocoes) {
         this.listaAdocoes = listaAdocoes;
     }
 
     @Override
-    public  AdocoesConcluidasAdapter.AdocoesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AdocoesConcluidasAdapter.AdocoesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         dialog = new Dialog(parent.getContext());
         dialog.setContentView(R.layout.view_informacao);
@@ -66,11 +68,11 @@ public class AdocoesConcluidasAdapter extends RecyclerView.Adapter<AdocoesConclu
         btnLigar = (Button) dialog.findViewById(R.id.btnLigar);
         btnEnviaEmail = (Button) dialog.findViewById(R.id.btnEnviarEmailDono);
 
-        return new  AdocoesConcluidasAdapter.AdocoesViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_adocoes_concluidas, parent, false));
+        return new AdocoesConcluidasAdapter.AdocoesViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.view_adocoes_concluidas, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final  AdocoesConcluidasAdapter.AdocoesViewHolder holder, int position) {
+    public void onBindViewHolder(final AdocoesConcluidasAdapter.AdocoesViewHolder holder, int position) {
         adocoes = listaAdocoes.get(position);
 
         holder.nomeAdotante.setText(adocoes.getSolicitante().getNome());
@@ -128,8 +130,8 @@ public class AdocoesConcluidasAdapter extends RecyclerView.Adapter<AdocoesConclu
                         Intent i = new Intent(Intent.ACTION_CALL);
                         i.setData(Uri.parse("tel:" + pegaTelefone(listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getTelefone())));
                         if (ContextCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE},123);
-                        }else{
+                            ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.CALL_PHONE}, 123);
+                        } else {
                             context.startActivity(i);
                         }
                     }
@@ -138,10 +140,37 @@ public class AdocoesConcluidasAdapter extends RecyclerView.Adapter<AdocoesConclu
                 btnEnviaEmail.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        enviarEmail(listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getEmail()
-                        ,listaAdocoes.get(holder.getAdapterPosition()).getPet().getNome()
-                        ,listaAdocoes.get(holder.getAdapterPosition()).getDono().getNome()
-                        ,listaAdocoes.get(holder.getAdapterPosition()).getDono().getTelefone());
+                        final ProgressDialog progressDialog = new ProgressDialog(context);
+                        progressDialog.setMessage("Enviando email..");
+                        progressDialog.show();
+
+                        Thread enviaEmail = new Thread() {
+                            public void run() {
+
+                                try {
+                                    Thread.sleep(3000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                                String nomeDono = listaAdocoes.get(holder.getAdapterPosition()).getDono().getNome();
+                                String nomePet = listaAdocoes.get(holder.getAdapterPosition()).getPet().getNome();
+                                String destinatario = listaAdocoes.get(holder.getAdapterPosition()).getDono().getEmail();
+                                String telefone = listaAdocoes.get(holder.getAdapterPosition()).getDono().getTelefone();
+
+                                disparaEmail = new DisparaEmail();
+                                disparaEmail.enviar("Tenho interesse em seu pet! ", "Olá sou(a) " + nomeDono + "! \n" +
+                                        "\n" + "Vi que se interessou no(a)" + nomePet + ". Gostaria de marcar um lugar para se encontrar?\n" +
+                                        "\n" +
+                                        "Pode me chamar nesse número:\n" +
+                                        telefone, destinatario);
+                                progressDialog.dismiss();
+                            }
+                        };
+
+                        enviaEmail.start();
+
+                        Toast.makeText(context, "Email enviado com sucesso!", Toast.LENGTH_SHORT).show();
 
                     }
                 });
@@ -197,24 +226,24 @@ public class AdocoesConcluidasAdapter extends RecyclerView.Adapter<AdocoesConclu
         }
     }
 
-    public String pegaTelefone(String telefone){
+    public String pegaTelefone(String telefone) {
 
         telefone = telefone.replaceAll("[^\\d.]", "");
         return telefone.substring(2);
     }
 
-    public void enviarEmail(String email, String pet, String dono, String telefone)
-    {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/html");
-        intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { email });
-        intent.putExtra(Intent.EXTRA_SUBJECT, "Parabéns pela adoção!");
-        intent.putExtra(Intent.EXTRA_TEXT, "Olá sou(a) "+ dono +"! \n" +
-                "\n" + "Vi que se interessou no(a)" + pet + ". Gostaria de marcar um lugar para se encontrar?\n" +
-                "\n" +
-                "Pode me chamar nesse número:\n" +
-                telefone);
-        context.startActivity(Intent.createChooser(intent, "Enviar email para o solicitante"));
-
-    }
+//    public void enviarEmail(String email, String pet, String dono, String telefone)
+//    {
+//        Intent intent = new Intent(Intent.ACTION_SEND);
+//        intent.setType("text/html");
+//        intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { email });
+//        intent.putExtra(Intent.EXTRA_SUBJECT, "Parabéns pela adoção!");
+//        intent.putExtra(Intent.EXTRA_TEXT, "Olá sou(a) "+ dono +"! \n" +
+//                "\n" + "Vi que se interessou no(a)" + pet + ". Gostaria de marcar um lugar para se encontrar?\n" +
+//                "\n" +
+//                "Pode me chamar nesse número:\n" +
+//                telefone);
+//        context.startActivity(Intent.createChooser(intent, "Enviar email para o solicitante"));
+//
+//    }
 }
