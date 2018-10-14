@@ -1,5 +1,6 @@
 package com.fatec.br.adocaopet.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.fatec.br.adocaopet.Activity.PerfilActivity;
 import com.fatec.br.adocaopet.Common.AdocoesAdapter;
+import com.fatec.br.adocaopet.Common.Notificacao;
 import com.fatec.br.adocaopet.Model.Adocoes;
 import com.fatec.br.adocaopet.R;
 import com.fatec.br.adocaopet.Utils.SimpleDividerItemDecoration;
@@ -23,6 +26,8 @@ import com.google.firebase.database.Query;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 public class FragmentReceiveRequest extends android.support.v4.app.Fragment {
 
     View view;
@@ -31,6 +36,7 @@ public class FragmentReceiveRequest extends android.support.v4.app.Fragment {
     private RecyclerView listaAdocoes;
     private List<Adocoes> result;
     private Adocoes adocoes;
+    private Notificacao notificacao;
 
     @Nullable
     @Override
@@ -80,11 +86,12 @@ public class FragmentReceiveRequest extends android.support.v4.app.Fragment {
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
+                notificacao = new Notificacao();
+                Intent intent = new Intent(getActivity(), PerfilActivity.class);
                 result.add(dataSnapshot.getValue(Adocoes.class));
                 adocoesAdapter.notifyDataSetChanged();
                 CheckListaVazia();
-
+                notificacao.enviarNotificacao(getApplicationContext(), 1, "Opa!", "Parece que você tem adoções pendentes!", intent);
             }
 
             @Override
@@ -93,7 +100,6 @@ public class FragmentReceiveRequest extends android.support.v4.app.Fragment {
                 int index = getItemIndex(adocoes);
                 result.set(index, adocoes);
                 adocoesAdapter.notifyItemChanged(index);
-
             }
 
             @Override
