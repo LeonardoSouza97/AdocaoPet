@@ -1,10 +1,8 @@
 package com.fatec.br.adocaopet.Model;
 
-import android.graphics.Bitmap;
+import java.io.Serializable;
 
-import com.google.firebase.database.DatabaseReference;
-
-public class Pet {
+public class Pet implements Serializable {
     private String idPet;
     private String nome;
     private String idade;
@@ -136,4 +134,5 @@ public class Pet {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
+
 }

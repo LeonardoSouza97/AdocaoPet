@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,9 +35,16 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -52,6 +62,8 @@ public class BuscaPetActivity extends AppCompatActivity {
     private EditText editPesquisa;
     private Spinner cbEspecie;
     private ListRaca listRaca;
+    private RadioButton rbPequeno, rbMedio, rbGrande, rbMacho, rbFemea, rbCachorro, rbGato;
+    private RadioGroup rgPorte, rgEspecie, rgSexo;
     private CircleImageView fotoPet;
 
 
@@ -62,34 +74,31 @@ public class BuscaPetActivity extends AppCompatActivity {
 
         identificacaoUsuario = FirebaseAuthUtils.getUUID();
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("pets");
 
         btn_voltar = (Button) findViewById(R.id.btnVoltarBuscaPet);
         btn_pesquisa = (ImageButton) findViewById(R.id.search_btn);
-        editPesquisa = (EditText) findViewById(R.id.editPesquisa);
+//        editPesquisa = (EditText) findViewById(R.id.editPesquisa);
         cbEspecie = (Spinner) findViewById(R.id.cbEspecieBusca);
         fotoPet = (CircleImageView) findViewById(R.id.fotoCircleViewPet);
+
+        rbCachorro = (RadioButton) findViewById(R.id.rbCachorro);
+        rbGato = (RadioButton) findViewById(R.id.rbGato);
+        rbFemea = (RadioButton) findViewById(R.id.rbFemea);
+        rbMacho = (RadioButton) findViewById(R.id.rbMacho);
+        rbPequeno = (RadioButton) findViewById(R.id.rbPequeno);
+        rbMedio = (RadioButton) findViewById(R.id.rbMedio);
+        rbGrande = (RadioButton) findViewById(R.id.rbGrande);
+
+        rgEspecie = (RadioGroup) findViewById(R.id.rgEspecie);
+        rgPorte = (RadioGroup) findViewById(R.id.rgPorte);
+        rgSexo = (RadioGroup) findViewById(R.id.rgSexo);
+
+        result = new ArrayList<>();
 
         alimentaCombos();
 
         listaPets = (RecyclerView) findViewById(R.id.listaTodosPets);
-        listaPets.setHasFixedSize(true);
 
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-
-        result = new ArrayList<>();
-
-        listaPets.setLayoutManager(llm);
-
-        petAdapter = new PetAdapterBusca(result);
-
-        listaPets.setAdapter(petAdapter);
-
-        listaPets.addItemDecoration(new SimpleDividerItemDecoration(
-                getApplicationContext()
-        ));
 
         btn_voltar.setOnClickListener(new View.OnClickListener() {
 
@@ -115,79 +124,54 @@ public class BuscaPetActivity extends AppCompatActivity {
 
 
     private void atualizarLista() throws InterruptedException {
-
         result.clear();
 
-        Query query;
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("pets");
 
-        auth = FirebaseAuth.getInstance().getCurrentUser();
+        String raca = cbEspecie.getSelectedItem().toString();
 
-        String pesquisa = editPesquisa.getText().toString();
+        String sexo = verificaSexo();
+        String porte = verificaPorte();
+        String especie = verificaEspecie();
 
-        if (TextUtils.isEmpty(pesquisa)) {
-            editPesquisa.setError(getString(R.string.error_field_required));
-            editPesquisa.requestFocus();
-
-        } else {
-
-            if (cbEspecie.getSelectedItem().toString().equals("Nome")) {
-
-                query = firebaseDatabase.getReference("pets").orderByChild("nome").startAt(pesquisa).endAt(pesquisa + "\\uf8ff");
-
-            } else if (cbEspecie.getSelectedItem().toString().equals("Raça")) {
-
-                query = firebaseDatabase.getReference("pets").orderByChild("raca").startAt(pesquisa).endAt(pesquisa + "\\uf8ff");
-
-            } else {
-
-                query = firebaseDatabase.getReference("pets").orderByChild("especie").startAt(pesquisa).endAt(pesquisa + "\\uf8ff");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.e("Count ", "Número de Pets" + dataSnapshot.getChildrenCount());
+                for (DataSnapshot pets : dataSnapshot.getChildren()) {
+                    Pet pet = pets.getValue(Pet.class);
+                    if (pet.getPorte().equals(porte) && pet.getSexo().equals(sexo) && pet.getEspecie().equals(especie) && pet.getRaca().equals(raca)) {
+                        result.add(pet);
+                    }
+                }
             }
 
-            query.addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                    result.add(dataSnapshot.getValue(Pet.class));
-                    petAdapter.notifyDataSetChanged();
-                    CheckListaVazia();
+            }
+        });
 
-                }
+        listaPets.setHasFixedSize(true);
 
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    Pet pet = dataSnapshot.getValue(Pet.class);
-                    int index = getItemIndex(pet);
-                    result.set(index, pet);
-                    petAdapter.notifyItemChanged(index);
-                }
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
 
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-                    Pet pet = dataSnapshot.getValue(Pet.class);
+        listaPets.setLayoutManager(llm);
 
-                    int index = getItemIndex(pet);
+        petAdapter = new PetAdapterBusca(result);
 
-                    result.remove(index);
-                    petAdapter.notifyItemRemoved(index);
-                    CheckListaVazia();
-                }
+        listaPets.setAdapter(petAdapter);
 
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+        listaPets.addItemDecoration(new SimpleDividerItemDecoration(
+                getApplicationContext()
+        ));
 
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-
-            });
-        }
+        Log.e("Pets", result.toString());
     }
 
     private int getItemIndex(Pet pet) {
-
         int index = -1;
 
         for (int i = 0; i < result.size(); i++) {
@@ -206,12 +190,46 @@ public class BuscaPetActivity extends AppCompatActivity {
         }
     }
 
-    private void alimentaCombos() {
-        listRaca = new ListRaca();
+    public void alimentaCombos() {
+        rgEspecie.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                listRaca = new ListRaca();
 
-        ArrayAdapter listaEspecie = new ArrayAdapter(this, android.R.layout.select_dialog_item, listRaca.ListaOpcoes());
-        cbEspecie.setAdapter(listaEspecie);
+                if (rbCachorro.isChecked()) {
+                    ArrayAdapter listaCachorros = new ArrayAdapter(BuscaPetActivity.this, android.R.layout.select_dialog_item, listRaca.ListaCachorro());
+                    cbEspecie.setAdapter(listaCachorros);
+
+                } else {
+                    ArrayAdapter listaGatos = new ArrayAdapter(BuscaPetActivity.this, android.R.layout.select_dialog_item, listRaca.ListaGatos());
+                    cbEspecie.setAdapter(listaGatos);
+                }
+            }
+        });
 
     }
 
+    public String verificaPorte() {
+        if (rbPequeno.isChecked()) {
+            return "Pequeno";
+        } else if (rbMedio.isChecked()) {
+            return "Médio";
+        } else {
+            return "Grande";
+        }
+    }
+
+    public String verificaSexo() {
+        if (rbMacho.isChecked()) {
+            return "macho";
+        }
+        return "femea";
+    }
+
+    public String verificaEspecie() {
+        if (rbGato.isChecked()) {
+            return "Gato";
+        }
+        return "Cachorro";
+    }
 }
