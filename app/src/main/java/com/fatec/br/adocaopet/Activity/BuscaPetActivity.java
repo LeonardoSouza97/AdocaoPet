@@ -74,6 +74,8 @@ public class BuscaPetActivity extends AppCompatActivity {
 
         identificacaoUsuario = FirebaseAuthUtils.getUUID();
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference("pets");
 
         btn_voltar = (Button) findViewById(R.id.btnVoltarBuscaPet);
         btn_pesquisa = (ImageButton) findViewById(R.id.search_btn);
@@ -124,10 +126,10 @@ public class BuscaPetActivity extends AppCompatActivity {
 
 
     private void atualizarLista() throws InterruptedException {
-        result.clear();
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("pets");
+        if (result.size() != 0) {
+            result.clear();
+        }
 
         String raca = cbEspecie.getSelectedItem().toString();
 
@@ -145,6 +147,21 @@ public class BuscaPetActivity extends AppCompatActivity {
                         result.add(pet);
                     }
                 }
+                listaPets.setHasFixedSize(true);
+
+                LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+                llm.setOrientation(LinearLayoutManager.VERTICAL);
+
+                listaPets.setLayoutManager(llm);
+
+                petAdapter = new PetAdapterBusca(result);
+
+                listaPets.setAdapter(petAdapter);
+
+                listaPets.addItemDecoration(new SimpleDividerItemDecoration(
+                        getApplicationContext()
+                ));
+
             }
 
             @Override
@@ -153,20 +170,6 @@ public class BuscaPetActivity extends AppCompatActivity {
             }
         });
 
-        listaPets.setHasFixedSize(true);
-
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-
-        listaPets.setLayoutManager(llm);
-
-        petAdapter = new PetAdapterBusca(result);
-
-        listaPets.setAdapter(petAdapter);
-
-        listaPets.addItemDecoration(new SimpleDividerItemDecoration(
-                getApplicationContext()
-        ));
 
         Log.e("Pets", result.toString());
     }

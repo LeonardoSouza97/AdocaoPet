@@ -24,6 +24,7 @@
                 android:id="@+id/txtCadastroPet"
                 android:layout_width="match_parent"
                 android:layout_height="62dp"
+                android:fontFamily="casual"
                 android:text="Cadastro Pet"
                 android:textAlignment="center"
                 android:textSize="30sp"

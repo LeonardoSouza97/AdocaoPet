@@ -24,7 +24,8 @@
                 android:id="@+id/txtAlterarPet"
                 android:layout_width="match_parent"
                 android:layout_height="62dp"
-                android:text="Alterar Pet"
+                android:fontFamily="casual"
+                android:text="Atualizar Pet"
                 android:textAlignment="center"
                 android:textSize="30sp"
                 android:textStyle="bold" />
