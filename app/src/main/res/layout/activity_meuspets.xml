@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical|center_horizontal"
-    android:background="@mipmap/fundo2"
+    android:background="#E1E7E4"
     android:orientation="vertical"
     tools:context=".Activity.MeusPetsActivity">
 

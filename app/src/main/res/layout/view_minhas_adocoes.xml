@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/adocaoPerfil"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    android:id="@+id/adocaoPerfil"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@layout/shadow_white">
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/fotoCircleViewPetAdocaoTela"
@@ -46,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="48dp"/>
+        android:layout_marginEnd="48dp" />
 
     <ImageButton
         android:id="@+id/imageCall"

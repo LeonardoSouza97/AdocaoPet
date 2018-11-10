@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -170,15 +171,18 @@ public class PerfilActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
 
         if (id == R.id.btn_logout) {
             Intent i = new Intent(PerfilActivity.this, LoginActivity.class);
             startActivity(i);
             finish();
             LoginManager.getInstance().logOut();
+        }
+
+        if (id == R.id.btn_about) {
+            new AlertDialog.Builder(this).setTitle("Sobre").
+                    setMessage("Aplicativo criado por alunos da Fatec").show();
         }
 
         return super.onOptionsItemSelected(item);

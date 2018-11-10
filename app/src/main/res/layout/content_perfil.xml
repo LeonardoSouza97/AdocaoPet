@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/flMain"
     android:layout_width="match_parent"
+    android:background="#E1E7E4"
     android:layout_height="match_parent"
     tools:context="com.fatec.br.adocaopet.Activity.PerfilActivity">
 
@@ -66,26 +67,26 @@
             android:textStyle="bold"
             tools:text="USUARIO" />
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager_id"
+            android:layout_width="match_parent"
+            android:layout_height="310dp"
+            android:layout_above="@+id/table_layout_id"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="22dp"
+            android:visibility="visible" />
+
         <android.support.design.widget.TabLayout
             android:id="@+id/table_layout_id"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/appBarLayout"
-            android:layout_marginTop="125dp"
             android:background="@color/colorAccent"
             app:tabIndicatorColor="@color/com_facebook_blue"
             app:tabSelectedTextColor="@color/cardview_light_background">
 
         </android.support.design.widget.TabLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/view_pager_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/table_layout_id"
-            android:visibility="visible" />
 
     </RelativeLayout>
 

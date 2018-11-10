@@ -6,7 +6,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:focusable="true"
-    android:background="@mipmap/fundo2"
+    android:background="#E1E7E4"
     android:alpha="1"
     android:focusableInTouchMode="true"
     android:paddingBottom="@dimen/activity_vertical_margin"

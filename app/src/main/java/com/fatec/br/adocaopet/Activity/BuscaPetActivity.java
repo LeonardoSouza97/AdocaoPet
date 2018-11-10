@@ -1,7 +1,9 @@
 package com.fatec.br.adocaopet.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -55,10 +57,11 @@ public class BuscaPetActivity extends AppCompatActivity {
     private PetAdapterBusca petAdapter;
     String identificacaoUsuario;
     FirebaseUser auth;
+    private Dialog dialog;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-    private Button btn_voltar;
-    private ImageButton btn_pesquisa;
+    private FloatingActionButton btnFloatPesquisa;
+    private CircleImageView btn_filtrar;
     private EditText editPesquisa;
     private Spinner cbEspecie;
     private ListRaca listRaca;
@@ -72,28 +75,42 @@ public class BuscaPetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscapet);
 
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.view_filtro);
+
         identificacaoUsuario = FirebaseAuthUtils.getUUID();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("pets");
 
-        btn_voltar = (Button) findViewById(R.id.btnVoltarBuscaPet);
-        btn_pesquisa = (ImageButton) findViewById(R.id.search_btn);
+        btnFloatPesquisa = (FloatingActionButton) findViewById(R.id.btnFloatSearch);
+        btn_filtrar = (CircleImageView) findViewById(R.id.btnFiltrar);
 //        editPesquisa = (EditText) findViewById(R.id.editPesquisa);
-        cbEspecie = (Spinner) findViewById(R.id.cbEspecieBusca);
         fotoPet = (CircleImageView) findViewById(R.id.fotoCircleViewPet);
 
-        rbCachorro = (RadioButton) findViewById(R.id.rbCachorro);
-        rbGato = (RadioButton) findViewById(R.id.rbGato);
-        rbFemea = (RadioButton) findViewById(R.id.rbFemea);
-        rbMacho = (RadioButton) findViewById(R.id.rbMacho);
-        rbPequeno = (RadioButton) findViewById(R.id.rbPequeno);
-        rbMedio = (RadioButton) findViewById(R.id.rbMedio);
-        rbGrande = (RadioButton) findViewById(R.id.rbGrande);
+//        rbCachorro = (RadioButton) findViewById(R.id.rbCachorro);
+//        rbGato = (RadioButton) findViewById(R.id.rbGato);
+//        rbFemea = (RadioButton) findViewById(R.id.rbFemea);
+//        rbMacho = (RadioButton) findViewById(R.id.rbMacho);
+//        rbPequeno = (RadioButton) findViewById(R.id.rbPequeno);
+//        rbMedio = (RadioButton) findViewById(R.id.rbMedio);
+//        rbGrande = (RadioButton) findViewById(R.id.rbGrande);
+//
+//        rgEspecie = (RadioGroup) findViewById(R.id.rgEspecie);
+//        rgPorte = (RadioGroup) findViewById(R.id.rgPorte);
+//        rgSexo = (RadioGroup) findViewById(R.id.rgSexo);
+        cbEspecie = (Spinner) dialog.findViewById(R.id.cbEspecieBusca);
+        rbCachorro = (RadioButton) dialog.findViewById(R.id.rbCachorro);
+        rbGato = (RadioButton) dialog.findViewById(R.id.rbGato);
+        rbFemea = (RadioButton) dialog.findViewById(R.id.rbFemea);
+        rbMacho = (RadioButton) dialog.findViewById(R.id.rbMacho);
+        rbPequeno = (RadioButton) dialog.findViewById(R.id.rbPequeno);
+        rbMedio = (RadioButton) dialog.findViewById(R.id.rbMedio);
+        rbGrande = (RadioButton) dialog.findViewById(R.id.rbGrande);
 
-        rgEspecie = (RadioGroup) findViewById(R.id.rgEspecie);
-        rgPorte = (RadioGroup) findViewById(R.id.rgPorte);
-        rgSexo = (RadioGroup) findViewById(R.id.rgSexo);
+        rgEspecie = (RadioGroup) dialog.findViewById(R.id.rgEspecie);
+        rgPorte = (RadioGroup) dialog.findViewById(R.id.rgPorte);
+        rgSexo = (RadioGroup) dialog.findViewById(R.id.rgSexo);
 
         result = new ArrayList<>();
 
@@ -101,18 +118,7 @@ public class BuscaPetActivity extends AppCompatActivity {
 
         listaPets = (RecyclerView) findViewById(R.id.listaTodosPets);
 
-
-        btn_voltar.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(BuscaPetActivity.this, PerfilActivity.class);
-                startActivity(i);
-                finish();
-            }
-        });
-
-        btn_pesquisa.setOnClickListener(new View.OnClickListener() {
+        btnFloatPesquisa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
@@ -120,6 +126,13 @@ public class BuscaPetActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        btn_filtrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.show();
             }
         });
     }

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="@mipmap/fundo2"
+    android:background="#E1E7E4"
     tools:context=".Activity.BuscaPetActivity">
-
 
     <TextView
         android:id="@+id/heading_label"
@@ -24,142 +23,174 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <RadioGroup
-        android:id="@+id/rgEspecie"
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/cbEspecieBusca">
-
-        <RadioButton
-            android:id="@+id/rbCachorro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/rbGato"
-            android:layout_alignBottom="@+id/rbGato"
-            android:layout_alignEnd="@+id/rbMedio"
-            android:layout_weight="1"
-            android:fontFamily="casual"
-            android:text="Cachorro" />
-
-        <RadioButton
-            android:id="@+id/rbGato"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/rbMacho"
-            android:layout_alignStart="@+id/rbMacho"
-            android:layout_marginBottom="12dp"
-            android:layout_weight="1"
-            android:fontFamily="casual"
-            android:text="Gato" />
-    </RadioGroup>
-
-    <Spinner
-        android:id="@+id/cbEspecieBusca"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@+id/rgEspecie"
-        android:layout_centerHorizontal="true"
-        android:hint="Espécie"
-        android:visibility="visible" />
-
-    <RadioGroup
-        android:id="@+id/rgPorte"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/rbPequeno"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/rbMedio"
-            android:layout_alignBottom="@+id/rbMedio"
-            android:layout_toStartOf="@+id/rbMedio"
-            android:layout_weight="1"
-            android:fontFamily="casual"
-            android:text="Pequeno" />
-
-        <RadioButton
-            android:id="@+id/rbMedio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/listaTodosPets"
-            android:layout_alignEnd="@+id/heading_label"
-            android:layout_weight="1"
-            android:fontFamily="casual"
-            android:text="Médio" />
-
-        <RadioButton
-            android:id="@+id/rbGrande"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/rbMedio"
-            android:layout_weight="1"
-            android:fontFamily="casual"
-            android:text="Grande"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused" />
-
-    </RadioGroup>
-
-    <RadioGroup
-        android:id="@+id/rgSexo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/rbFemea"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/rbMedio"
-            android:layout_toStartOf="@+id/search_btn"
-            android:layout_weight="1"
-            android:fontFamily="casual"
-            android:text="Fêmea" />
-
-        <RadioButton
-            android:id="@+id/rbMacho"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/rbMedio"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="28dp"
-            android:layout_toStartOf="@+id/rbFemea"
-            android:layout_weight="1"
-            android:fontFamily="casual"
-            android:text="Macho" />
-    </RadioGroup>
-
-    <ImageButton
-        android:id="@+id/search_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/listaTodosPets"
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/btnFiltrar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentEnd="true"
-        android:background="@color/cardview_shadow_end_color"
-        app:srcCompat="@mipmap/ic_search" />
+        android:layout_below="@+id/heading_label"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="7dp"
+        android:src="@mipmap/ic_filtro_novo" />
+
+    <!--<ImageButton-->
+        <!--android:id="@+id/btnFiltrar"-->
+        <!--style="@android:style/Widget.ImageButton"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_below="@+id/heading_label"-->
+        <!--android:layout_marginEnd="22dp"-->
+        <!--app:srcCompat="@drawable/icone_filtro" />-->
+
+    <!--<RadioGroup-->
+        <!--android:id="@+id/rgEspecie"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_toEndOf="@+id/cbEspecieBusca">-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rbCachorro"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBaseline="@+id/rbGato"-->
+            <!--android:layout_alignBottom="@+id/rbGato"-->
+            <!--android:layout_alignEnd="@+id/rbMedio"-->
+            <!--android:layout_weight="1"-->
+            <!--android:fontFamily="casual"-->
+            <!--android:text="Cachorro" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rbGato"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_above="@+id/rbMacho"-->
+            <!--android:layout_alignStart="@+id/rbMacho"-->
+            <!--android:layout_marginBottom="12dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:fontFamily="casual"-->
+            <!--android:text="Gato" />-->
+    <!--</RadioGroup>-->
+
+    <!--<Spinner-->
+        <!--android:id="@+id/cbEspecieBusca"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="45dp"-->
+        <!--android:layout_below="@+id/rgEspecie"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:hint="Espécie"-->
+        <!--android:visibility="visible" />-->
+
+    <!--<RadioGroup-->
+        <!--android:id="@+id/rgPorte"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="40dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rbPequeno"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBaseline="@+id/rbMedio"-->
+            <!--android:layout_alignBottom="@+id/rbMedio"-->
+            <!--android:layout_toStartOf="@+id/rbMedio"-->
+            <!--android:layout_weight="1"-->
+            <!--android:fontFamily="casual"-->
+            <!--android:text="Pequeno" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rbMedio"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_above="@+id/listaTodosPets"-->
+            <!--android:layout_alignEnd="@+id/heading_label"-->
+            <!--android:layout_weight="1"-->
+            <!--android:fontFamily="casual"-->
+            <!--android:text="Médio" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rbGrande"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignBottom="@+id/rbMedio"-->
+            <!--android:layout_weight="1"-->
+            <!--android:fontFamily="casual"-->
+            <!--android:text="Grande"-->
+            <!--android:textColor="@color/common_google_signin_btn_text_dark_focused" />-->
+
+    <!--</RadioGroup>-->
+
+    <!--<RadioGroup-->
+        <!--android:id="@+id/rgSexo"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rbFemea"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_above="@+id/rbMedio"-->
+            <!--android:layout_toStartOf="@+id/search_btn"-->
+            <!--android:layout_weight="1"-->
+            <!--android:fontFamily="casual"-->
+            <!--android:text="Fêmea" />-->
+
+        <!--<RadioButton-->
+            <!--android:id="@+id/rbMacho"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_above="@+id/rbMedio"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:layout_marginEnd="28dp"-->
+            <!--android:layout_toStartOf="@+id/rbFemea"-->
+            <!--android:layout_weight="1"-->
+            <!--android:fontFamily="casual"-->
+            <!--android:text="Macho" />-->
+    <!--</RadioGroup>-->
+
+    <!--<ImageButton-->
+        <!--android:id="@+id/search_btn"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/listaTodosPets"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:background="@color/cardview_shadow_end_color"-->
+        <!--app:srcCompat="@mipmap/ic_search" />-->
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listaTodosPets"
         android:layout_width="match_parent"
-        android:layout_height="267dp"
-        android:layout_above="@+id/btnVoltarBuscaPet"
+        android:layout_height="400dp"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="24dp"
+        android:layout_below="@+id/heading_label"
+        android:layout_marginTop="57dp"
         android:background="@mipmap/rounded_corner">
 
     </android.support.v7.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/btnVoltarBuscaPet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnFloatSearch"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignEnd="@+id/btnFiltrar"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:text="Voltar"
-        android:visibility="invisible" />
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorAccent"
+        app:rippleColor="@color/colorAccent"
+        app:srcCompat="@android:drawable/ic_search_category_default" />
 
-</LinearLayout>
+    <!--<Button-->
+        <!--android:id="@+id/btnVoltarBuscaPet"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--android:text="Voltar"-->
+        <!--android:visibility="invisible" />-->
+
+</RelativeLayout>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@mipmap/rounded_corner"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtFiltros"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorAccent"
+            android:fontFamily="casual"
+            android:text="Filtros"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/rgEspecie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/cbEspecieBusca"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbCachorro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/rbGato"
+                android:layout_alignBottom="@+id/rbGato"
+                android:layout_alignEnd="@+id/rbMedio"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:text="Cachorro" />
+
+            <RadioButton
+                android:id="@+id/rbGato"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/rbMacho"
+                android:layout_alignStart="@+id/rbMacho"
+                android:layout_marginBottom="12dp"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:text="Gato" />
+        </RadioGroup>
+
+        <Spinner
+            android:id="@+id/cbEspecieBusca"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@+id/rgEspecie"
+            android:layout_centerHorizontal="true"
+            android:hint="Espécie"
+            android:visibility="visible" />
+
+        <RadioGroup
+            android:id="@+id/rgPorte"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbPequeno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/rbMedio"
+                android:layout_alignBottom="@+id/rbMedio"
+                android:layout_toStartOf="@+id/rbMedio"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:text="Pequeno" />
+
+            <RadioButton
+                android:id="@+id/rbMedio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/listaTodosPets"
+                android:layout_alignEnd="@+id/heading_label"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:text="Médio" />
+
+            <RadioButton
+                android:id="@+id/rbGrande"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/rbMedio"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:text="Grande"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+
+        </RadioGroup>
+
+        <RadioGroup
+            android:id="@+id/rgSexo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbFemea"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/rbMedio"
+                android:layout_toStartOf="@+id/search_btn"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:text="Fêmea" />
+
+            <RadioButton
+                android:id="@+id/rbMacho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/rbMedio"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="28dp"
+                android:layout_toStartOf="@+id/rbFemea"
+                android:layout_weight="1"
+                android:fontFamily="casual"
+                android:text="Macho" />
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
