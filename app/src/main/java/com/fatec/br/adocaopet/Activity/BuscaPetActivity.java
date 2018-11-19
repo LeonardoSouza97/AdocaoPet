@@ -1,6 +1,7 @@
 package com.fatec.br.adocaopet.Activity;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -77,6 +78,7 @@ public class BuscaPetActivity extends AppCompatActivity {
 
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.view_filtro);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         identificacaoUsuario = FirebaseAuthUtils.getUUID();
 
@@ -112,6 +114,7 @@ public class BuscaPetActivity extends AppCompatActivity {
         rgPorte = (RadioGroup) dialog.findViewById(R.id.rgPorte);
         rgSexo = (RadioGroup) dialog.findViewById(R.id.rgSexo);
 
+
         result = new ArrayList<>();
 
         alimentaCombos();
@@ -121,6 +124,13 @@ public class BuscaPetActivity extends AppCompatActivity {
         btnFloatPesquisa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                dialog.show();
+            }
+        });
+
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
                 try {
                     atualizarLista();
                 } catch (InterruptedException e) {
@@ -128,63 +138,57 @@ public class BuscaPetActivity extends AppCompatActivity {
                 }
             }
         });
-
-        btn_filtrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.show();
-            }
-        });
     }
 
 
     private void atualizarLista() throws InterruptedException {
-
         if (result.size() != 0) {
             result.clear();
         }
 
-        String raca = cbEspecie.getSelectedItem().toString();
+        if (cbEspecie.getSelectedItem() != null && !cbEspecie.getSelectedItem().equals("")) {
+            String raca = cbEspecie.getSelectedItem().toString();
 
-        String sexo = verificaSexo();
-        String porte = verificaPorte();
-        String especie = verificaEspecie();
+            String sexo = verificaSexo();
+            String porte = verificaPorte();
+            String especie = verificaEspecie();
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e("Count ", "Número de Pets" + dataSnapshot.getChildrenCount());
-                for (DataSnapshot pets : dataSnapshot.getChildren()) {
-                    Pet pet = pets.getValue(Pet.class);
-                    if (pet.getPorte().equals(porte) && pet.getSexo().equals(sexo) && pet.getEspecie().equals(especie) && pet.getRaca().equals(raca)) {
-                        result.add(pet);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.e("Count ", "Número de Pets" + dataSnapshot.getChildrenCount());
+                    for (DataSnapshot pets : dataSnapshot.getChildren()) {
+                        Pet pet = pets.getValue(Pet.class);
+                        if (pet.getPorte().equals(porte) && pet.getSexo().equals(sexo) && pet.getEspecie().equals(especie) && pet.getRaca().equals(raca)) {
+                            result.add(pet);
+                        }
                     }
+                    listaPets.setHasFixedSize(true);
+
+                    LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+                    llm.setOrientation(LinearLayoutManager.VERTICAL);
+
+                    listaPets.setLayoutManager(llm);
+
+                    petAdapter = new PetAdapterBusca(result);
+
+                    listaPets.setAdapter(petAdapter);
+
+                    listaPets.addItemDecoration(new SimpleDividerItemDecoration(
+                            getApplicationContext()
+                    ));
+
                 }
-                listaPets.setHasFixedSize(true);
 
-                LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-                llm.setOrientation(LinearLayoutManager.VERTICAL);
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-                listaPets.setLayoutManager(llm);
+                }
+            });
 
-                petAdapter = new PetAdapterBusca(result);
-
-                listaPets.setAdapter(petAdapter);
-
-                listaPets.addItemDecoration(new SimpleDividerItemDecoration(
-                        getApplicationContext()
-                ));
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-        Log.e("Pets", result.toString());
+        } else {
+            Toast.makeText(this, "Por favor selecione os filtros", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private int getItemIndex(Pet pet) {

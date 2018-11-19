@@ -58,6 +58,7 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
 
         dialog = new Dialog(parent.getContext());
         dialog.setContentView(R.layout.view_informacao);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         nomeUsuarioVisualiza = (TextView) dialog.findViewById(R.id.dialog_name_usuario);
         dataUsuarioVisualiza = (TextView) dialog.findViewById(R.id.dialog_data_usuario);
@@ -201,7 +202,7 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
         TextView nomePet, nomeAdotante, dataAdocao;
         CircleImageView fotoCirclePet;
         ImageView imageStatus;
-        ImageButton imageCall;
+        CircleImageView imageCall;
 
         public AdocoesViewHolder(View itemView) {
             super(itemView);
@@ -212,7 +213,7 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
             dataAdocao = (TextView) itemView.findViewById(R.id.editDataAdocao);
             fotoCirclePet = (CircleImageView) itemView.findViewById(R.id.fotoCircleViewPetAdocaoTela);
             imageStatus = (ImageView) itemView.findViewById(R.id.imageStatus);
-            imageCall = (ImageButton) itemView.findViewById(R.id.imageCall);
+            imageCall = (CircleImageView) itemView.findViewById(R.id.imageCall);
 
         }
     }

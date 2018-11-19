@@ -60,6 +60,7 @@ public class PetAdapterBusca extends RecyclerView.Adapter<PetAdapterBusca.PetsVi
         //Dados exibidos quando o usuário clica em algum pet na tela de Busca.
         dialog = new Dialog(parent.getContext());
         dialog.setContentView(R.layout.activity_visualizapet);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         viewHolder.petPerfil.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -31,7 +31,8 @@
         android:layout_below="@+id/heading_label"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="7dp"
-        android:src="@mipmap/ic_filtro_novo" />
+        android:src="@mipmap/ic_filtro_novo"
+        android:visibility="invisible" />
 
     <!--<ImageButton-->
         <!--android:id="@+id/btnFiltrar"-->

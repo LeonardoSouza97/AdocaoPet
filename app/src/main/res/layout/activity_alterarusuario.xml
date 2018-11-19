@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context="com.fatec.br.adocaopet.Activity.AlterarUsuarioActivity">
 
 
@@ -19,104 +19,116 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/imageCamera"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp"
-        android:src="@mipmap/ic_add_camera"
-        android:onClick="takeAPicture" />
-
-    <EditText
-        android:id="@+id/editNome"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageCamera"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:drawableLeft="@drawable/ic_account_box_black_24dp"
-        android:hint="@string/nome_completo"
-        android:inputType="textPersonName"/>
-
-    <EditText
-        android:id="@+id/editPassword"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editEmail"
-        android:layout_gravity="center_horizontal"
-        android:drawableLeft="@drawable/ic_https_black_24dp"
-        android:ems="10"
-        android:hint="@string/password" />
-
-    <EditText
-        android:id="@+id/editConfirmPassword"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editPassword"
-        android:drawableLeft="@drawable/ic_https_black_24dp"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:hint="@string/repeatPassword"/>
-
-    <EditText
-        android:id="@+id/editTelefone"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editConfirmPassword"
-        android:drawableLeft="@drawable/ic_contact_phone_black_24dp"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:hint="@string/telefone" />
-
-    <EditText
-        android:id="@+id/editEndereco"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editTelefone"
-        android:drawableLeft="@drawable/ic_place_black_24dp"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:hint="@string/endereco"
-        android:inputType="textPersonName" />
-
-    <EditText
-        android:id="@+id/editRg"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editEndereco"
-        android:drawableLeft="@drawable/ic_fingerprint_black_24dp"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:hint="@string/rg"
-        android:inputType="number" />
-
-    <EditText
-        android:id="@+id/editCpf"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editRg"
-        android:drawableLeft="@drawable/ic_folder_shared_black_24dp"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:hint="@string/cpf"
-        android:inputType="number"/>
+            <TextView
+                android:id="@+id/txtAlterarUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="62dp"
+                android:fontFamily="casual"
+                android:text="Atualizar Perfil"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
 
-    <EditText
-        android:id="@+id/editDataNasc"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/editCpf"
-        android:layout_gravity="center_horizontal"
-        android:ems="10"
-        android:hint="@string/data_de_nascimento"
-        android:layout_marginBottom="5dp"
-        android:drawableLeft="@drawable/ic_date_range_black_24dp"
-        android:inputType="date" />
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/imageCamera"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:onClick="takeAPicture"
+                android:src="@mipmap/ic_add_camera"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="2dp" />
+
+
+            <EditText
+                android:id="@+id/editNome"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/imageCamera"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@drawable/ic_account_box_black_24dp"
+                android:ems="10"
+                android:hint="@string/nome_completo"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editPassword"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editEmail"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@drawable/ic_https_black_24dp"
+                android:ems="10"
+                android:hint="@string/password" />
+
+            <EditText
+                android:id="@+id/editConfirmPassword"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editPassword"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@drawable/ic_https_black_24dp"
+                android:ems="10"
+                android:hint="@string/repeatPassword" />
+
+            <EditText
+                android:id="@+id/editTelefone"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/editConfirmPassword"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@drawable/ic_contact_phone_black_24dp"
+                android:ems="10"
+                android:hint="@string/telefone" />
+
+            <EditText
+                android:id="@+id/editEndereco"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTelefone"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@drawable/ic_place_black_24dp"
+                android:ems="10"
+                android:hint="@string/endereco"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editRg"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editEndereco"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@drawable/ic_fingerprint_black_24dp"
+                android:ems="10"
+                android:hint="@string/rg"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/editCpf"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editRg"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@drawable/ic_folder_shared_black_24dp"
+                android:ems="10"
+                android:hint="@string/cpf"
+                android:inputType="number" />
+
+
+            <EditText
+                android:id="@+id/editDataNasc"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editCpf"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="5dp"
+                android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                android:ems="10"
+                android:hint="@string/data_de_nascimento"
+                android:inputType="date" />
 
 
             <Button

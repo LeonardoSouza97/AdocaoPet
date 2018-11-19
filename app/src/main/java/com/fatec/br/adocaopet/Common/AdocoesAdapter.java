@@ -46,6 +46,7 @@ public class AdocoesAdapter extends RecyclerView.Adapter<AdocoesAdapter.AdocoesV
 
         dialog = new Dialog(parent.getContext());
         dialog.setContentView(R.layout.view_detalhe_adocao);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 
         nomeUsuarioVisualiza = (TextView) dialog.findViewById(R.id.dialog_name_usuario_adocao);
         enderecoUsuarioVisualiza = (TextView) dialog.findViewById(R.id.dialog_endereco_usuario_adocao);
