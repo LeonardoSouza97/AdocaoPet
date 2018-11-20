@@ -9,12 +9,27 @@ public class ListRaca {
         return caes;
     }
 
+    public String[] ListaCachorroFiltro() {
+
+        String[] caes = {"", "Beagle", "Pinscher", "Boxer", "Vira-Lata"};
+
+        return caes;
+    }
+
     public String[] ListaGatos() {
 
         String[] gatos = {"Persa", "Azul russo", "Maine Coon"};
 
         return gatos;
     }
+
+    public String[] ListaGatosFiltro() {
+
+        String[] gatos = {"", "Persa", "Azul russo", "Maine Coon"};
+
+        return gatos;
+    }
+
 
     public String[] ListaPorte() {
 

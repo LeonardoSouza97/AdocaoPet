@@ -42,8 +42,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -87,20 +89,8 @@ public class BuscaPetActivity extends AppCompatActivity {
 
         btnFloatPesquisa = (FloatingActionButton) findViewById(R.id.btnFloatSearch);
         btn_filtrar = (CircleImageView) findViewById(R.id.btnFiltrar);
-//        editPesquisa = (EditText) findViewById(R.id.editPesquisa);
         fotoPet = (CircleImageView) findViewById(R.id.fotoCircleViewPet);
 
-//        rbCachorro = (RadioButton) findViewById(R.id.rbCachorro);
-//        rbGato = (RadioButton) findViewById(R.id.rbGato);
-//        rbFemea = (RadioButton) findViewById(R.id.rbFemea);
-//        rbMacho = (RadioButton) findViewById(R.id.rbMacho);
-//        rbPequeno = (RadioButton) findViewById(R.id.rbPequeno);
-//        rbMedio = (RadioButton) findViewById(R.id.rbMedio);
-//        rbGrande = (RadioButton) findViewById(R.id.rbGrande);
-//
-//        rgEspecie = (RadioGroup) findViewById(R.id.rgEspecie);
-//        rgPorte = (RadioGroup) findViewById(R.id.rgPorte);
-//        rgSexo = (RadioGroup) findViewById(R.id.rgSexo);
         cbEspecie = (Spinner) dialog.findViewById(R.id.cbEspecieBusca);
         rbCachorro = (RadioButton) dialog.findViewById(R.id.rbCachorro);
         rbGato = (RadioButton) dialog.findViewById(R.id.rbGato);
@@ -113,7 +103,6 @@ public class BuscaPetActivity extends AppCompatActivity {
         rgEspecie = (RadioGroup) dialog.findViewById(R.id.rgEspecie);
         rgPorte = (RadioGroup) dialog.findViewById(R.id.rgPorte);
         rgSexo = (RadioGroup) dialog.findViewById(R.id.rgSexo);
-
 
         result = new ArrayList<>();
 
@@ -142,53 +131,83 @@ public class BuscaPetActivity extends AppCompatActivity {
 
 
     private void atualizarLista() throws InterruptedException {
+        String raca = "";
+
+        if (cbEspecie.getSelectedItem() != null && !cbEspecie.getSelectedItem().equals("")) {
+            raca = cbEspecie.getSelectedItem().toString();
+        }
+
         if (result.size() != 0) {
             result.clear();
         }
 
-        if (cbEspecie.getSelectedItem() != null && !cbEspecie.getSelectedItem().equals("")) {
-            String raca = cbEspecie.getSelectedItem().toString();
+        String sexo = verificaSexo();
+        String porte = verificaPorte();
+        String especie = verificaEspecie();
+        String racaFinal = raca;
 
-            String sexo = verificaSexo();
-            String porte = verificaPorte();
-            String especie = verificaEspecie();
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                boolean isPorte = true;
+                boolean isEspecie = true;
+                boolean isSexo = true;
+                boolean isRaca = true;
 
-            databaseReference.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    Log.e("Count ", "Número de Pets" + dataSnapshot.getChildrenCount());
-                    for (DataSnapshot pets : dataSnapshot.getChildren()) {
-                        Pet pet = pets.getValue(Pet.class);
-                        if (pet.getPorte().equals(porte) && pet.getSexo().equals(sexo) && pet.getEspecie().equals(especie) && pet.getRaca().equals(raca)) {
-                            result.add(pet);
-                        }
+                for (DataSnapshot pets : dataSnapshot.getChildren()) {
+                    Pet pet = pets.getValue(Pet.class);
+
+                    if (!especie.isEmpty()) {
+                        isEspecie = pet.getEspecie().equals(especie);
                     }
-                    listaPets.setHasFixedSize(true);
 
-                    LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-                    llm.setOrientation(LinearLayoutManager.VERTICAL);
+                    if (!sexo.isEmpty()) {
+                        isSexo = pet.getSexo().equals(sexo);
+                    }
 
-                    listaPets.setLayoutManager(llm);
+                    if (!porte.isEmpty()) {
+                        isPorte = pet.getPorte().equals(porte);
+                    }
 
-                    petAdapter = new PetAdapterBusca(result);
+                    if(!racaFinal.isEmpty()){
+                        isRaca = pet.getRaca().equals(racaFinal);
+                    }
 
-                    listaPets.setAdapter(petAdapter);
-
-                    listaPets.addItemDecoration(new SimpleDividerItemDecoration(
-                            getApplicationContext()
-                    ));
-
+                    if (isPorte && isEspecie && isSexo && isRaca) {
+                        result.add(pet);
+                    }
                 }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                CheckListaVazia();
 
-                }
-            });
+                listaPets.setHasFixedSize(true);
 
-        } else {
-            Toast.makeText(this, "Por favor selecione os filtros", Toast.LENGTH_SHORT).show();
-        }
+                LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+                llm.setOrientation(LinearLayoutManager.VERTICAL);
+
+                listaPets.setLayoutManager(llm);
+
+                petAdapter = new PetAdapterBusca(result);
+
+                listaPets.setAdapter(petAdapter);
+
+                listaPets.addItemDecoration(new SimpleDividerItemDecoration(
+                        getApplicationContext()
+                ));
+
+                rgEspecie.clearCheck();
+                rgPorte.clearCheck();
+                rgSexo.clearCheck();
+                cbEspecie.setSelection(-1);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private int getItemIndex(Pet pet) {
@@ -217,12 +236,14 @@ public class BuscaPetActivity extends AppCompatActivity {
                 listRaca = new ListRaca();
 
                 if (rbCachorro.isChecked()) {
-                    ArrayAdapter listaCachorros = new ArrayAdapter(BuscaPetActivity.this, android.R.layout.select_dialog_item, listRaca.ListaCachorro());
+                    ArrayAdapter listaCachorros = new ArrayAdapter(BuscaPetActivity.this, android.R.layout.select_dialog_item, listRaca.ListaCachorroFiltro());
                     cbEspecie.setAdapter(listaCachorros);
+                    cbEspecie.setSelection(-1);
 
                 } else {
-                    ArrayAdapter listaGatos = new ArrayAdapter(BuscaPetActivity.this, android.R.layout.select_dialog_item, listRaca.ListaGatos());
+                    ArrayAdapter listaGatos = new ArrayAdapter(BuscaPetActivity.this, android.R.layout.select_dialog_item, listRaca.ListaGatosFiltro());
                     cbEspecie.setAdapter(listaGatos);
+                    cbEspecie.setSelection(-1);
                 }
             }
         });
@@ -234,22 +255,34 @@ public class BuscaPetActivity extends AppCompatActivity {
             return "Pequeno";
         } else if (rbMedio.isChecked()) {
             return "Médio";
-        } else {
+        } else if (rbGrande.isChecked()) {
             return "Grande";
+        } else {
+            return "";
         }
     }
 
     public String verificaSexo() {
         if (rbMacho.isChecked()) {
             return "macho";
+        } else if (rbFemea.isChecked()) {
+            return "femea";
+        } else {
+            return "";
         }
-        return "femea";
     }
 
     public String verificaEspecie() {
         if (rbGato.isChecked()) {
             return "Gato";
+        } else if (rbCachorro.isChecked()) {
+            return "Cachorro";
+        } else {
+            return "";
         }
-        return "Cachorro";
+    }
+
+    public void filtraPet(Pet pet, List<String> filtros) {
+
     }
 }
