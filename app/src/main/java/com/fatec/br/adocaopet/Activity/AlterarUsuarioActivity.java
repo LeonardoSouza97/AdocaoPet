@@ -8,13 +8,20 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fatec.br.adocaopet.Common.Internet;
@@ -50,13 +57,14 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static java.lang.Thread.sleep;
 
-public class AlterarUsuarioActivity extends AppCompatActivity {
+public class AlterarUsuarioActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private EditText editNome, editSenha, editEndereco, editConfirmarSenha, editTelefone, editCpf, editRg, editDataNasc;
     private FirebaseAuth auth;
     private Button btnAlterar, btnVoltar;
+    private TextView editNomeMenu, editEmailMenu;
     private Usuario usuario;
-    private CircleImageView fotoUsuario;
+    private CircleImageView fotoUsuario, fotoUsuarioMenu;
     private Bitmap foto;
     String identificacaoUsuario;
 
@@ -66,7 +74,23 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.activity_alterarusuario);
+        setContentView(R.layout.activity_perfil_alterarusuario);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_alterar_usuario);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_alterarusuario);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+        fotoUsuarioMenu = (CircleImageView) header.findViewById(R.id.imageFotoPerfil);
+
 
         identificacaoUsuario = FirebaseAuthUtils.getUUID();
 
@@ -86,6 +110,13 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
         editRg.addTextChangedListener(MaskEditUtil.mask(editRg, MaskEditUtil.FORMAT_RG));
         editDataNasc.addTextChangedListener(MaskEditUtil.mask(editDataNasc, MaskEditUtil.FORMAT_DATE));
 
+        pegarFotoUsuarioMenu();
+
+        editNomeMenu = (TextView) header.findViewById(R.id.txtNomeUsuario);
+        editEmailMenu = (TextView) header.findViewById(R.id.txtEmail);
+
+        editNomeMenu.setText(PerfilActivity.editNome.getText());
+        editNomeMenu.setText(PerfilActivity.editEmail.getText());
 
         auth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -415,4 +446,77 @@ public class AlterarUsuarioActivity extends AppCompatActivity {
         finish();
 
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_cadastrar_pet) {
+            Intent i = new Intent(AlterarUsuarioActivity.this, CadastroPetActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_principal) {
+            Intent i = new Intent(AlterarUsuarioActivity.this, PerfilActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_meus_pets) {
+            Intent i = new Intent(AlterarUsuarioActivity.this, MeusPetsActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_buscar_pet) {
+            Intent i = new Intent(AlterarUsuarioActivity.this, PerfilActivity.class);
+            startActivity(i);
+            finish();
+
+
+        } else if (id == R.id.nav_editar_perfil) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_alterarusuario);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void pegarFotoUsuarioMenu() {
+
+        auth = FirebaseAuth.getInstance();
+
+        try {
+            StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
+            final long ONE_MEGABYTE = 1024 * 1024;
+            firebaseStorage.child("user/" + auth.getCurrentUser().getUid() + ".png").getBytes(ONE_MEGABYTE)
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Picasso.get().load(auth.getCurrentUser().getPhotoUrl()).into(fotoUsuarioMenu);
+                        }
+                    })
+                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            fotoUsuarioMenu.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(bytes)));
+                        }
+
+                    });
+
+        } catch (Exception e) {
+            Notify.showNotify(this, e.getMessage());
+            System.out.println(e.toString());
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_alterarusuario);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 }

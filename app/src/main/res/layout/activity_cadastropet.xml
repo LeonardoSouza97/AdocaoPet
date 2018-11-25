@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context="com.fatec.br.adocaopet.Activity.CadastroPetActivity">
 
 
@@ -20,21 +19,26 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtCadastroPet"
+            <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="62dp"
-                android:fontFamily="casual"
-                android:text="Cadastro Pet"
-                android:textAlignment="center"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar_cadastro_pet"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+            </android.support.design.widget.AppBarLayout>
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/fotoPet"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:onClick="takeAPicture"
                 android:src="@mipmap/ic_add_camera"
                 app:civ_border_color="#FF000000"
@@ -43,8 +47,8 @@
             <EditText
                 android:id="@+id/editNomePet"
                 android:layout_width="280dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:drawableLeft="@drawable/ic_perm_contact_calendar_black_24dp"
                 android:ems="10"
                 android:hint="Nome"
@@ -54,8 +58,8 @@
             <EditText
                 android:id="@+id/editIdadePet"
                 android:layout_width="280dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:drawableLeft="@drawable/ic_date_range_black_24dp"
                 android:ems="10"
                 android:hint="Idade"
@@ -65,65 +69,65 @@
             <EditText
                 android:id="@+id/editPesoPet"
                 android:layout_width="280dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@drawable/ic_weight_tool"
                 android:ems="10"
                 android:hint="Peso"
                 android:imeActionLabel="Peso"
-                android:drawableLeft="@drawable/ic_weight_tool"
                 android:inputType="number" />
 
             <Spinner
                 android:id="@+id/cbEspecie"
                 android:layout_width="280dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:drawableLeft="@drawable/ic_view_headline_black_24dp"
-                android:layout_height="wrap_content"
-                android:imeActionLabel="Especie"
-                android:hint="Espécie" />
+                android:hint="Espécie"
+                android:imeActionLabel="Especie" />
 
             <Spinner
                 android:id="@+id/cbPorte"
                 android:layout_width="280dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:drawableLeft="@drawable/ic_view_headline_black_24dp"
-                android:imeActionLabel="Porte"
-                android:hint="Porte" />
+                android:hint="Porte"
+                android:imeActionLabel="Porte" />
 
             <Spinner
                 android:id="@+id/cbRaca"
                 android:layout_width="280dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:drawableLeft="@drawable/ic_view_headline_black_24dp"
-                android:imeActionLabel="Raça"
-                android:hint="Raça" />
+                android:hint="Raça"
+                android:imeActionLabel="Raça" />
 
             <EditText
                 android:id="@+id/editDescricao"
                 android:layout_width="280dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:drawableLeft="@drawable/ic_description_black_24dp"
                 android:ems="10"
                 android:hint="Descrição"
-                android:drawableLeft="@drawable/ic_description_black_24dp"
                 android:imeActionLabel="Descrição"
                 android:inputType="textMultiLine" />
 
 
             <LinearLayout
                 android:layout_width="280dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <RadioGroup
                     android:id="@+id/rbgSexo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
                     android:orientation="horizontal">
 
                     <TextView
@@ -154,8 +158,8 @@
 
             <LinearLayout
                 android:layout_width="280dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
 
@@ -194,8 +198,8 @@
 
             <LinearLayout
                 android:layout_width="280dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
 

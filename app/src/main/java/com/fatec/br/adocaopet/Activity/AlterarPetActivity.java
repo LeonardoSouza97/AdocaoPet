@@ -8,9 +8,15 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fatec.br.adocaopet.Common.Internet;
@@ -44,6 +51,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -51,8 +61,8 @@ import java.io.ByteArrayOutputStream;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class AlterarPetActivity extends AppCompatActivity {
-    private CircleImageView fotoPet;
+public class AlterarPetActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private CircleImageView fotoPet, fotoUsuario;
     private EditText nomePet;
     private EditText idadePet;
     private EditText pesoPet;
@@ -66,6 +76,7 @@ public class AlterarPetActivity extends AppCompatActivity {
     private Button btnVoltar;
     private Pet pet;
     private Bitmap foto;
+    private TextView editNome, editEmail;
 
     private ListRaca listRaca;
 
@@ -78,7 +89,28 @@ public class AlterarPetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.activity_alterarpet);
+        setContentView(R.layout.activity_perfil_alterapet);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_alterar_pet);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_alterarpet);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+
+        fotoUsuario = (CircleImageView) header.findViewById(R.id.imageFotoPerfil);
+        editNome = (TextView) header.findViewById(R.id.txtNomeUsuario);
+        editEmail = (TextView) header.findViewById(R.id.txtEmail);
+
+        editNome.setText(PerfilActivity.editNome.getText());
+        editEmail.setText(PerfilActivity.editEmail.getText());
 
         String identificadorPet = getIntent().getStringExtra("idPet");
 
@@ -131,7 +163,8 @@ public class AlterarPetActivity extends AppCompatActivity {
                             rbVacionadoNao.setChecked(true);
                         }
 
-                        pegarFotoUsuario();
+                        pegarfotoPet();
+                        pegarFotoUsuarioMenu();
                     }
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
@@ -415,7 +448,7 @@ public class AlterarPetActivity extends AppCompatActivity {
         return index;
     }
 
-    private void pegarFotoUsuario() {
+    private void pegarfotoPet() {
 
         String identificadorPet = getIntent().getStringExtra("idPet");
 
@@ -459,6 +492,79 @@ public class AlterarPetActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_cadastrar_pet) {
+            Intent i = new Intent(AlterarPetActivity.this, CadastroPetActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_principal) {
+            Intent i = new Intent(AlterarPetActivity.this, PerfilActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_meus_pets) {
+            Intent i = new Intent(AlterarPetActivity.this, MeusPetsActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_buscar_pet) {
+            Intent i = new Intent(AlterarPetActivity.this, PerfilActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_editar_perfil) {
+            Intent i = new Intent(AlterarPetActivity.this, AlterarUsuarioActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_alterarpet);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_alterarpet);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+    private void pegarFotoUsuarioMenu() {
+
+        auth = FirebaseAuth.getInstance();
+
+        try {
+            StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
+            final long ONE_MEGABYTE = 1024 * 1024;
+            firebaseStorage.child("user/" + auth.getCurrentUser().getUid() + ".png").getBytes(ONE_MEGABYTE)
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Picasso.get().load(auth.getCurrentUser().getPhotoUrl()).into(fotoUsuario);
+                        }
+                    })
+                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            fotoUsuario.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(bytes)));
+                        }
+
+                    });
+
+        } catch (Exception e) {
+            Notify.showNotify(this, e.getMessage());
+            System.out.println(e.toString());
+        }
     }
 
 

@@ -3,11 +3,18 @@ package com.fatec.br.adocaopet.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -24,12 +31,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fatec.br.adocaopet.Common.ListRaca;
+import com.fatec.br.adocaopet.Common.Notify;
 import com.fatec.br.adocaopet.Common.PetAdapter;
 import com.fatec.br.adocaopet.Common.PetAdapterBusca;
 import com.fatec.br.adocaopet.DAO.FirebaseAuthUtils;
 import com.fatec.br.adocaopet.Model.Pet;
 import com.fatec.br.adocaopet.R;
 import com.fatec.br.adocaopet.Utils.SimpleDividerItemDecoration;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -39,7 +49,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -53,19 +67,20 @@ import java.util.stream.Stream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class BuscaPetActivity extends AppCompatActivity {
+public class BuscaPetActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView listaPets;
     private List<Pet> result;
     private PetAdapterBusca petAdapter;
     String identificacaoUsuario;
-    FirebaseUser auth;
+    private FirebaseAuth auth;
     private Dialog dialog;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private FloatingActionButton btnFloatPesquisa;
-    private CircleImageView btn_filtrar;
+    private CircleImageView fotoUsuario;
     private EditText editPesquisa;
+    private TextView editNomeMenu, editEmailMenu;
     private Spinner cbEspecie;
     private ListRaca listRaca;
     private RadioButton rbPequeno, rbMedio, rbGrande, rbMacho, rbFemea, rbCachorro, rbGato;
@@ -76,7 +91,28 @@ public class BuscaPetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buscapet);
+        setContentView(R.layout.activity_perfil_busca_pet);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_busca_pet);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_buscapet);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+        fotoUsuario = (CircleImageView) header.findViewById(R.id.imageFotoPerfil);
+
+        editNomeMenu = (TextView) header.findViewById(R.id.txtNomeUsuario);
+        editEmailMenu = (TextView) header.findViewById(R.id.txtEmail);
+
+        editNomeMenu.setText(PerfilActivity.editNome.getText());
+        editEmailMenu.setText(PerfilActivity.editEmail.getText());
 
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.view_filtro);
@@ -88,7 +124,6 @@ public class BuscaPetActivity extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference("pets");
 
         btnFloatPesquisa = (FloatingActionButton) findViewById(R.id.btnFloatSearch);
-        btn_filtrar = (CircleImageView) findViewById(R.id.btnFiltrar);
         fotoPet = (CircleImageView) findViewById(R.id.fotoCircleViewPet);
 
         cbEspecie = (Spinner) dialog.findViewById(R.id.cbEspecieBusca);
@@ -105,6 +140,8 @@ public class BuscaPetActivity extends AppCompatActivity {
         rgSexo = (RadioGroup) dialog.findViewById(R.id.rgSexo);
 
         result = new ArrayList<>();
+
+        pegarFotoUsuario();
 
         alimentaCombos();
 
@@ -169,7 +206,7 @@ public class BuscaPetActivity extends AppCompatActivity {
                         isPorte = pet.getPorte().equals(porte);
                     }
 
-                    if(!racaFinal.isEmpty()){
+                    if (!racaFinal.isEmpty()) {
                         isRaca = pet.getRaca().equals(racaFinal);
                     }
 
@@ -282,7 +319,73 @@ public class BuscaPetActivity extends AppCompatActivity {
         }
     }
 
-    public void filtraPet(Pet pet, List<String> filtros) {
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
 
+        if (id == R.id.nav_cadastrar_pet) {
+            Intent i = new Intent(BuscaPetActivity.this, CadastroPetActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_principal) {
+            Intent i = new Intent(BuscaPetActivity.this, PerfilActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_meus_pets) {
+            Intent i = new Intent(BuscaPetActivity.this, MeusPetsActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_buscar_pet) {
+
+        } else if (id == R.id.nav_editar_perfil) {
+            Intent i = new Intent(BuscaPetActivity.this, AlterarUsuarioActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_buscapet);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void pegarFotoUsuario() {
+
+        auth = FirebaseAuth.getInstance();
+
+        try {
+            StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
+            final long ONE_MEGABYTE = 1024 * 1024;
+            firebaseStorage.child("user/" + auth.getCurrentUser().getUid() + ".png").getBytes(ONE_MEGABYTE)
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Picasso.get().load(auth.getCurrentUser().getPhotoUrl()).into(fotoUsuario);
+                        }
+                    })
+                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            fotoUsuario.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(bytes)));
+                        }
+
+                    });
+
+        } catch (Exception e) {
+            Notify.showNotify(this, e.getMessage());
+            System.out.println(e.toString());
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_buscapet);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

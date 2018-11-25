@@ -43,7 +43,7 @@
 
         <activity
             android:name=".Activity.AlterarUsuarioActivity"
-            android:label="Alterar Perfil Usuário"
+            android:label="Editar Perfil"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
@@ -65,7 +65,7 @@
         </activity>
 
         <activity android:name=".Activity.AlterarPetActivity"
-            android:label="Meus Pets"
+            android:label="Editar Pet"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 

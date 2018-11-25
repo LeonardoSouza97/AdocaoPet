@@ -49,9 +49,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class PerfilActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    TextView editNome, editEmail, editWelcome;
-    CircleImageView fotoUsuario;
-    CircleImageView fotoTelaUsuario;
+    public static TextView editNome, editEmail, editWelcome;
+    public static CircleImageView fotoUsuario;
+    public static CircleImageView fotoTelaUsuario;
     String identificacaoUsuario;
     FirebaseAuth auth;
     TabLayout tableLayout;
@@ -182,7 +182,7 @@ public class PerfilActivity extends AppCompatActivity
 
         if (id == R.id.btn_about) {
             new AlertDialog.Builder(this).setTitle("Sobre").
-                    setMessage("Aplicativo criado por alunos da Fatec").show();
+                    setMessage("Aplicativo desenvolvido por alunos da Fatec").show();
         }
 
         return super.onOptionsItemSelected(item);

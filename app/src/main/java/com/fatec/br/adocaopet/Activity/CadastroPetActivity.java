@@ -5,13 +5,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fatec.br.adocaopet.Common.Internet;
@@ -50,14 +58,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.text.Normalizer;
 import java.util.regex.Pattern;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class CadastroPetActivity extends AppCompatActivity {
+public class CadastroPetActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private CircleImageView fotoPet;
     private EditText nomePet;
@@ -76,17 +86,42 @@ public class CadastroPetActivity extends AppCompatActivity {
     private ListRaca listRaca;
     private FirebaseAuth auth;
     private boolean hasPicture = false;
+    private TextView editNomeMenu, editEmailMenu;
     private static final int REQUEST_CAMERA = 1000;
     String identificacaoUsuario;
+    CircleImageView fotoUsuario;
 
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
         super.onCreate(saveInstanceState);
-        setContentView(R.layout.activity_cadastropet);
+        setContentView(R.layout.activity_perfil_cadastropet);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_cadastro_pet);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_cadastropet);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+        fotoUsuario = (CircleImageView) header.findViewById(R.id.imageFotoPerfil);
+
+        editNomeMenu = (TextView) header.findViewById(R.id.txtNomeUsuario);
+        editEmailMenu = (TextView) header.findViewById(R.id.txtEmail);
+
+        editNomeMenu.setText(PerfilActivity.editNome.getText());
+        editNomeMenu.setText(PerfilActivity.editEmail.getText());
 
         identificacaoUsuario = FirebaseAuthUtils.getUUID();
         inicializaComponentes();
+
+        pegarFotoUsuario();
 
         alimentaCombos();
 
@@ -132,6 +167,7 @@ public class CadastroPetActivity extends AppCompatActivity {
         rbVermifugadoSim = (RadioButton) findViewById(R.id.rbVermifugadoSim);
         rbgVacinado = (RadioGroup) findViewById(R.id.rbgVacinado);
         rbgVermifugado = (RadioGroup) findViewById(R.id.rbgVermifugado);
+
 
         descricaoPet = (EditText) findViewById(R.id.editDescricao);
         btnConfirmar = (Button) findViewById(R.id.btnCadastrarPet);
@@ -397,6 +433,76 @@ public class CadastroPetActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_cadastrar_pet) {
+
+        } else if (id == R.id.nav_principal) {
+            Intent i = new Intent(CadastroPetActivity.this, PerfilActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_meus_pets) {
+            Intent i = new Intent(CadastroPetActivity.this, MeusPetsActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_buscar_pet) {
+            Intent i = new Intent(CadastroPetActivity.this, BuscaPetActivity.class);
+            startActivity(i);
+            finish();
+
+        } else if (id == R.id.nav_editar_perfil) {
+            Intent i = new Intent(CadastroPetActivity.this, AlterarUsuarioActivity.class);
+            startActivity(i);
+            finish();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_cadastropet);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void pegarFotoUsuario() {
+
+        auth = FirebaseAuth.getInstance();
+
+        try {
+            StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
+            final long ONE_MEGABYTE = 1024 * 1024;
+            firebaseStorage.child("user/" + auth.getCurrentUser().getUid() + ".png").getBytes(ONE_MEGABYTE)
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Picasso.get().load(auth.getCurrentUser().getPhotoUrl()).into(fotoUsuario);
+                        }
+                    })
+                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            fotoUsuario.setImageBitmap(BitmapFactory.decodeStream(new ByteArrayInputStream(bytes)));
+                        }
+
+                    });
+
+        } catch (Exception e) {
+            Notify.showNotify(this, e.getMessage());
+            System.out.println(e.toString());
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout_cadastropet);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
 }

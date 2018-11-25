@@ -19,16 +19,19 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/txtAlterarUsuario"
+            <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="62dp"
-                android:fontFamily="casual"
-                android:text="Atualizar Perfil"
-                android:textAlignment="center"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
 
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar_alterar_usuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+            </android.support.design.widget.AppBarLayout>
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/imageCamera"
@@ -62,6 +65,7 @@
                 android:layout_gravity="center_horizontal"
                 android:drawableLeft="@drawable/ic_https_black_24dp"
                 android:ems="10"
+                android:inputType="textPassword"
                 android:hint="@string/password" />
 
             <EditText
@@ -72,6 +76,7 @@
                 android:layout_gravity="center_horizontal"
                 android:drawableLeft="@drawable/ic_https_black_24dp"
                 android:ems="10"
+                android:inputType="textPassword"
                 android:hint="@string/repeatPassword" />
 
             <EditText
