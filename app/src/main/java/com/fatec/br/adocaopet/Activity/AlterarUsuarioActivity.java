@@ -91,7 +91,6 @@ public class AlterarUsuarioActivity extends AppCompatActivity implements Navigat
         View header = navigationView.getHeaderView(0);
         fotoUsuarioMenu = (CircleImageView) header.findViewById(R.id.imageFotoPerfil);
 
-
         identificacaoUsuario = FirebaseAuthUtils.getUUID();
 
         fotoUsuario = (CircleImageView) findViewById(R.id.imageCamera);
@@ -116,23 +115,11 @@ public class AlterarUsuarioActivity extends AppCompatActivity implements Navigat
         editEmailMenu = (TextView) header.findViewById(R.id.txtEmail);
 
         editNomeMenu.setText(PerfilActivity.editNome.getText());
-        editNomeMenu.setText(PerfilActivity.editEmail.getText());
+        editEmailMenu.setText(PerfilActivity.editEmail.getText());
 
         auth = FirebaseAuth.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("users").child(auth.getCurrentUser().getUid());
-
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
 
@@ -147,7 +134,6 @@ public class AlterarUsuarioActivity extends AppCompatActivity implements Navigat
                         editNome.setText(auth.getCurrentUser().getDisplayName());
                         editTelefone.setText(auth.getCurrentUser().getPhoneNumber());
                         Picasso.get().load(auth.getCurrentUser().getPhotoUrl()).into(fotoUsuario);
-
 
                     } else {
                         editNome.setText(usuarioCarregado.getNome());
@@ -178,7 +164,6 @@ public class AlterarUsuarioActivity extends AppCompatActivity implements Navigat
 
                 try {
                     ValidarCampos();
-
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -306,7 +291,6 @@ public class AlterarUsuarioActivity extends AppCompatActivity implements Navigat
                         exception.printStackTrace();
                     }
                 });
-
 
     }
 

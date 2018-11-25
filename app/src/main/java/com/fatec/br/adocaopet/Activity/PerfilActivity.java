@@ -100,12 +100,13 @@ public class PerfilActivity extends AppCompatActivity
         viewPager = (ViewPager) findViewById(R.id.view_pager_id);
         adapter = new ViewPageAdapter(getSupportFragmentManager());
 
-        adapter.AdicionaFragmentos(new FragmentAdocaoConcluida(), "Adoções Concluídas");
-        adapter.AdicionaFragmentos(new FragmentMyRequest(), "");
-        adapter.AdicionaFragmentos(new FragmentReceiveRequest(), "");
+        adapter.AdicionaFragmentos(new FragmentAdocaoConcluida(), "Concluídas");
+        adapter.AdicionaFragmentos(new FragmentMyRequest(), "Solicitações");
+        adapter.AdicionaFragmentos(new FragmentReceiveRequest(), "Recebidas");
         viewPager.setAdapter(adapter);
         tableLayout.setupWithViewPager(viewPager);
 
+        tableLayout.getTabAt(0).setIcon(R.mipmap.ic_concluidas);
         tableLayout.getTabAt(1).setIcon(R.drawable.ic_send_black_24dp);
         tableLayout.getTabAt(2).setIcon(R.drawable.ic_notifications_active_black_24dp);
 

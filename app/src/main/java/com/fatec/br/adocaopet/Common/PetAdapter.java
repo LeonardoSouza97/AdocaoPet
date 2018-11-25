@@ -43,20 +43,19 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetsViewHolder> 
         holder.idadePet.setText(pets.getIdade() + " anos");
         holder.racaPet.setText(pets.getRaca());
 
-        if(pets.getSexo().equals("femea")){
+        if (pets.getSexo().equals("femea")) {
             holder.sexoPet.setBackgroundResource(R.mipmap.ic_feminino);
-        }else{
+        } else {
             holder.sexoPet.setBackgroundResource(R.mipmap.ic_masculino);
         }
 
-        if(pets.getEspecie().equals("Gato")){
+        if (pets.getEspecie().equals("Gato")) {
             holder.especiePet.setBackgroundResource(R.mipmap.ic_gato);
-        }else{
+        } else {
             holder.especiePet.setBackgroundResource(R.mipmap.ic_cachorro);
         }
 
         StorageReference firebaseStorage = FirebaseStorage.getInstance().getReference();
-
 
         try {
             StorageReference url_pet = firebaseStorage.child("pet/" + pets.getIdPet() + ".png");
@@ -78,6 +77,13 @@ public class PetAdapter extends RecyclerView.Adapter<PetAdapter.PetsViewHolder> 
             public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo contextMenuInfo) {
                 menu.add(holder.getAdapterPosition(), 0, 0, "Remover Pet");
                 menu.add(holder.getAdapterPosition(), 1, 0, "Atualizar Pet");
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                view.showContextMenu();
             }
         });
 

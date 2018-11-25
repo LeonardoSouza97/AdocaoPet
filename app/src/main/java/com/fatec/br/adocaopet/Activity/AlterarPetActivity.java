@@ -198,7 +198,6 @@ public class AlterarPetActivity extends AppCompatActivity implements NavigationV
             }
         });
 
-
     }
 
     public void inicializaComponentes() {
@@ -535,7 +534,9 @@ public class AlterarPetActivity extends AppCompatActivity implements NavigationV
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            Intent i = new Intent(AlterarPetActivity.this, MeusPetsActivity.class);
+            startActivity(i);
+            finish();
         }
     }
 
