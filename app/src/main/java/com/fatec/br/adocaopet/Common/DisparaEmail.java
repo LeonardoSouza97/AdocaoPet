@@ -39,7 +39,7 @@ public class DisparaEmail extends AsyncTask<String, Void, Boolean> {
                         }
                     });
 
-            session.setDebug(true);
+            session.setDebug(false);
 
         }
 

@@ -25,11 +25,11 @@
             android:id="@+id/dialog_name_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nome"
             android:drawableLeft="@drawable/ic_account_box_black_24dp"
+            android:text="Nome"
             android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/dialog_endereco_usuario"

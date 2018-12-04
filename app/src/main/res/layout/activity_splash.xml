@@ -7,25 +7,22 @@
     android:background="@color/colorPrimary"
     android:layout_height="match_parent">
 
-    <!--<ImageView-->
-        <!--android:id="@+id/imageView2"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/colorAccent"-->
-        <!--android:visibility="invisible"-->
-        <!--app:srcCompat="@drawable/icone_atualizado"-->
-        <!--tools:layout_editor_absoluteX="0dp"-->
-        <!--tools:layout_editor_absoluteY="0dp" />-->
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="258dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/icone_atualizado" />
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_weight="1"
-        android:fontFamily="sans-serif"
-        android:text="Pet Box"
-        android:textAlignment="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="36sp"
-        android:textStyle="bold" />
+    <!--<TextView-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal|center_vertical"-->
+        <!--android:layout_weight="1"-->
+        <!--android:fontFamily="sans-serif"-->
+        <!--android:text="Pet Box"-->
+        <!--android:textAlignment="center"-->
+        <!--android:textColor="@color/colorAccent"-->
+        <!--android:textSize="36sp"-->
+        <!--android:textStyle="bold" />-->
 </LinearLayout>

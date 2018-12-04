@@ -148,18 +148,19 @@ public class MinhasAdocoesAdapter extends RecyclerView.Adapter<MinhasAdocoesAdap
                                     e.printStackTrace();
                                 }
 
-                                String nomeDono = listaAdocoes.get(holder.getAdapterPosition()).getDono().getNome();
+                                String nomeSolicitante = listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getNome();
                                 String nomePet = listaAdocoes.get(holder.getAdapterPosition()).getPet().getNome();
                                 String destinatario = listaAdocoes.get(holder.getAdapterPosition()).getDono().getEmail();
+                                String telefone = listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getTelefone();
 
                                 disparaEmail = new DisparaEmail();
-                                disparaEmail.enviar("Tenho interesse em seu pet! ", "Olá! " + nomeDono + " \n" +
+                                disparaEmail.enviar("Tenho interesse em seu pet! ", "Olá! sou o " + nomeSolicitante + " \n" +
                                         "\n" +
                                         "Obrigado por aceitar minha solicitação no PetBox!\n" +
                                         "\n" +
                                         "Vamos combinar o procedimento para adoção do(a) " + nomePet + "?\n" +
                                         "\n" +
-                                        "Quando puder, por favor, responda esse e-mail ou verifique meus contatos através do aplicativo.\n" +
+                                        "Quando puder, me contate nesse número:" + telefone + ".\n" +
                                         "Fico à disposição!", destinatario);
                                 progressDialog.dismiss();
                             }};

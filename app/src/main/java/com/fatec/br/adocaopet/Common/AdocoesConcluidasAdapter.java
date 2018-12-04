@@ -156,15 +156,15 @@ public class AdocoesConcluidasAdapter extends RecyclerView.Adapter<AdocoesConclu
 
                                 String nomeDono = listaAdocoes.get(holder.getAdapterPosition()).getDono().getNome();
                                 String nomePet = listaAdocoes.get(holder.getAdapterPosition()).getPet().getNome();
-                                String destinatario = listaAdocoes.get(holder.getAdapterPosition()).getDono().getEmail();
-                                String telefone = listaAdocoes.get(holder.getAdapterPosition()).getDono().getTelefone();
+                                String emailSolicitante = listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getEmail();
+                                String telefone = listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getTelefone();
 
                                 disparaEmail = new DisparaEmail();
-                                disparaEmail.enviar("Tenho interesse em seu pet! ", "Olá sou(a) " + nomeDono + "! \n" +
+                                disparaEmail.enviar("Parabéns pela adoção! ", "Olá sou(a) " + nomeDono + "! \n" +
                                         "\n" + "Vi que se interessou no(a)" + nomePet + ". Gostaria de marcar um lugar para se encontrar?\n" +
                                         "\n" +
                                         "Pode me chamar nesse número:\n" +
-                                        telefone, destinatario);
+                                        telefone, emailSolicitante);
                                 progressDialog.dismiss();
                             }
                         };

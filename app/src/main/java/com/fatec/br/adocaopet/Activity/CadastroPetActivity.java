@@ -116,7 +116,7 @@ public class CadastroPetActivity extends AppCompatActivity implements Navigation
         editEmailMenu = (TextView) header.findViewById(R.id.txtEmail);
 
         editNomeMenu.setText(PerfilActivity.editNome.getText());
-        editNomeMenu.setText(PerfilActivity.editEmail.getText());
+        editEmailMenu.setText(PerfilActivity.editEmail.getText());
 
         identificacaoUsuario = FirebaseAuthUtils.getUUID();
         inicializaComponentes();
