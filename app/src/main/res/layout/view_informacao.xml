@@ -29,17 +29,17 @@
             android:text="Nome"
             android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/dialog_endereco_usuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Endereço"
             android:drawableLeft="@drawable/ic_place_black_24dp"
+            android:text="Endereço"
             android:textAlignment="viewStart"
             android:textColor="@color/cardview_light_background"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/dialog_telefone_usuario"

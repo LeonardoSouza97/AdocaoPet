@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:background="@mipmap/rounded_corner"
+        android:background="@mipmap/rounded_corner_colorido"
         android:gravity="center_horizontal"
         android:orientation="vertical">
 
@@ -16,9 +16,10 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:fontFamily="casual"
+            android:fontFamily="sans-serif"
             android:text="Filtros"
             android:textAlignment="center"
+            android:textColor="@color/cardview_light_background"
             android:textSize="18sp"
             android:textStyle="bold" />
 
@@ -37,8 +38,9 @@
                 android:layout_alignBottom="@+id/rbGato"
                 android:layout_alignEnd="@+id/rbMedio"
                 android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Cachorro" />
+                android:fontFamily="sans-serif"
+                android:text="Cachorro"
+                android:textColor="@color/cardview_light_background" />
 
             <RadioButton
                 android:id="@+id/rbGato"
@@ -48,8 +50,9 @@
                 android:layout_alignStart="@+id/rbMacho"
                 android:layout_marginBottom="12dp"
                 android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Gato" />
+                android:fontFamily="sans-serif"
+                android:text="Gato"
+                android:textColor="@color/cardview_light_background" />
         </RadioGroup>
 
         <Spinner
@@ -75,8 +78,9 @@
                 android:layout_alignBottom="@+id/rbMedio"
                 android:layout_toStartOf="@+id/rbMedio"
                 android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Pequeno" />
+                android:fontFamily="sans-serif"
+                android:text="Pequeno"
+                android:textColor="@color/cardview_light_background" />
 
             <RadioButton
                 android:id="@+id/rbMedio"
@@ -85,8 +89,9 @@
                 android:layout_above="@+id/listaTodosPets"
                 android:layout_alignEnd="@+id/heading_label"
                 android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Médio" />
+                android:fontFamily="sans-serif"
+                android:text="Médio"
+                android:textColor="@color/cardview_light_background" />
 
             <RadioButton
                 android:id="@+id/rbGrande"
@@ -94,9 +99,9 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/rbMedio"
                 android:layout_weight="1"
-                android:fontFamily="casual"
+                android:fontFamily="sans-serif"
                 android:text="Grande"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused" />
+                android:textColor="@color/cardview_light_background" />
 
         </RadioGroup>
 
@@ -113,8 +118,9 @@
                 android:layout_above="@+id/rbMedio"
                 android:layout_toStartOf="@+id/search_btn"
                 android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Fêmea" />
+                android:fontFamily="sans-serif"
+                android:text="Fêmea"
+                android:textColor="@color/cardview_light_background" />
 
             <RadioButton
                 android:id="@+id/rbMacho"
@@ -125,8 +131,9 @@
                 android:layout_marginEnd="28dp"
                 android:layout_toStartOf="@+id/rbFemea"
                 android:layout_weight="1"
-                android:fontFamily="casual"
-                android:text="Macho" />
+                android:fontFamily="sans-serif"
+                android:text="Macho"
+                android:textColor="@color/cardview_light_background" />
         </RadioGroup>
 
 

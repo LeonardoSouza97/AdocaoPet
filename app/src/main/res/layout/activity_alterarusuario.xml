@@ -87,7 +87,8 @@
                 android:layout_gravity="center_horizontal"
                 android:drawableLeft="@drawable/ic_contact_phone_black_24dp"
                 android:ems="10"
-                android:hint="@string/telefone" />
+                android:hint="@string/telefone"
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/editEndereco"

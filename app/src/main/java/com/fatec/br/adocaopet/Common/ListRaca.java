@@ -4,28 +4,28 @@ public class ListRaca {
 
     public String[] ListaCachorro() {
 
-        String[] caes = {"Beagle", "Pinscher", "Boxer", "Vira-Lata"};
+        String[] caes = {"Beagle", "Boxer", "Buldogue", "Cocker", "Golden","Husky Siberiano", "Pinscher", "Pug","Rottweiler", "Vira-Lata", "Yorkshire"};
 
         return caes;
     }
 
     public String[] ListaCachorroFiltro() {
 
-        String[] caes = {"", "Beagle", "Pinscher", "Boxer", "Vira-Lata"};
+        String[] caes = {"", "Beagle", "Boxer", "Buldogue", "Cocker", "Golden","Husky Siberiano", "Pinscher", "Pug","Rottweiler", "Vira-Lata", "Yorkshire"};
 
         return caes;
     }
 
     public String[] ListaGatos() {
 
-        String[] gatos = {"Persa", "Azul russo", "Maine Coon"};
+        String[] gatos = {"Azul russo", "Balinês", "Bombaim", "Chartreux", "Curl Americano", "Himalaio", "Korat", "Maine Coon", "Nebelung", "Persa", "Scottish Fold", "Siberiano"};
 
         return gatos;
     }
 
     public String[] ListaGatosFiltro() {
 
-        String[] gatos = {"", "Persa", "Azul russo", "Maine Coon"};
+        String[] gatos = {"", "Azul russo", "Balinês", "Bombaim", "Chartreux", "Curl Americano", "Himalaio", "Korat", "Maine Coon", "Nebelung", "Persa", "Scottish Fold", "Siberiano"};
 
         return gatos;
     }

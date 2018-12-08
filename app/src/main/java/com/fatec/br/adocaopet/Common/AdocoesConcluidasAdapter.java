@@ -157,7 +157,7 @@ public class AdocoesConcluidasAdapter extends RecyclerView.Adapter<AdocoesConclu
                                 String nomeDono = listaAdocoes.get(holder.getAdapterPosition()).getDono().getNome();
                                 String nomePet = listaAdocoes.get(holder.getAdapterPosition()).getPet().getNome();
                                 String emailSolicitante = listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getEmail();
-                                String telefone = listaAdocoes.get(holder.getAdapterPosition()).getSolicitante().getTelefone();
+                                String telefone = listaAdocoes.get(holder.getAdapterPosition()).getDono().getTelefone();
 
                                 disparaEmail = new DisparaEmail();
                                 disparaEmail.enviar("Parabéns pela adoção! ", "Olá sou(a) " + nomeDono + "! \n" +

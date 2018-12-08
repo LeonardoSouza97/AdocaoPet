@@ -15,6 +15,7 @@
             android:id="@+id/dialog_pet_foto"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            android:layout_marginTop="10dp"
             android:src="@mipmap/ic_home"
             app:srcCompat="@color/cardview_light_background" />
 
@@ -22,6 +23,7 @@
             android:id="@+id/dialog_name_pet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:drawableLeft="@drawable/ic_perm_contact_calendar_black_24dp"
             android:text="Nome"
             android:textAlignment="viewStart"

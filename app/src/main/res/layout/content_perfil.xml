@@ -82,7 +82,7 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:background="@color/colorAccent"
+            android:background="?attr/colorPrimary"
             app:tabIndicatorColor="@color/com_facebook_blue"
             app:tabSelectedTextColor="@color/cardview_light_background">
 
